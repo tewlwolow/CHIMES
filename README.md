@@ -21,8 +21,6 @@
 Please raise a pull request from your fork of the repo for me to review. Kindly use 4-spaced tabs.
 Refer to source code comments for guidance. You can also write me a message.
 
-<br />
-
 <!-- Planned features -->
 ## Planned features
 
