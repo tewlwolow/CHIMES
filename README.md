@@ -5,7 +5,7 @@
     <img src="https://i.ibb.co/FhGNZXD/chimes-logo.png" alt="Logo" width="256">
   </a>
 
-  <h3 align="center">CHIMES</h3>
+  <h3 align="center">CHIMES - Communal Harmonic Immersive Music Extension System</h3>
 
   <p align="center">
     The source code for WIP Morrowind MWSE-Lua based music mod.
