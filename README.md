@@ -33,6 +33,7 @@ Refer to source code comments for guidance. You can also write me a message.
 ### Others:
 - Variable silence in between tracks (selectable timer type)
 - Event-based (cell visit, quest finished, blessings etc.)
+- Support unique tracks played once per cell visit
 - Possibly, in the future: combat music (based on BMS/BMSR take) 
 
 
