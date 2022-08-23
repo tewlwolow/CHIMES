@@ -5,10 +5,6 @@ local metadata = require("tew.CHIMES.metadata")
 local version = metadata.version
 
 local function init()
-
-
-
-
     mwse.log("[CHIMES] Version "..version.." initialised.")
 end
 
