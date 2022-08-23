@@ -19,3 +19,22 @@
 Please raise a pull request from your fork of the repo for me to review. Kindly use 4-spaced tabs.
 Refer to source code comments for guidance. You can also write me a message.
 
+<br />
+
+<!-- Planned features -->
+## Planned features
+
+### From top to down - if nothing below is specified, play what's above.
+1. General overworld (explore) music
+2. Weather-specific tracks
+3. Time-specific tracks
+2. Region-specific (with "biome" grouping)
+3. Culture-specific music in towns 
+4. Interior-specific (tileset, regex and/or publican race)
+
+### Others:
+- Variable silence in between tracks (selectable timer type)
+- Event-based (cell visit, quest finished, blessings etc.)
+- Possibly, in the future: combat music (based on BMS/BMSR take) 
+
+
