@@ -13,8 +13,6 @@
   </p>
 </div>
 
- <br />
-
 <!-- Contributing -->
 ## Contributing
 
