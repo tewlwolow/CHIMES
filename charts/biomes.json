@@ -4,7 +4,7 @@
 	[
 		{
 			"folder" : "lush",
-			"ids" : [
+			"id" : [
 				"Aanthirin Region",
 				"Abecean Sea Region",
 				"Arnesian Jungle Region",
@@ -26,20 +26,7 @@
 				"Sacred Lands Region",
 				"Seitur Region",
 				"Southern Gold Coast Region",
-				"West Gash Region"
-			]
-		},
-		{
-			"folder" : "ashy",
-			"ids" : [
-				"Armun Ashlands Region",
-				"Ashlands Region",
-				"Molag Mar Region"
-			]
-		},
-		{
-			"folder" : "swampy",
-			"ids" : [
+				"West Gash Region",
 				"Bitter Coast Region",
 				"Clambering Moor Region",
 				"Grey Meadows Region",
@@ -47,8 +34,16 @@
 			]
 		},
 		{
+			"folder" : "ashy",
+			"id" : [
+				"Armun Ashlands Region",
+				"Ashlands Region",
+				"Molag Mar Region"
+			]
+		},
+		{
 			"folder" : "barren",
-			"ids" : [
+			"id" : [
 				"Boethiah's Spine Region",
 				"Colovian Barrowlands Region",
 				"Colovian Highlands Region",
@@ -82,7 +77,7 @@
 		},
 		{
 			"folder" : "snowy",
-			"ids" : [
+			"id" : [
 				"Broken Cape Region",
 				"Drajkmyr Marsh Region",
 				"Hirsing Forest Region",
@@ -112,7 +107,7 @@
 		},
 		{
 			"folder" : "volcanic",
-			"ids" : [
+			"id" : [
 				"Red Mountain Region",
 				"Firemoth Region"
 			]

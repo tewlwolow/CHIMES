@@ -1,0 +1,10 @@
+{
+	"chart" : "times",
+	"data" :
+	[
+		{
+			"id" : "Night",
+			"folder" : "night"
+		}
+	]
+}

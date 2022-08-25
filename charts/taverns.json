@@ -1,0 +1,19 @@
+{
+	"chart" : "taverns",
+	"useRaces" : "true",
+	"data" :
+	[
+		{
+			"id" : "Dark Elf",
+			"folder" : "dark elf"
+		},
+		{
+			"id" : "Imperial",
+			"folder" : "imperial"
+		},
+		{
+			"id" : "Nord",
+			"folder" : "nord"
+		}
+	]
+}
