@@ -1,6 +1,7 @@
 -- IMPORTS --------------------------------------------------
 
 local tracks = require("tew.CHIMES.tracks")
+local charts = require("tew.CHIMES.charts")
 local log = require("tew.CHIMES.common").log
 
 -------------------------------------------------------------
@@ -46,6 +47,7 @@ local function loadCharts()
 					log(string.format("No folder definition found for chart: [%s][%s]. Skipping chart import.", chart.chart, item.id))
 				end
 			end
+			charts[chart.chart] = chart
 		end
 	end
 	log("Charts loaded.")
