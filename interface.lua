@@ -22,9 +22,9 @@ local function validateCharts()
 			if string.endswith(file, ".json") then
 				local chart = json.loadfile("mods\\tew\\CHIMES\\charts\\"..string.split(file, ".")[1])
 				if not chart.chart then
-					error(string.format("No chart name found for file: [%s]", file))
+					error(log(string.format("No chart name found for file: [%s]", file)))
 				elseif not chart.data then
-					error(string.format("No chart data found for file: [%s]", file))
+					error(log(string.format("No chart data found for file: [%s]", file)))
 				end
 			else
 				log("Non-JSON file found in charts folder. Skipping.")
