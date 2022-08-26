@@ -1,3 +1,2 @@
-local this = {}
-
-return this
+local tracks = {}
+return tracks

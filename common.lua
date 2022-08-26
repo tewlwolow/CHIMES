@@ -1,10 +1,10 @@
 local metadata = require("tew.CHIMES.metadata")
 local version = metadata.version
 
-local this = {}
+local common = {}
 
-function this.log(message)
+function common.log(message)
 	mwse.log(string.format("[CHIMES v%s] %s", version, message))
 end
 
-return this
+return common
