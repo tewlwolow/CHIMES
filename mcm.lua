@@ -1,6 +1,5 @@
 local configPath = "CHIMES"
 local config = require("tew.CHIMES.config")
-mwse.loadConfig("CHIMES")
 local metadata = require("tew.CHIMES.metadata")
 local version = metadata.version
 

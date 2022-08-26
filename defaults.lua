@@ -1,0 +1,3 @@
+return {
+    maxStatics = 5
+}
