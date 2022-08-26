@@ -52,8 +52,8 @@
 			"method" : "tileset",
 			"strings" : [
 				"ex_nord_",
-        		"ex_s_",
-        		"t_rga_setreach"
+				"ex_s_",
+				"t_rga_setreach"
 			]
 		},
 		{
