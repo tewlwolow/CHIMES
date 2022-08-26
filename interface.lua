@@ -61,13 +61,13 @@ local function loadTracks()
 				log(string.format("Found file outside chart definitions: [%s][%s]. Skipping.", split[1], split[2]))
 				goto continue
 			end
-			tracks[split[1]] = split[2]
+			table.insert(tracks[split[1]], #tracks[split[1]]+1, split[2])
 		elseif #split == 3 then
 			if not tracks[split[1]][split[2]] then
 				log(string.format("Found file outside chart definitions: [%s][%s][%s]. Skipping.", split[1], split[2], split[3]))
 				goto continue
 			end
-			tracks[split[1]][split[2]] = split[3]
+			table.insert(tracks[split[1]][split[2]], #tracks[split[1]][split[2]]+1, split[3])
 		end
 		::continue::
 	end
