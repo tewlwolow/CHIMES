@@ -6,21 +6,12 @@ local service = require("tew.CHIMES.service")
 
 -- CONDITION CHECKS --------------------------------------------------
 
-local function interiorCheck()
-	for _, item in pairs(charts.interiors.data) do
-		mwse.log(item.method)
-	end
-end
-
-local function exteriorCheck()
-
-end
-
 local function resolveCellType(e)
-	if e.cell and e.cell.isOrBehavesAsExterior then
-		exteriorCheck()
+	local cell = e.cell
+	if cell and cell.isOrBehavesAsExterior then
+		service.playCell(charts.exteriors.data, cell)
 	else
-		interiorCheck()
+		service.playCell(charts.interiors.data, cell)
 	end
 end
 
