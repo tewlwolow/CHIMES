@@ -1,10 +1,17 @@
 local service = {}
 
+-- IMPORTS --------------------------------------------------
+
 local config = require("tew.CHIMES.config")
 local log = require("tew.CHIMES.common").log
 local language = require(config.language)
 local messages = language.messages
 
+-------------------------------------------------------------
+
+-- FUNCTION DEFINITIONS --
+
+-- TILEST/NAME DETECTION METHODS --
 
 function service.parseTileset(strings, folder, cell)
 	local count = 0
@@ -44,6 +51,7 @@ function service.getCellType(item, cell)
 	end
 end
 
+-- PLAY CELL MUSIC JOB --
 function service.playCell(data, cell)
 	local cellTypes = {}
 	local cellType

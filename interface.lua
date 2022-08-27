@@ -1,4 +1,4 @@
--- IMPORTS --------------------------------------------------
+-- IMPORTS --
 
 local tracks = require("tew.CHIMES.tracks")
 local charts = require("tew.CHIMES.charts")
@@ -20,6 +20,7 @@ local CHARTS_DIR = "Data Files\\MWSE\\mods\\tew\\CHIMES\\charts\\"
 
 -- FUNCTION DEFINITIONS --
 
+-- Validate charts initially --
 local function validateCharts()
 	log(messages.validateInit)
 	for file in lfs.dir(CHARTS_DIR) do
@@ -39,6 +40,8 @@ local function validateCharts()
 	log(messages.validateFinished)
 end
 
+-- Load charts and create tracks structure --
+-- Also copy over data to charts module for easy access --
 local function loadCharts()
 	log(messages.chartImportInit)
 	for file in lfs.dir(CHARTS_DIR) do
@@ -58,6 +61,7 @@ local function loadCharts()
 	log(messages.chartImportFinished)
 end
 
+-- Walk the CHIMES/Music directory and copy tracks over to tracks module --
 local function loadTracks()
 	log(messages.tracksInit)
 	for path in lfs.walkdir(CHIMES_DIR) do
@@ -91,7 +95,4 @@ validateCharts()
 loadCharts()
 loadTracks()
 log(messages.interfaceFinished)
-
-
--------------------------------------------------------------
 
