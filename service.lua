@@ -17,7 +17,6 @@ function service.parseTileset(strings, folder, cell)
 				end
 		end
 	end
-	return nil
 end
 
 function service.parseNames(strings, folder, cell)
@@ -34,26 +33,27 @@ function service.getCellType(item, cell)
 	elseif method == "names" then
 		return service.parseNames(strings, folder, cell)
 	end
-
-	return nil
 end
 
 function service.playCell(data, cell)
 	local cellTypes = {}
 	local cellType
-	for _, item in pairs(data) do
-		table.insert(cellTypes, #cellTypes+1, service.getCellType(item, cell))
+	for priority, item in pairs(data) do
+		cellTypes[priority] = service.getCellType(item, cell)
 	end
 	if #cellTypes > 1 then
 		log("More than one cell type detected. You may want to verify your config to exclude cross-matches. Cell types detected: ")
-		for _, v in ipairs(cellTypes) do
-			log(v)
+		for k, v in pairs(cellTypes) do
+			log(string.format("Priority: [%s], cell type: [%s]", k, v))
 		end
+		log("CHIMES will use a higher priority item.")
 	end
 
-	-- TODO: Sort to ensure consistency
-	cellType = cellTypes[1]
-	debug.log(cellType)
+	local i = 0
+	repeat
+		i = i + 1
+	until(cellTypes[i])
+	cellType = cellTypes[i]
 end
 
 return service
