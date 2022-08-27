@@ -2,6 +2,7 @@ local configPath = "CHIMES"
 local config = require("tew.CHIMES.config")
 local metadata = require("tew.CHIMES.metadata")
 local version = metadata.version
+local messages = require(config.language).messages
 
 local function registerVariable(id)
     return mwse.mcm.createTableVariable{
@@ -14,9 +15,9 @@ local template = mwse.mcm.createTemplate{
     name="CHIMES",
     headerImagePath="\\Textures\\tew\\CHIMES\\chimes_logo.tga"}
 
-    local mainPage = template:createPage{label="Main Settings", noScroll=true}
+    local mainPage = template:createPage{label=messages.mainSettings, noScroll=true}
     mainPage:createCategory{
-        label = "CHIMES "..version.." by tewlwolow and Morrowind Modding Community.\nSimple and lightweight lua-based music system.\n\nSettings:",
+        label = string.format("CHIMES %s %s.\n\n%s:", version, messages.mainLabel, messages.settings)
     }
 
 template:saveOnClose(configPath, config)

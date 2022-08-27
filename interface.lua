@@ -3,6 +3,11 @@
 local tracks = require("tew.CHIMES.tracks")
 local charts = require("tew.CHIMES.charts")
 local log = require("tew.CHIMES.common").log
+local config = require("tew.CHIMES.config")
+local language = require(config.language)
+local messages = language.messages
+local errors = language.errors
+
 
 -------------------------------------------------------------
 
@@ -16,26 +21,26 @@ local CHARTS_DIR = "Data Files\\MWSE\\mods\\tew\\CHIMES\\charts\\"
 -- FUNCTION DEFINITIONS --
 
 local function validateCharts()
-	log("Running initial chart validation.")
+	log(messages.validateInit)
 	for file in lfs.dir(CHARTS_DIR) do
 		if not file == "." or not file == ".." then
 			if string.endswith(file, ".json") then
 				local chart = json.loadfile("mods\\tew\\CHIMES\\charts\\"..string.split(file, ".")[1])
 				if not chart.chart then
-					error(log(string.format("No chart name found for file: [%s]", file)))
+					error(log(string.format("%s [%s]", errors.noChartNameFound, file)))
 				elseif not chart.data then
-					error(log(string.format("No chart data found for file: [%s]", file)))
+					error(log(string.format("%s [%s]", errors.noChartDataFound, file)))
 				end
 			else
-				log("Non-JSON file found in charts folder. Skipping.")
+				log(messages.noJSONFound)
 			end
 		end
 	end
-	log("Charts validated.")
+	log(messages.validateFinished)
 end
 
 local function loadCharts()
-	log("Running chart import.")
+	log(messages.chartImportInit)
 	for file in lfs.dir(CHARTS_DIR) do
 		if string.endswith(file, ".json") then
 			local chart = json.loadfile("mods\\tew\\CHIMES\\charts\\"..string.split(file, ".")[1])
@@ -44,36 +49,36 @@ local function loadCharts()
 				if item.folder then
 					tracks[chart.chart][item.folder] = {}
 				else
-					log(string.format("No folder definition found for chart: [%s][%s]. Skipping chart import.", chart.chart, item.id))
+					log(string.format("%s [%s][%s]. %s", messages.noFolderFound, chart.chart, item.id, messages.skippingChartImport))
 				end
 			end
 			charts[chart.chart] = chart
 		end
 	end
-	log("Charts loaded.")
+	log(messages.chartImportFinished)
 end
 
 local function loadTracks()
-	log("Running track validation and import.")
+	log(messages.tracksInit)
 	for path in lfs.walkdir(CHIMES_DIR) do
 		local rawSplit = string.split(path, "\\")
 		local split = {unpack(rawSplit, 4, #rawSplit)}
 		if #split == 2 then
 			if not tracks[split[1]] then
-				log(string.format("Found file outside chart definitions: [%s][%s]. Skipping.", split[1], split[2]))
+				log(string.format("%s [%s][%s]. %s", messages.fileOutOfChart, split[1], split[2], messages.skipping))
 				goto continue
 			end
 			table.insert(tracks[split[1]], #tracks[split[1]]+1, split[2])
 		elseif #split == 3 then
 			if not tracks[split[1]][split[2]] then
-				log(string.format("Found file outside chart definitions: [%s][%s][%s]. Skipping.", split[1], split[2], split[3]))
+				log(string.format("%s [%s][%s][%s]. %s", messages.fileOutOfChart, split[1], split[2], split[3], messages.skipping))
 				goto continue
 			end
 			table.insert(tracks[split[1]][split[2]], #tracks[split[1]][split[2]]+1, split[3])
 		end
 		::continue::
 	end
-	log("Tracks loaded.")
+	log(messages.tracksFinished)
 end
 
 -------------------------------------------------------------
@@ -81,11 +86,11 @@ end
 -- FUNCTION CALLS --
 
 mwse.log("\n")
-log("Running interface functions.")
+log(messages.interfaceInit)
 validateCharts()
 loadCharts()
 loadTracks()
-log("Interface functions finished.\n")
+log(messages.interfaceFinished)
 
 
 -------------------------------------------------------------

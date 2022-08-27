@@ -2,6 +2,8 @@ local service = {}
 
 local config = require("tew.CHIMES.config")
 local log = require("tew.CHIMES.common").log
+local language = require(config.language)
+local messages = language.messages
 
 
 function service.parseTileset(strings, folder, cell)
@@ -42,11 +44,11 @@ function service.playCell(data, cell)
 		cellTypes[priority] = service.getCellType(item, cell)
 	end
 	if #cellTypes > 1 then
-		log("More than one cell type detected. You may want to verify your config to exclude cross-matches. Cell types detected: ")
+		log(messages.superMatch)
 		for k, v in pairs(cellTypes) do
-			log(string.format("Priority: [%s], cell type: [%s]", k, v))
+			log(string.format("%s: [%s], %s: [%s]", messages.priority, k, messages.cellType, v))
 		end
-		log("CHIMES will use a higher priority item.")
+		log(messages.priorityMessage)
 	end
 
 	local i = 0
