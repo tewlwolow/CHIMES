@@ -7,14 +7,15 @@ local messages = language.messages
 
 
 function service.parseTileset(strings, folder, cell)
-
 	local count = 0
-	for stat in cell:iterateReferences(tes3.objectType.static) do
-		for _, staticName in ipairs(strings) do
-			if string.find(stat.object.id:lower(), staticName:lower()) then
-				count = count + 1
-				if count >= config.maxStatics then
-					return folder
+	if strings and folder and cell then
+		for stat in cell:iterateReferences(tes3.objectType.static) do
+			for _, staticName in ipairs(strings) do
+				if string.find(stat.object.id:lower(), staticName:lower()) then
+					count = count + 1
+					if count >= config.maxStatics then
+						return folder
+					end
 				end
 			end
 		end
@@ -22,7 +23,13 @@ function service.parseTileset(strings, folder, cell)
 end
 
 function service.parseNames(strings, folder, cell)
-
+	if strings and folder and cell and cell.name then
+		for _, name in ipairs(strings) do
+			if string.find(cell.name, name) then
+				return folder
+			end	
+		end
+	end
 end
 
 function service.getCellType(item, cell)
