@@ -20,11 +20,10 @@
 			]
 		},
 		{
-			"id" : "Velothi",
-			"folder" : "velothi",
+			"id" : "Vivec",
+			"folder" : "vivec",
 			"method" : "tileset",
 			"strings" : [
-				"ex_velothi",
 				"ex_vivec",
 				"ex_mh_"
 			]
