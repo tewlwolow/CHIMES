@@ -44,9 +44,6 @@ function service.playCell(data, cell)
 	for _, item in pairs(data) do
 		table.insert(cellTypes, #cellTypes+1, service.getCellType(item, cell))
 	end
-	for k, v in pairs(cellTypes) do
-		debug.log(k .. " " .. v)
-	end
 	if #cellTypes > 1 then
 		log("More than one cell type detected. You may want to verify your config to exclude cross-matches. Cell types detected: ")
 		for _, v in ipairs(cellTypes) do
@@ -54,7 +51,7 @@ function service.playCell(data, cell)
 		end
 	end
 
-	-- Sort to ensure repeatability
+	-- TODO: Sort to ensure consistency
 	cellType = cellTypes[1]
 	debug.log(cellType)
 end
