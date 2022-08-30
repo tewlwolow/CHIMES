@@ -20,7 +20,7 @@ en.messages = {
 	interfaceInit = "Running interface functions.",
 	interfaceFinished = "Interface functions finished.\n",
 
-	superMatch = "More than one cell type detected. You may want to verify your config to exclude cross-matches. Cell types detected: ",
+	superMatch = "More than one cell type detected. You may want to verify your config to exclude cross-matches. Cell types detected:",
 	priority = "Priority",
 	cellType = "cell type",
 	priorityMessage = "CHIMES will use a higher priority item."

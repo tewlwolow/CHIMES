@@ -2,7 +2,8 @@ local configPath = "CHIMES"
 local config = require("tew.CHIMES.config")
 local metadata = require("tew.CHIMES.metadata")
 local version = metadata.version
-local messages = require(config.language).messages
+local i18n = mwse.loadTranslations("tew.CHIMES")
+local messages = i18n("messages")
 
 local function registerVariable(id)
     return mwse.mcm.createTableVariable{

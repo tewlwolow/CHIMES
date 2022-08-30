@@ -1,9 +1,6 @@
 -- CHIMES - Communal Harmonic Immersive Music Extension System  --
 --------------------------------------------------------------------------------------
 
--- Make sure we have all i18n data beforehand
-dofile("tew.CHIMES.i18n.init")
-
 local metadata = require("tew.CHIMES.metadata")
 local version = metadata.version
 

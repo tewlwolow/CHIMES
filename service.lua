@@ -4,8 +4,8 @@ local service = {}
 
 local config = require("tew.CHIMES.config")
 local log = require("tew.CHIMES.common").log
-local language = require(config.language)
-local messages = language.messages
+local i18n = mwse.loadTranslations("tew.CHIMES")
+local messages = i18n("messages")
 
 -------------------------------------------------------------
 

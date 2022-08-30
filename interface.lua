@@ -3,10 +3,9 @@
 local tracks = require("tew.CHIMES.tracks")
 local charts = require("tew.CHIMES.charts")
 local log = require("tew.CHIMES.common").log
-local config = require("tew.CHIMES.config")
-local language = require(config.language)
-local messages = language.messages
-local errors = language.errors
+local i18n = mwse.loadTranslations("tew.CHIMES")
+local messages = i18n("messages")
+local errors = i18n("errors")
 
 
 -------------------------------------------------------------
