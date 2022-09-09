@@ -10,10 +10,10 @@ en.messages = {
 
 	validateInit = "Running initial chart validation.",
 	validateFinished = "Charts validated.",
-	chartImportInit = "Running chart import.",
-	chartImportFinished = "Charts loaded.",
+	chartImportInit = "Running import for chart:",
+	chartImportFinished = "Chart loaded.",
 	noFolderFound = "No folder definition found for chart:",
-	skippingChartImport = "Skipping chart import.",
+	skippingImport = "Skipping import.",
 	tracksInit = "Running track validation and import.",
 	tracksFinished = "Tracks loaded.",
 	fileOutOfChart = "Found file outside chart definitions:",
@@ -29,7 +29,9 @@ en.messages = {
 en.errors = {
 	noChartNameFound = "No chart name found for file:",
 	noChartDataFound = "No chart data found for file:",
-	noJSONFound = "Non-JSON file found in charts folder. Skipping."
+	jsonLoadError = "JSON file could not be parsed. You should check for syntax errors. File:",
+	noJSONFound = "Non-JSON file found in charts folder. Skipping.",
+	errorsFound = "ERRORS FOUND:"
 }
 
 return en
