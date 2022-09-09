@@ -67,10 +67,14 @@ function service.playCell(data, cell)
 	end
 
 	local i = 0
-	repeat
-		i = i + 1
-	until(cellTypes[i])
+	if #cellTypes > 0 then
+		repeat
+			i = i + 1
+		until(cellTypes[i])
+	end
 	cellType = cellTypes[i]
+
+	debug.log(cellType)
 end
 
 return service
