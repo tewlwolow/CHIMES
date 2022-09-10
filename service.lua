@@ -34,7 +34,7 @@ function service.parseNames(strings, folder, cell)
 		for _, name in ipairs(strings) do
 			if string.find(cell.name, name) then
 				return folder
-			end	
+			end
 		end
 	end
 end
