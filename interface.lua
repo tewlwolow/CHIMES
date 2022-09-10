@@ -34,6 +34,21 @@ local errorMessages = {}
 
 -- FUNCTION DEFINITIONS --
 
+local function isTableEmpty(tab)
+	local isEmpty = true
+	local function walker(subtab)
+		for k, v in pairs(subtab) do
+			if v and type(v) ~= "table" then
+				isEmpty = false
+			elseif type(v) == "table" then
+				walker(v)
+			end
+		end
+	end
+	walker(tab)
+	return isEmpty
+end
+
 local function pruneTable(tab)
 	for k, v in pairs(tab) do
 		if not (v) or v and (type(v) == "table" and next(v) == nil) then
@@ -45,9 +60,6 @@ local function pruneTable(tab)
 end
 
 local function processErrors()
-
-	pruneTable(errorMessages)
-
 	event.register (
 		tes3.event.uiActivated,
 		function()
@@ -134,7 +146,8 @@ local function loadCharts()
 		end
 		:: continue ::
 	end
-	if errorMessages ~= {} then
+	pruneTable(errorMessages)
+	if not isTableEmpty(errorMessages) then
 		processErrors()
 	end
 	log(messages.validateFinished)
