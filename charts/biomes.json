@@ -3,8 +3,9 @@
 	"data" :
 	[
 		{
+			"id" : "Lush",
 			"folder" : "lush",
-			"id" : [
+			"strings" : [
 				"Aanthirin Region",
 				"Abecean Sea Region",
 				"Arnesian Jungle Region",
@@ -34,16 +35,18 @@
 			]
 		},
 		{
+			"id" : "Ashy",
 			"folder" : "ashy",
-			"id" : [
+			"strings" : [
 				"Armun Ashlands Region",
 				"Ashlands Region",
 				"Molag Mar Region"
 			]
 		},
 		{
+			"id" : "Barren",
 			"folder" : "barren",
-			"id" : [
+			"strings" : [
 				"Boethiah's Spine Region",
 				"Colovian Barrowlands Region",
 				"Colovian Highlands Region",
@@ -67,7 +70,7 @@
 				"Mudflats Region",
 				"Padomaic Ocean Region",
 				"Reaver's Shore Region",
-				"Ridgelands Region",
+				"Rstringsgelands Region",
 				"Salt Marsh Region",
 				"Sea of Ghosts Region",
 				"Shambalun Veil Region",
@@ -76,14 +79,15 @@
 			]
 		},
 		{
+			"id" : "Snowy",
 			"folder" : "snowy",
-			"id" : [
+			"strings" : [
 				"Broken Cape Region",
 				"Drajkmyr Marsh Region",
 				"Hirsing Forest Region",
 				"Julan-Shar Region",
 				"Kilkreath Mountains Region",
-				"Midkarth Region",
+				"Mstringskarth Region",
 				"Mhorkren Hills Region",
 				"Northshore Region",
 				"Rift Valley Region",
@@ -106,8 +110,9 @@
 			]
 		},
 		{
+			"id" : "Volcanic",
 			"folder" : "volcanic",
-			"id" : [
+			"strings" : [
 				"Red Mountain Region",
 				"Firemoth Region"
 			]
