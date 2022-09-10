@@ -10,9 +10,6 @@ en.messages = {
 
 	validateInit = "Running initial chart validation.",
 	validateFinished = "Charts validated.",
-	chartImportInit = "Running import for chart:",
-	chartImportFinished = "Chart loaded.",
-	noFolderFound = "No folder found in file:",
 	skippingImport = "Skipping import.",
 	tracksInit = "Running track validation and import.",
 	tracksFinished = "Tracks loaded.",
@@ -26,17 +23,18 @@ en.messages = {
 	priorityMessage = "CHIMES will use a higher priority item.",
 
 	emptyStrings = "Empty strings found in file:",
-
 	nexusLink = "CHIMES on NexusMods"
 }
 
 en.errors = {
-	noChartNameFound = "No chart name found for file:",
-	noChartDataFound = "No chart data found for file:",
-	jsonLoadError = "JSON file could not be parsed. You should check for syntax errors. File:",
-	noJSONFound = "Non-JSON file found in charts folder. Skipping.",
-	noMethodFound = "No method found in file:",
-	chartItemId = "Chart item id:",
+
+	jsonLoadError = "JSON file could not be parsed. You should check for syntax errors.",
+	nonJSONFileFound = "Non-JSON file found in charts folder. Skipping.",
+	noChartNameFound = "Missing chart name definition.",
+	noChartDataFound = "Missing chart data definition.",
+	noMethodFound = "Missing method definition.",
+	noFolderFound = "Missing folder definition.",
+	noIdFound = "Missing id definition(s).",
 	errorsFound = "ERRORS FOUND:",
 	reminder = "Please make sure the errors are fixed.\nThe mod will continue to work, but might behave in unexpected ways.\nFeel free to ask here in case of questions:"
 }
