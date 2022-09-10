@@ -12,7 +12,7 @@ en.messages = {
 	validateFinished = "Charts validated.",
 	chartImportInit = "Running import for chart:",
 	chartImportFinished = "Chart loaded.",
-	noFolderFound = "No folder definition found for chart:",
+	noFolderFound = "No folder found in file:",
 	skippingImport = "Skipping import.",
 	tracksInit = "Running track validation and import.",
 	tracksFinished = "Tracks loaded.",
@@ -23,7 +23,11 @@ en.messages = {
 	superMatch = "More than one cell type detected. You may want to verify your config to exclude cross-matches. Cell types detected:",
 	priority = "Priority",
 	cellType = "cell type",
-	priorityMessage = "CHIMES will use a higher priority item."
+	priorityMessage = "CHIMES will use a higher priority item.",
+
+	emptyStrings = "Empty strings found in file:",
+
+	nexusLink = "CHIMES on NexusMods"
 }
 
 en.errors = {
@@ -31,7 +35,10 @@ en.errors = {
 	noChartDataFound = "No chart data found for file:",
 	jsonLoadError = "JSON file could not be parsed. You should check for syntax errors. File:",
 	noJSONFound = "Non-JSON file found in charts folder. Skipping.",
-	errorsFound = "ERRORS FOUND:"
+	noMethodFound = "No method found in file:",
+	chartItemId = "Chart item id:",
+	errorsFound = "ERRORS FOUND:",
+	reminder = "Please make sure the errors are fixed.\nThe mod will continue to work, but might behave in unexpected ways.\nFeel free to ask here in case of questions:"
 }
 
 return en
