@@ -1,6 +1,5 @@
 -- IMPORTS --
 
-local tracks = require("tew.CHIMES.tracks")
 local charts = require("tew.CHIMES.charts")
 local ui = require("tew.CHIMES.ui")
 
@@ -37,7 +36,7 @@ local errorMessages = {}
 local function isTableEmpty(tab)
 	local isEmpty = true
 	local function walker(subtab)
-		for k, v in pairs(subtab) do
+		for _, v in pairs(subtab) do
 			if v and type(v) ~= "table" then
 				isEmpty = false
 			elseif type(v) == "table" then
@@ -91,17 +90,14 @@ local function processErrors()
 end
 
 local function validateChartData(chartFile, file)
-	for _, item in pairs(chartFile.data) do
-		tracks[chartFile.chart] = {}
+	for _, item in ipairs(chartFile.data) do
 		local itemId = item.id
 		if not itemId then
 			table.insert(errorMessages[file], #errorMessages[file]+1, errors.noIdFound)
 			goto continue
 		end
 		errorMessages[file][itemId] = {}
-		if item.folder then
-			tracks[chartFile.chart][item.folder] = {}
-		else
+		if not item.folder then
 			if chartFile.chart == "weathers" and chartFile.disable == nil then
 				log(string.format("%s [%s][%s]. %s", errors.noFolderFound, chartFile.chart, item.id, messages.skippingImport))
 			else
@@ -113,9 +109,11 @@ local function validateChartData(chartFile, file)
 		elseif (chartFile.chart == "exteriors" or chartFile.chart == "interiors" or chartFile.chart == "biomes") and item.strings == {} then
 			log(string.format("%s [%s][%s].", messages.emptyStrings, file, item.id))
 		end
+		:: continue ::
 	end
-	charts[chartFile.chart] = chartFile
-	:: continue ::
+	if chartFile.chart then
+		charts[chartFile.chart] = chartFile
+	end
 end
 
 -- Validate charts and load them --
@@ -160,16 +158,18 @@ local function loadTracks()
 		local rawSplit = string.split(path, "\\")
 		local split = {unpack(rawSplit, 4, #rawSplit)}
 		if #split == 2 then
-			if not tracks[split[1]] then
+			if not charts[split[1]].tracks then
 				goto continue
 			end
-			table.insert(tracks[split[1]], #tracks[split[1]]+1, split[2])
+			charts[split[1]].tracks = charts[split[1]].tracks or {}
+			table.insert(charts[split[1]].tracks, #charts[split[1]].tracks+1, split[2])
 		elseif #split == 3 then
-			if not tracks[split[1]][split[2]] then
+			if not charts[split[1]][split[2]] then
 				log(string.format("%s [%s][%s][%s]. %s", messages.fileOutOfChart, split[1], split[2], split[3], messages.skipping))
 				goto continue
 			end
-			table.insert(tracks[split[1]][split[2]], #tracks[split[1]][split[2]]+1, split[3])
+			charts[split[1]][split[2]].tracks = charts[split[1]][split[2]].tracks or {}
+			table.insert(charts[split[1]][split[2].tracks], #charts[split[1]][split[2]].tracks+1, split[3])
 		end
 		:: continue ::
 	end

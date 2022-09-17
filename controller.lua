@@ -1,6 +1,5 @@
 -- IMPORTS --------------------------------------------------
 
-local tracks = require("tew.CHIMES.tracks")
 local charts = require("tew.CHIMES.charts")
 local service = require("tew.CHIMES.service")
 
@@ -9,9 +8,9 @@ local service = require("tew.CHIMES.service")
 local function resolveCellType(e)
 	local cell = e.cell
 	if cell and cell.isOrBehavesAsExterior then
-		service.playCell(charts.exteriors.data, cell)
+		service.playCell(charts.exteriors, cell)
 	else
-		service.playCell(charts.interiors.data, cell)
+		service.playCell(charts.interiors, cell)
 	end
 end
 

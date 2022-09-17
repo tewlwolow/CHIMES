@@ -28,7 +28,7 @@ en.messages = {
 
 en.errors = {
 
-	jsonLoadError = "JSON file could not be parsed. You should check for syntax errors.",
+	jsonLoadError = "JSON file could not be parsed.",
 	nonJSONFileFound = "Non-JSON file found in charts folder. Skipping.",
 	noChartNameFound = "Missing chart name definition.",
 	noChartDataFound = "Missing chart data definition.",

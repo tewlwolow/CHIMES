@@ -52,7 +52,8 @@ function service.getCellType(item, cell)
 end
 
 -- PLAY CELL MUSIC JOB --
-function service.playCell(data, cell)
+function service.playCell(chart, cell)
+	local data = chart.data
 	local cellTypes = {}
 	local cellType
 	for priority, item in pairs(data) do
@@ -74,7 +75,11 @@ function service.playCell(data, cell)
 	end
 	cellType = cellTypes[i]
 
+	debug.log(tracks)
+	debug.log(chart)
+	debug.log(chart.chart)
 	debug.log(cellType)
+	debug.log(table.choice(tracks[chart.chart][cellType]))
 end
 
 return service

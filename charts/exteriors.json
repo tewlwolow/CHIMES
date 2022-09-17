@@ -13,7 +13,6 @@
 		},
 		{
 			"id" : "Redoran",
-			"folder" : "redoran",
 			"method" : "tileset",
 			"strings" : [
 				"ex_redoran_"
@@ -39,7 +38,6 @@
 		{
 			"id" : "Imperial",
 			"folder" : "imperial",
-			"method" : "tileset",
 			"strings" : [
 				"ex_common_",
 				"ex_imp"
