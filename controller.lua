@@ -15,6 +15,4 @@ local function resolveCellType(e)
 end
 
 -- REGISTER EVENTS --------------------------------------------------
-if tracks.interiors then
-	event.register(tes3.event.cellChanged, resolveCellType)
-end
+--event.register(tes3.event.cellChanged, resolveCellType)

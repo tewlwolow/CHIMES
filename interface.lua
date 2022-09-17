@@ -1,9 +1,9 @@
 -- IMPORTS --
 
 local charts = require("tew.CHIMES.charts")
-local ui = require("tew.CHIMES.ui")
+local ErrorMessage = require("tew.CHIMES.ui.ErrorMessage")
 
-local log = require("tew.CHIMES.common").log
+local log = require("tew.CHIMES.util.common").log
 
 local i18n = mwse.loadTranslations("tew.CHIMES")
 local messages = i18n("messages")
@@ -17,11 +17,6 @@ local errors = i18n("errors")
 local CHIMES_DIR = "Data Files\\Music\\CHIMES\\"
 local CHARTS_DIR = "Data Files\\MWSE\\mods\\tew\\CHIMES\\charts\\"
 
--------------------------------------------------------------
-
--- CONSTANTS --
-
-NEXUS_URL = "https://www.nexusmods.com"
 
 -------------------------------------------------------------
 
@@ -62,7 +57,7 @@ local function processErrors()
 	event.register (
 		tes3.event.uiActivated,
 		function()
-			ui.showErrorMessageBox(errorMessages)
+			ErrorMessage.show(errorMessages)
 		end,
 		{
 			filter = "MenuOptions",

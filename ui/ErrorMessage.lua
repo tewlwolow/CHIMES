@@ -1,9 +1,13 @@
-local ui = {}
+local ErrorMessage = {}
 
 local i18n = mwse.loadTranslations("tew.CHIMES")
 local messages = i18n("messages")
 local errors = i18n("errors")
 
+local metadata = require("tew.CHIMES.metadata")
+local nexusUrl = metadata.nexusUrl
+
+-- Private function to save us some code smell when creating blocks further down the line
 local function createUIBlock(menu, id)
 	local block = menu:createBlock(
 		{
@@ -19,7 +23,7 @@ local function createUIBlock(menu, id)
 	return block
 end
 
-function ui.showErrorMessageBox(errorData)
+function ErrorMessage.show(errorData)
 	local mainMenu = tes3ui.findMenu(tes3ui.registerID("MenuOptions"))
 	if (mainMenu) then
 		mainMenu.visible = false
@@ -88,7 +92,7 @@ function ui.showErrorMessageBox(errorData)
 	urlBlock.childAlignX = 0.5
 	urlBlock:createHyperlink{
 		text = messages.nexusLink,
-		url = NEXUS_URL,
+		url = nexusUrl,
 	}
 
 	local okBlock = createUIBlock(errorMenu, "CHIMES:Error_OkBlock")
@@ -112,4 +116,4 @@ function ui.showErrorMessageBox(errorData)
     )
 end
 
-return ui
+return ErrorMessage

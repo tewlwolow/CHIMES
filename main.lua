@@ -12,7 +12,7 @@ end
 
 -- Registers MCM menu --
 event.register("modConfigReady", function()
-    dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\mcm.lua")
+    dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\ui\\mcm.lua")
 end)
 
 

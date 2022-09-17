@@ -3,7 +3,7 @@ local service = {}
 -- IMPORTS --------------------------------------------------
 
 local config = require("tew.CHIMES.config")
-local log = require("tew.CHIMES.common").log
+local log = require("tew.CHIMES.util.common").log
 local i18n = mwse.loadTranslations("tew.CHIMES")
 local messages = i18n("messages")
 
