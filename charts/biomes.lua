@@ -123,8 +123,4 @@ local biomes = {
 	}
 }
 
-local instance = CHIMES.Biomes(biomes)
-mwse.log(instance.chart)
-for k, v in pairs(instance.chart) do
-	print(k, v)
-end
+CHIMES.Biomes(biomes)
