@@ -3,11 +3,11 @@ local validator = require("tew.CHIMES.util.validator")
 local Class = require("tew.CHIMES.util.Class")
 
 local schema = {
-	name = { type = "string", required = true },
-	data = { type = "table", required = true,
-		item = { type = "table", required = true,
-			id = { type = "string", required = true },
-			folder = { type = "string", required = true }
+	name = { type = "string" },
+	data = { type = "table",
+		item = { type = "table",
+			id = { type = "string" },
+			folder = { type = "string" }
 		}
 	}
 }

@@ -3,6 +3,6 @@ local Chart = require("tew.CHIMES.components.Chart")
 
 ---@class CHIMESBiomesChart : CHIMESChart
 local Biomes = Class.create(Chart)
-Biomes.schema.data.item.strings = { type = "table", required = true }
+Biomes.schema.data.item.strings = { type = "table" }
 
 return Biomes
