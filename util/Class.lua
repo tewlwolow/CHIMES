@@ -8,7 +8,7 @@ function Class.create(...)
 	-- copy base class contents into the new class
 	for _, base in ipairs(bases) do
 		for k, v in pairs(base) do
-		cls[k] = v
+			cls[k] = v
 		end
 	end
 	-- set the class's __index, and start filling an "is_a" table that contains this class and all of its bases
@@ -16,7 +16,7 @@ function Class.create(...)
 	cls.__index, cls.is_a = cls, {[cls] = true}
 	for _, base in ipairs(bases) do
 		for c in pairs(base.is_a) do
-		cls.is_a[c] = true
+			cls.is_a[c] = true
 		end
 		cls.is_a[base] = true
 	end
