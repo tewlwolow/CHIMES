@@ -14,13 +14,10 @@ local schema = {
 
 ---@class CHIMESChart
 local Chart = Class.create()
+Chart.schema = schema
 
 function Chart:_init(chart)
-	self.schema = schema
 	self.chart = chart
-end
-
-function Chart:validate()
 	validator.validate(self)
 end
 
