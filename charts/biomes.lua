@@ -2,7 +2,7 @@ local CHIMES = include("tew.CHIMES")
 if not CHIMES then return end
 
 local biomes = {
-	chart = "biomes",
+	name = "biomes",
 	data =
 	{
 		{
