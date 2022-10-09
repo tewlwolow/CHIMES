@@ -1,7 +1,13 @@
+-- Do not modify - required for interop to work
+
+-- Import CHIMES namespace and make sure it successful
 local CHIMES = include("tew.CHIMES")
 if not CHIMES then return end
 
-local biomes = {
+---------------------------------------------------
+
+-- Make your changes here
+local chart = {
 	name = "biomes",
 	data =
 	{
@@ -123,4 +129,8 @@ local biomes = {
 	}
 }
 
-CHIMES.Biomes(biomes)
+---------------------------------------------------
+-- Do not modify - required for interop to work
+
+-- Create instance of the class
+CHIMES.Biomes(chart)
