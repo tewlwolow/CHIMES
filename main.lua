@@ -6,8 +6,12 @@ local version = metadata.version
 
 local function init()
     mwse.log("[CHIMES] Version "..version.." initialised.")
-    -- dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\interface.lua")
     dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\charts\\biomes.lua")
+    dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\charts\\explore.lua")
+    dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\charts\\exteriors.lua")
+    dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\charts\\interiors.lua")
+    dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\charts\\taverns.lua")
+    dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\charts\\weathers.lua")
 end
 
 -- Registers MCM menu --
