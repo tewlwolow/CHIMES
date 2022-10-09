@@ -1,5 +1,7 @@
 local Class = {}
 
+-- Borrowed from http://lua-users.org/wiki/ObjectOrientationTutorial
+
 function Class.create(...)
 	-- "cls" is the new class
 	local cls, bases = {}, {...}
