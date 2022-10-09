@@ -75,11 +75,9 @@ function service.playCell(chart, cell)
 	end
 	cellType = cellTypes[i]
 
-	debug.log(tracks)
 	debug.log(chart)
 	debug.log(chart.chart)
 	debug.log(cellType)
-	debug.log(table.choice(tracks[chart.chart][cellType]))
 end
 
 return service
