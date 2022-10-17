@@ -28,6 +28,7 @@ local errorMessages = {}
 
 -- FUNCTION DEFINITIONS --
 
+-- TODO: replace with: https://mwse.github.io/MWSE/apis/table/?h=table.cop#tableempty
 local function isTableEmpty(tab)
 	local isEmpty = true
 	local function walker(subtab)
