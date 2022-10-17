@@ -10,7 +10,6 @@ function Class.create(base)
 	-- So that we can call the tables directly
 	setmetatable(cls, {__call = function (c, ...)
 		local instance = setmetatable({}, c)
-		
 		-- Boot up constructor
 		local init = instance._init
 		if init then init(instance, ...) end
