@@ -1,5 +1,4 @@
 local validator = require("tew.CHIMES.util.validator")
-local Class = require("tew.CHIMES.util.Class")
 
 local schema = {
 	name = { type = "string" },
