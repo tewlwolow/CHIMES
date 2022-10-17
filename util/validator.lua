@@ -1,22 +1,28 @@
 local validator = {}
 
+validator.errors = {}
+
 function validator.validate(instance)
 	mwse.log("Validating chart: " .. instance.chart.name)
-	-- local function walk(chartTable, schemaTable)
-	-- 	for k, v in pairs(chartTable) do
-	-- 		print(k)
-	-- 		print(v)
-	-- 		if type(chartTable[k]) == schemaTable[k].type then
-	-- 			print("good")
-	-- 		else
-	-- 			print("not good")
-	-- 		end
-	-- 		if type(v) == "table" then
-	-- 			walk(v, schemaTable[k])
-	-- 		end
-	-- 	end
-	-- end
-	-- walk(instance.chart, instance.schema)
+	for k, v in pairs(instance.schema) do
+		if not ( (instance.chart[k]) and (type(instance.chart[k]) == v.type) ) then
+			if not validator.errors[instance.chart.name] then
+				validator.errors[instance.chart.name] = {}
+			end
+			table.insert(
+				validator.errors[instance.chart.name],
+				#validator.errors[instance.chart.name]+1,
+				string.format("Invalid value: %s for field: %s. Expected type: %s, got: %s.", v, k, v.type, type(instance.chart[k]))
+			)
+		end
+	end
+
+	for k, v in pairs(validator.errors) do
+		if k and v and v[1] then
+			print(k)
+			print(v[1])
+		end
+	end
 end
 
 return validator
