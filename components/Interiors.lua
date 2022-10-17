@@ -3,9 +3,7 @@ local Chart = require("tew.CHIMES.components.Chart")
 
 ---@class CHIMESInteriorsChart : CHIMESChart
 local Interiors = Class.create(Chart)
-Interiors.schema.data.item = {
-	method = {type = "string" },
-	strings = {type = "table" }
-}
+Interiors.schema.data.item.method = { type = "string" }
+Interiors.schema.data.item.strings = { type = "table" }
 
 return Interiors

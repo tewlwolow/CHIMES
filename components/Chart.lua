@@ -1,5 +1,4 @@
 local validator = require("tew.CHIMES.util.validator")
--- local errors = require("tew.CHIMES.util.errors")
 local Class = require("tew.CHIMES.util.Class")
 
 local schema = {
@@ -13,7 +12,7 @@ local schema = {
 }
 
 ---@class CHIMESChart
-local Chart = Class.create()
+local Chart = {}
 Chart.schema = schema
 
 function Chart:_init(chart)
