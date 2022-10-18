@@ -43,6 +43,7 @@ function ErrorMessage.show(errorData)
 	local header = headerBlock:createImage{path = "Textures\\tew\\CHIMES\\chimes_logo.tga"}
 	header.imageScaleX=0.6
 	header.imageScaleY=0.6
+	header.color = tes3ui.getPalette("health_npc_color")
 
 	local titleBlock = createUIBlock(errorMenu, "CHIMES:Error_TitleBlock")
 	titleBlock.borderAllSides = 8
@@ -59,6 +60,7 @@ function ErrorMessage.show(errorData)
 			local fileBlock = createUIBlock(errorsContainer, "CHIMES:Error_FileBlock")
 			local fileLabel = fileBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_FileBlock_Label"), text = string.format("- [%s]", file)})
 			fileLabel.color = tes3ui.getPalette("normal_color")
+			mwse.log(string.format("- [%s]", file))
 
 			for def, error in pairs(errorsTable) do
 				if type(error) == "string" then
@@ -66,16 +68,19 @@ function ErrorMessage.show(errorData)
 					errorBlock.childAlignX = 0.12
 					local errorLabel = errorBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"), text = string.format("%s", error)})
 					errorLabel.color = {0.8,0,0.1}
+					mwse.log(string.format("\t%s", error))
 				elseif type(error) == "table" and next(error) ~= nil then
 					local chartItemBlock = createUIBlock(fileBlock, "CHIMES:Error_ChartItemBlock")
 					chartItemBlock.childAlignX = 0.06
 					local chartLabel = chartItemBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_ChartItemBlock_Label"), text = string.format("- <%s>", def)})
 					chartLabel.color = tes3ui.getPalette("disabled_color")
+					mwse.log(string.format("- <%s>", def))
 					for _, v in ipairs(error) do
 						local errorBlock = createUIBlock(fileBlock, "CHIMES:Error_ErrorBlock")
 						errorBlock.childAlignX = 0.15
 						local errorLabel = errorBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"), text = string.format("%s", v)})
 						errorLabel.color = {0.8,0,0.1}
+						mwse.log(string.format("\t%s", v))
 					end
 				end
 			end
