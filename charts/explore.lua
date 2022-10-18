@@ -13,7 +13,6 @@ local chart = {
 	{
 		{
 			id = "Explore",
-			folder = "explore"
 		}
 	}
 }

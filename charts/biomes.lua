@@ -8,7 +8,6 @@ if not CHIMES then return end
 
 -- Make your changes here
 local chart = {
-	name = "biomes",
 	data =
 	{
 		{
