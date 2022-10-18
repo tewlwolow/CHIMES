@@ -3,6 +3,7 @@ local schemaErrors = require("tew.CHIMES.util.schemaErrors")
 
 function validator.validate(instance)
 	-- Write off what we need for quicker access
+	local class = instance.class
 	local chart = instance.chart
 	local schema = instance.schema
 	local name = tostring(chart.name)
@@ -11,16 +12,17 @@ function validator.validate(instance)
 	local errors = {}
 
 	-- Bloat the log with our beautiful message
-	mwse.log("Validating chart: " .. name)
+	mwse.log("Validating chart: " .. name .. "of class" .. class .. ".")
 
 	-- First let's make sure all the required fields are in place
+
 	for k, v in pairs(schema) do
 		if not ( (chart[k]) and (type(chart[k]) == v.type) ) then
 			table.insert(
 				errors,
 				#errors,
 				string.format(
-					"Invalid value: <%s> for field: <%s>.\nExpected type: <%s>, got: <%s>.\n",
+					"Invalid value: <%s> for field: <%s>.\n\t\tExpected type: <%s>, got: <%s>.\n",
 					tostring(chart[k]),
 					tostring(k),
 					tostring(v.type),
@@ -29,6 +31,7 @@ function validator.validate(instance)
 			)
 		end
 	end
+
 
 	-- Now to see if there is any extraneous data in the chart
 	for k, v in pairs(chart) do
@@ -49,7 +52,7 @@ function validator.validate(instance)
 	for index, item in pairs(chart.data) do
 		if not ( (schema.data.type == type(item)) ) then
 			string.format(
-				"Invalid type for data item with key <%s>.\nExpected type: <%s>, got: <%s>.\n",
+				"Invalid type for data item with key <%s>.\n\t\tExpected type: <%s>, got: <%s>.\n",
 				tostring(index),
 				tostring(schema.data.type),
 				tostring(type(item))
@@ -57,17 +60,19 @@ function validator.validate(instance)
 		end
 	end
 
+	if not (class == "CHIMESWeathersChart") then -- That one gets special treatment
 		for k, v in pairs(schema.data.item) do
 			if k == "type" then goto continue end
-			for _, item in pairs(chart.data) do
+			for index, item in pairs(chart.data) do
 				if not (item[k] and type(item[k]) == v.type) then
 					table.insert(
 						errors,
 						#errors,
 						string.format(
-							"Invalid value: <%s> for field: <%s>.\nExpected type: <%s>, got: <%s>.\n",
+							"Invalid value: <%s> for field: <%s> in item: <%s>.\n\t\tExpected type: <%s>, got: <%s>.\n",
 							tostring(item[k]),
 							tostring(k),
+							tostring(index),
 							tostring(v.type),
 							tostring(type(item[k]))
 						)
@@ -76,6 +81,41 @@ function validator.validate(instance)
 			end
 			:: continue ::
 		end
+	else
+		for index, item in pairs(chart.data) do
+			if not ((item.folder) or (item.disable)) then
+				table.insert(
+					errors,
+					#errors,
+					string.format(
+						"Missing one or more of the required fields for item <%s>.\n\t\tExpected either 'disable' or 'folder' fields.\n",
+						tostring(index)
+					)
+				)
+			else
+				for k, v in pairs(schema.data.item) do
+					if k == "type" then goto continue end
+						if item[k] then
+							if not (item[k] and type(item[k]) == v.type) then
+								table.insert(
+									errors,
+									#errors,
+									string.format(
+										"Invalid value: <%s> for field: <%s> in item: <%s>.\n\t\tExpected type: <%s>, got: <%s>.\n",
+										tostring(item[k]),
+										tostring(k),
+										tostring(index),
+										tostring(v.type),
+										tostring(type(item[k]))
+									)
+								)
+							end
+						end
+					:: continue ::
+				end
+			end
+		end
+	end
 
 	if not table.empty(errors, true) then
 		if name == "nil" then
