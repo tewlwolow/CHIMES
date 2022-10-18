@@ -5,5 +5,6 @@ local Chart = require("tew.CHIMES.components.Chart")
 local Exteriors = Class.create(Chart)
 Exteriors.schema.data.item.method = { type = "string" }
 Exteriors.schema.data.item.strings = { type = "table" }
+Exteriors.class = "CHIMESExteriorsChart"
 
 return Exteriors
