@@ -6,6 +6,7 @@ function validator.validate(instance)
 	local class = instance.class
 	local chart = instance.chart
 	local schema = instance.schema
+	local path = instance.path
 	local name = tostring(chart.name)
 
 	-- Define our local error table
@@ -95,7 +96,7 @@ function validator.validate(instance)
 						errors,
 						#errors,
 						string.format(
-							"Missing one or more of the required fields for item <%s>.\n\t\tExpected either 'disable' or 'folder' fields.\n",
+							"Missing one or more required fields for item <%s>.\n\t\tExpected either 'disable' or 'folder' fields.\n",
 							tostring(index)
 						)
 					)
@@ -137,11 +138,7 @@ function validator.validate(instance)
 
 	-- In case of any errors, update the global error dictionary
 	if not table.empty(errors, true) then
-		if name == "nil" then
-			schemaErrors[string.format("%s_%s", name, #schemaErrors)] = errors
-		else
-			schemaErrors[name] = errors
-		end
+		schemaErrors[string.format("%s - (%s)", name, path)] = errors
 	end
 end
 

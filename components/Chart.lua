@@ -14,8 +14,9 @@ local schema = {
 local Chart = {}
 Chart.schema = schema
 
-function Chart:_init(chart)
+function Chart:_init(chart, path)
 	self.chart = chart
+	self.path = path
 	validator.validate(self)
 end
 
