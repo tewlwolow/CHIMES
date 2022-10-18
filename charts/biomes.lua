@@ -1,12 +1,12 @@
--- Do not modify - required for interop to work
-
 -- Import CHIMES namespace and make sure it successful
 local CHIMES = include("tew.CHIMES")
 if not CHIMES then return end
 
+-- Get info about the source file
+local path = string.sub(debug.getinfo(1).source, 12, -1)
+
 ---------------------------------------------------
 
--- Make your changes here
 local chart = {
 	data =
 	{
@@ -129,7 +129,6 @@ local chart = {
 }
 
 ---------------------------------------------------
--- Do not modify - required for interop to work
 
 -- Create instance of the class
-CHIMES.Biomes(chart)
+CHIMES.Biomes(chart, path)
