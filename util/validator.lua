@@ -40,7 +40,7 @@ function validator.validate(instance)
 				errors,
 				#errors,
 				string.format(
-					"Field: <%s> with value: <%s> not found in schema.\n",
+					"Chart field: <%s> with value: <%s> not found in schema.\n",
 					tostring(k),
 					tostring(v)
 				)
