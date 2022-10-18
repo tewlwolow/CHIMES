@@ -9,12 +9,7 @@ if not CHIMES then return end
 -- Make your changes here
 local chart = {
 	name = "explore",
-	data =
-	{
-		{
-			id = "Explore",
-		}
-	}
+	data =  "Explore"
 }
 
 ---------------------------------------------------
