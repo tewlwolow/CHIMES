@@ -12,7 +12,7 @@ function validator.validate(instance)
 	local errors = {}
 
 	-- Bloat the log with our beautiful message
-	mwse.log("Validating chart: " .. name .. "of class" .. class .. ".")
+	mwse.log("Validating chart: " .. name .. " of class " .. class .. ".")
 
 	-- First let's make sure all the required fields are in place
 	-- This is a simple shallow check
