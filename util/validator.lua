@@ -1,26 +1,87 @@
 local validator = {}
-
-validator.errors = {}
+local schemaErrors = require("tew.CHIMES.util.schemaErrors")
 
 function validator.validate(instance)
-	mwse.log("Validating chart: " .. instance.chart.name)
-	for k, v in pairs(instance.schema) do
-		if not ( (instance.chart[k]) and (type(instance.chart[k]) == v.type) ) then
-			if not validator.errors[instance.chart.name] then
-				validator.errors[instance.chart.name] = {}
-			end
+	-- Write off what we need for quicker access
+	local chart = instance.chart
+	local schema = instance.schema
+	local name = tostring(chart.name)
+
+	-- Define our local error table
+	local errors = {}
+
+	-- Bloat the log with our beautiful message
+	mwse.log("Validating chart: " .. name)
+
+	-- First let's make sure all the required fields are in place
+	for k, v in pairs(schema) do
+		if not ( (chart[k]) and (type(chart[k]) == v.type) ) then
 			table.insert(
-				validator.errors[instance.chart.name],
-				#validator.errors[instance.chart.name]+1,
-				string.format("Invalid value: %s for field: %s. Expected type: %s, got: %s.", v, k, v.type, type(instance.chart[k]))
+				errors,
+				#errors,
+				string.format(
+					"Invalid value: <%s> for field: <%s>.\nExpected type: <%s>, got: <%s>.\n",
+					tostring(chart[k]),
+					tostring(k),
+					tostring(v.type),
+					tostring(type(chart[k]))
+				)
 			)
 		end
 	end
 
-	for k, v in pairs(validator.errors) do
-		if k and v and v[1] then
-			print(k)
-			print(v[1])
+	-- Now to see if there is any extraneous data in the chart
+	for k, v in pairs(chart) do
+		if not schema[k] then
+			table.insert(
+				errors,
+				#errors,
+				string.format(
+					"Field: <%s> with value: <%s> not found in schema.\n",
+					tostring(k),
+					tostring(v)
+				)
+			)
+		end
+	end
+
+	-- Ok, let's check items in the data field
+	for index, item in pairs(chart.data) do
+		if not ( (schema.data.type == type(item)) ) then
+			string.format(
+				"Invalid type for data item with key <%s>.\nExpected type: <%s>, got: <%s>.\n",
+				tostring(index),
+				tostring(schema.data.type),
+				tostring(type(item))
+			)
+		end
+	end
+
+		for k, v in pairs(schema.data.item) do
+			if k == "type" then goto continue end
+			for _, item in pairs(chart.data) do
+				if not (item[k] and type(item[k]) == v.type) then
+					table.insert(
+						errors,
+						#errors,
+						string.format(
+							"Invalid value: <%s> for field: <%s>.\nExpected type: <%s>, got: <%s>.\n",
+							tostring(item[k]),
+							tostring(k),
+							tostring(v.type),
+							tostring(type(item[k]))
+						)
+					)
+				end
+			end
+			:: continue ::
+		end
+
+	if not table.empty(errors, true) then
+		if name == "nil" then
+			schemaErrors[string.format("%s_%s", name, #schemaErrors)] = errors
+		else
+			schemaErrors[name] = errors
 		end
 	end
 end
