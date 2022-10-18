@@ -1,4 +1,4 @@
--- Import CHIMES namespace and make sure it successful
+-- Import CHIMES namespace
 local CHIMES = include("tew.CHIMES")
 if not CHIMES then return end
 
