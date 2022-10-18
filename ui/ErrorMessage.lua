@@ -55,8 +55,9 @@ function ErrorMessage.show(errorData)
 	local errorsContainer = createUIBlock(errorMenu, "CHIMES:Error_ErrorsContainer")
 	errorsContainer.heightProportional = 1.0
 
+	mwse.log("\n--- Errors detected in CHIMES schemas. ---\n\n")
 	for file, errorsTable in pairs(errorData) do
-		if file ~= "" and next(errorsTable) ~= nil then
+		if file ~= "" then
 			local fileBlock = createUIBlock(errorsContainer, "CHIMES:Error_FileBlock")
 			local fileLabel = fileBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_FileBlock_Label"), text = string.format("- [%s]", file)})
 			fileLabel.color = tes3ui.getPalette("normal_color")
@@ -68,8 +69,8 @@ function ErrorMessage.show(errorData)
 					errorBlock.childAlignX = 0.12
 					local errorLabel = errorBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"), text = string.format("%s", error)})
 					errorLabel.color = {0.8,0,0.1}
-					mwse.log(string.format("\t%s", error))
-				elseif type(error) == "table" and next(error) ~= nil then
+					mwse.log(string.format("\t\t%s", error))
+				elseif type(error) == "table" then
 					local chartItemBlock = createUIBlock(fileBlock, "CHIMES:Error_ChartItemBlock")
 					chartItemBlock.childAlignX = 0.06
 					local chartLabel = chartItemBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_ChartItemBlock_Label"), text = string.format("- <%s>", def)})
@@ -80,7 +81,7 @@ function ErrorMessage.show(errorData)
 						errorBlock.childAlignX = 0.15
 						local errorLabel = errorBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"), text = string.format("%s", v)})
 						errorLabel.color = {0.8,0,0.1}
-						mwse.log(string.format("\t%s", v))
+						mwse.log(string.format("\t\t%s", v))
 					end
 				end
 			end
