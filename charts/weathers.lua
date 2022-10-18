@@ -13,7 +13,7 @@ local chart = {
 	{
 		{
 			id = "Ashstorm",
-			disable = true
+			disable = "true"
 		},
 		{
 			id = "Blight",
@@ -37,7 +37,6 @@ local chart = {
 		},
 		{
 			id = "Foggy",
-			folder = "foggy"
 		}
 	}
 }
