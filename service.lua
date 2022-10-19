@@ -11,7 +11,7 @@ local messages = i18n("messages")
 
 -- FUNCTION DEFINITIONS --
 
--- TILEST/NAME DETECTION METHODS --
+-- TILESET/NAME DETECTION METHODS --
 
 function service.parseTileset(strings, folder, cell)
 	local count = 0
