@@ -117,7 +117,7 @@ function validator.validate(instance)
 			-- We need a specialised check for weathers schema since it uses two mutually exclusive fields
 			for index, item in pairs(chart.data) do
 				-- Let's see if either is present
-				if not ((item.folder) and (item.disable == nil)) or not (item.folder and item.disable) then
+				if (item.folder == nil and item.disable == nil) then
 					table.insert(
 						errors,
 						#errors + index,
