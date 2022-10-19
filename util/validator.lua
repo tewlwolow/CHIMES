@@ -23,7 +23,7 @@ function validator.validate(instance)
 				errors,
 				#errors,
 				string.format(
-					"Invalid value: <%s> for field: <%s>.\n\t\tExpected type: <%s>, got: <%s>.\n",
+					"\tInvalid value: <%s> for field: <%s>.\n\tExpected type: <%s>, got: <%s>.\n",
 					tostring(chart[k]),
 					tostring(k),
 					tostring(v.type),
@@ -41,7 +41,7 @@ function validator.validate(instance)
 				errors,
 				#errors,
 				string.format(
-					"Chart field: <%s> with value: <%s> not found in schema.\n",
+					"\tChart field: <%s> with value: <%s> not found in schema.\n",
 					tostring(k),
 					tostring(v)
 				)
@@ -56,7 +56,7 @@ function validator.validate(instance)
 		for index, item in pairs(chart.data) do
 			if not ( (schema.data.type == type(item)) ) then
 				string.format(
-					"Invalid type for data item with key <%s>.\n\t\tExpected type: <%s>, got: <%s>.\n",
+					"\tInvalid type for data item with key #%s.\n\tExpected type: <%s>, got: <%s>.\n",
 					tostring(index),
 					tostring(schema.data.type),
 					tostring(type(item))
@@ -75,7 +75,7 @@ function validator.validate(instance)
 							errors,
 							#errors,
 							string.format(
-								"Invalid value: <%s> for field: <%s> in item: <%s>.\n\t\tExpected type: <%s>, got: <%s>.\n",
+								"\tInvalid value: <%s> for field: <%s> in item: #%s.\n\tExpected type: <%s>, got: <%s>.\n",
 								tostring(item[k]),
 								tostring(k),
 								tostring(index),
@@ -96,7 +96,7 @@ function validator.validate(instance)
 						errors,
 						#errors,
 						string.format(
-							"Missing one or more required fields for item <%s>.\n\t\tExpected either 'disable' or 'folder' fields.\n",
+							"\tMissing one or more required fields for item #%s.\n\tExpected either 'disable' or 'folder' fields.\n",
 							tostring(index)
 						)
 					)
@@ -106,7 +106,7 @@ function validator.validate(instance)
 						errors,
 						#errors,
 						string.format(
-							"Found both mutually exclusive fields for item <%s>.\n\t\tExpected either 'disable' or 'folder' fields.\n",
+							"\tFound both mutually exclusive fields for item <%s>.\n\tExpected either 'disable' or 'folder' fields.\n",
 							tostring(index)
 						)
 					)
@@ -119,7 +119,7 @@ function validator.validate(instance)
 										errors,
 										#errors,
 										string.format(
-											"Invalid value: <%s> for field: <%s> in item: <%s>.\n\t\tExpected type: <%s>, got: <%s>.\n",
+											"\tInvalid value: <%s> for field: <%s> in item: #%s.\n\tExpected type: <%s>, got: <%s>.\n",
 											tostring(item[k]),
 											tostring(k),
 											tostring(index),

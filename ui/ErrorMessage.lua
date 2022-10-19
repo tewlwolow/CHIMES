@@ -81,14 +81,12 @@ function ErrorMessage.show(errorData)
 		overrideColours(fileLabel, tes3ui.getPalette("normal_color"))
 
 		mwse.log(file)
-		mwse.log("\n")
 
 		for _, error in pairs(errorsTable) do
 			local errorBlock = createUIBlock(fileBlock, "CHIMES:Error_ErrorBlock")
-			-- TODO: Figure out alignment
 			local errorLabel = errorBlock:createTextSelect({id=tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"), text = error})
 			overrideColours(errorLabel, {0.8,0,0.1})
-			mwse.log(string.format("\t\t%s", error))
+			mwse.log(string.format("%s", error))
 		end
 	end
 
