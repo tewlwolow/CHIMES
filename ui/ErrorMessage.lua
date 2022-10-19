@@ -35,16 +35,18 @@ function errorMessage.show(errorData)
 		mainMenu.visible = false
 	end
 
-	-- Create our Menu
+	-- Create our menu
 	local errorMenu = tes3ui.createMenu{
 		id = tes3ui.registerID("CHIMES:Error"),
 		fixedFrame = true
 	}
+
+	-- Bring it up front
 	tes3ui.enterMenuMode(errorMenu)
-	errorMenu.autoHeight = true
+
+	-- Main menu properties
 	errorMenu.autoWidth = true
 	errorMenu.flowDirection = "top_to_bottom"
-
 	errorMenu.minWidth = 600
 	errorMenu.minHeight = 500
 	errorMenu.width = 1200
@@ -52,20 +54,24 @@ function errorMessage.show(errorData)
 	errorMenu.positionX = errorMenu.width / -2
 	errorMenu.positionY = errorMenu.height / 2
 
+	-- Our main container block
 	local container = createUIBlock(errorMenu, "CHIMES:Error_Container")
 	container.flowDirection = "top_to_bottom"
 	container.childAlignX = 0.5
 
+	-- Header block to keep the image in
 	local headerBlock = createUIBlock(container, "CHIMES:Error_HeaderBlock")
 	headerBlock.childAlignX = 0.5
 	headerBlock.borderAllSides = 5
 	headerBlock.borderBottom = 8
 
+	-- Create the image and colour it red
 	local header = headerBlock:createImage{path = "Textures\\tew\\CHIMES\\chimes_logo.tga"}
 	header.imageScaleX=0.6
 	header.imageScaleY=0.6
 	header.color = tes3ui.getPalette("health_npc_color")
 
+	-- Our title block
 	local titleBlock = createUIBlock(container, "CHIMES:Error_TitleBlock")
 	titleBlock.borderAllSides = 8
 	titleBlock.borderTop = 12
@@ -76,14 +82,19 @@ function errorMessage.show(errorData)
 	}
 	titleLabel.color = {1,0,0}
 
+	-- Scroll pane window to present the errors nicely
 	local scrollBar = container:createVerticalScrollPane()
 	scrollBar.height = 400
 	scrollBar.minHeight = 400
 	scrollBar.maxHeight = 400
 	scrollBar:setPropertyBool("PartScrollPane_hide_if_unneeded", true)
 
+	-- Log start message
 	mwse.log("\n--- Errors detected in CHIMES schemas. ---\n\n")
+
+	-- Loop over errors we got and create entries for them
 	for file, errorsTable in pairs(errorData) do
+		-- This is the block to hold the file tag
 		local fileBlock = createUIBlock(scrollBar, "CHIMES:Error_FileBlock")
 		local fileLabel = fileBlock:createTextSelect{
 			id=tes3ui.registerID("CHIMES:Error_FileBlock_Label"),
@@ -91,8 +102,10 @@ function errorMessage.show(errorData)
 		}
 		overrideColours(fileLabel, tes3ui.getPalette("normal_color"))
 
+		-- Log the file tag
 		mwse.log(file)
 
+		-- Loop over error container per file
 		for _, error in pairs(errorsTable) do
 			local errorBlock = createUIBlock(fileBlock, "CHIMES:Error_ErrorBlock")
 			local errorLabel = errorBlock:createTextSelect{
@@ -100,10 +113,13 @@ function errorMessage.show(errorData)
 				text = error
 			}
 			overrideColours(errorLabel, {0.8,0,0.1})
+
+			-- Log the error
 			mwse.log(string.format("%s", error))
 		end
 	end
 
+	-- This is the block to hold our reminder message
 	local reminderBlock = createUIBlock(errorMenu, "CHIMES:Error_ReminderBlock")
 	local reminderLabel = reminderBlock:createLabel{
 		id=tes3ui.registerID("CHIMES:Error_ReminderBlock_Label"),
@@ -116,6 +132,7 @@ function errorMessage.show(errorData)
 	reminderBlock.borderAllSides = 8
 	reminderLabel.color = tes3ui.getPalette("health_npc_color")
 
+	-- Our URL block that points to the nexus page
 	local urlBlock = createUIBlock(errorMenu, "CHIMES:Error_URLBlock")
 	urlBlock.borderAllSides = 8
 	urlBlock.childAlignX = 0.5
@@ -124,6 +141,7 @@ function errorMessage.show(errorData)
 		url = nexusUrl,
 	}
 
+	-- Button block
 	local okBlock = createUIBlock(errorMenu, "CHIMES:Error_OkBlock")
 	okBlock.childAlignX = 0.5
 	okBlock.borderAllSides = 4
@@ -142,6 +160,7 @@ function errorMessage.show(errorData)
         end
     )
 
+	-- Update the main menu and the scroll pane widget
 	errorMenu:updateLayout()
 	scrollBar.widget:contentsChanged()
 end
