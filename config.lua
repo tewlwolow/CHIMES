@@ -1,1 +1,0 @@
-return mwse.loadConfig("CHIMES", require("tew.CHIMES.defaults"))

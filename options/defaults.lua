@@ -1,0 +1,3 @@
+return {
+    minStatics = 5,
+}

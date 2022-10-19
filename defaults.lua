@@ -1,3 +1,0 @@
-return {
-    maxStatics = 5,
-}

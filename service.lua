@@ -2,7 +2,7 @@ local service = {}
 
 -- IMPORTS --------------------------------------------------
 
-local config = require("tew.CHIMES.config")
+local config = require("tew.CHIMES.options.config")
 local log = require("tew.CHIMES.util.common").log
 local i18n = mwse.loadTranslations("tew.CHIMES")
 local messages = i18n("messages")
@@ -20,7 +20,7 @@ function service.parseTileset(strings, folder, cell)
 			for _, staticName in ipairs(strings) do
 				if string.find(stat.object.id:lower(), staticName:lower()) then
 					count = count + 1
-					if count >= config.maxStatics then
+					if count >= config.minStatics then
 						return folder
 					end
 				end

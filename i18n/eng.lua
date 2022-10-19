@@ -7,14 +7,17 @@ en.messages = {
 	authors = "by tewlwolow and Morrowind Modding Community.",
 	modDescription = "Simple and lightweight lua-based music system.",
 	settings = "Settings",
-	skipping = "Skipping.",
+	default = "Default",
 
 	superMatch = "More than one cell type detected. You may want to verify your config to exclude cross-matches. Cell types detected:",
 	priority = "Priority",
 	cellType = "cell type",
 	priorityMessage = "CHIMES will use a higher priority item.",
 
-	nexusLink = "CHIMES on NexusMods"
+	nexusLink = "CHIMES on NexusMods",
+
+	exteriorsPage = "Exteriors",
+	minStatics = "Minimum number of statics that needs to be detected for tileset matching."
 }
 
 en.errors = {
