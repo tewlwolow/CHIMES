@@ -1,2 +1,0 @@
-local charts = {}
-return charts
