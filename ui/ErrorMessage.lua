@@ -7,6 +7,36 @@ local errors = i18n("errors")
 local metadata = require("tew.CHIMES.metadata")
 local nexusUrl = metadata.nexusUrl
 
+local openChartCalls = {
+	{
+		try = function(chartSourceFile) return os.execute(), string.format([[hfghgf "%s"]], chartSourceFile) end,
+		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start code "%s"]], chartSourceFile)) end
+	},
+	{
+		try = function(chartSourceFile) return os.execute(), string.format([[fghgft "%s"]], chartSourceFile) end,
+		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start subl "%s"]], chartSourceFile)) end
+	},
+	{
+		try = function(chartSourceFile) return os.execute(), string.format([[notepad++ "%s"]], chartSourceFile) end,
+		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start notepad++ "%s"]], chartSourceFile)) end
+	},
+	{
+		try = function(chartSourceFile) return os.execute(), string.format([[notepad "%s"]], chartSourceFile) end,
+		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start notepad "%s"]], chartSourceFile)) end
+	}
+}
+
+local function openChart(chartSourceFile)
+	for _, call in ipairs(openChartCalls) do
+		local suc = call.try(chartSourceFile)
+		if suc then
+			call.finally(chartSourceFile)
+			goto finished
+		end
+	end
+	:: finished ::
+end
+
 -- Private function to save us some code smell when creating blocks further down the line
 local function createUIBlock(menu, id)
 	local block = menu:createBlock(
@@ -67,8 +97,8 @@ function errorMessage.show(errorData)
 
 	-- Create the image and colour it red
 	local header = headerBlock:createImage{path = "Textures\\tew\\CHIMES\\chimes_logo.tga"}
-	header.imageScaleX=0.6
-	header.imageScaleY=0.6
+	header.imageScaleX = 0.6
+	header.imageScaleY = 0.6
 	header.color = tes3ui.getPalette("health_npc_color")
 
 	-- Our title block
@@ -77,7 +107,7 @@ function errorMessage.show(errorData)
 	titleBlock.borderTop = 12
 	titleBlock.childAlignX = 0.5
 	local titleLabel = titleBlock:createLabel{
-		id=tes3ui.registerID("CHIMES:Error_TitleBlock_Label"),
+		id = tes3ui.registerID("CHIMES:Error_TitleBlock_Label"),
 		text = errors.errorsFound
 	}
 	titleLabel.color = {1,0,0}
@@ -96,24 +126,35 @@ function errorMessage.show(errorData)
 	for file, errorsTable in pairs(errorData) do
 		-- This is the block to hold the file tag
 		local fileBlock = createUIBlock(scrollBar, "CHIMES:Error_FileBlock")
-		local fileLabel = fileBlock:createTextSelect{
-			id=tes3ui.registerID("CHIMES:Error_FileBlock_Label"),
+		local fileText = fileBlock:createTextSelect{
+			id = tes3ui.registerID("CHIMES:Error_FileBlock_Label"),
 			text = file .. "\n"
 		}
-		overrideColours(fileLabel, tes3ui.getPalette("normal_color"))
+		overrideColours(fileText, tes3ui.getPalette("normal_color"))
 
 		-- Log the file tag
 		mwse.log(file)
 
+		-- Create the link to the file
+		fileText.widget.idle = tes3ui.getPalette("link_color")
+		fileText.widget.over = tes3ui.getPalette("link_over_color")
+		fileText.widget.pressed = tes3ui.getPalette("link_pressed_color")
+
+		local startIndex, _ = string.find(file, "mwse")
+		local _, endIndex = string.find(file, ".lua")
+		local chartSourceFile = "Data Files\\" .. string.sub(file, startIndex, endIndex)
+		fileText:register("mouseClick", function ()
+			openChart(chartSourceFile)
+		end)
+
 		-- Loop over error container per file
 		for _, error in pairs(errorsTable) do
 			local errorBlock = createUIBlock(fileBlock, "CHIMES:Error_ErrorBlock")
-			local errorLabel = errorBlock:createTextSelect{
-				id=tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"),
+			local errorText = errorBlock:createTextSelect{
+				id = tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"),
 				text = error
 			}
-			overrideColours(errorLabel, {0.8,0,0.1})
-
+			overrideColours(errorText, tes3ui.getPalette("health_color"))
 			-- Log the error
 			mwse.log(string.format("%s", error))
 		end
@@ -122,7 +163,7 @@ function errorMessage.show(errorData)
 	-- This is the block to hold our reminder message
 	local reminderBlock = createUIBlock(errorMenu, "CHIMES:Error_ReminderBlock")
 	local reminderLabel = reminderBlock:createLabel{
-		id=tes3ui.registerID("CHIMES:Error_ReminderBlock_Label"),
+		id = tes3ui.registerID("CHIMES:Error_ReminderBlock_Label"),
 		text = string.format(
 			"%s\n%s\n%s",
 			errors.fixErrors,
