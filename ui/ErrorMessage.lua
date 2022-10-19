@@ -9,11 +9,11 @@ local nexusUrl = metadata.nexusUrl
 
 local openChartCalls = {
 	{
-		try = function(chartSourceFile) return os.execute(), string.format([[hfghgf "%s"]], chartSourceFile) end,
+		try = function(chartSourceFile) return os.execute(), string.format([[code "%s"]], chartSourceFile) end,
 		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start code "%s"]], chartSourceFile)) end
 	},
 	{
-		try = function(chartSourceFile) return os.execute(), string.format([[fghgft "%s"]], chartSourceFile) end,
+		try = function(chartSourceFile) return os.execute(), string.format([[subl "%s"]], chartSourceFile) end,
 		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start subl "%s"]], chartSourceFile)) end
 	},
 	{
