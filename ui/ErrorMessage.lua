@@ -65,7 +65,7 @@ function ErrorMessage.show(errorData)
 	titleBlock.borderAllSides = 8
 	titleBlock.borderTop = 12
 	titleBlock.childAlignX = 0.5
-	local titleLabel = titleBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_TitleBlock_Label"), text = string.format("%s", errors.errorsFound)})
+	local titleLabel = titleBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_TitleBlock_Label"), text = errors.errorsFound})
 	titleLabel.color = {1,0,0}
 
 	local scrollBar = container:createVerticalScrollPane()
@@ -76,25 +76,24 @@ function ErrorMessage.show(errorData)
 
 	mwse.log("\n--- Errors detected in CHIMES schemas. ---\n\n")
 	for file, errorsTable in pairs(errorData) do
-		if file ~= "" then
-			local fileBlock = createUIBlock(scrollBar, "CHIMES:Error_FileBlock")
-			local fileLabel = fileBlock:createTextSelect({id=tes3ui.registerID("CHIMES:Error_FileBlock_Label"), text = string.format("[%s]", file)})
-			overrideColours(fileLabel, tes3ui.getPalette("normal_color"))
+		local fileBlock = createUIBlock(scrollBar, "CHIMES:Error_FileBlock")
+		local fileLabel = fileBlock:createTextSelect({id=tes3ui.registerID("CHIMES:Error_FileBlock_Label"), text = file .. "\n"})
+		overrideColours(fileLabel, tes3ui.getPalette("normal_color"))
 
-			mwse.log(string.format("[%s]", file))
+		mwse.log(file)
+		mwse.log("\n")
 
-			for _, error in pairs(errorsTable) do
-				local errorBlock = createUIBlock(fileBlock, "CHIMES:Error_ErrorBlock")
-				errorBlock.childAlignX = 0.12
-				local errorLabel = errorBlock:createTextSelect({id=tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"), text = string.format("%s", error)})
-				overrideColours(errorLabel, {0.8,0,0.1})
-				mwse.log(string.format("\t\t%s", error))
-			end
+		for _, error in pairs(errorsTable) do
+			local errorBlock = createUIBlock(fileBlock, "CHIMES:Error_ErrorBlock")
+			-- TODO: Figure out alignment
+			local errorLabel = errorBlock:createTextSelect({id=tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"), text = error})
+			overrideColours(errorLabel, {0.8,0,0.1})
+			mwse.log(string.format("\t\t%s", error))
 		end
 	end
 
 	local reminderBlock = createUIBlock(errorMenu, "CHIMES:Error_ReminderBlock")
-	local reminderLabel = reminderBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_ReminderBlock_Label"), text = string.format("%s", errors.reminder)})
+	local reminderLabel = reminderBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_ReminderBlock_Label"), text = errors.reminder})
 	reminderBlock.borderAllSides = 8
 	reminderLabel.color = tes3ui.getPalette("health_npc_color")
 
