@@ -91,7 +91,7 @@ function errorMessage.show(errorData)
 	end
 
 	local reminderBlock = createUIBlock(errorMenu, "CHIMES:Error_ReminderBlock")
-	local reminderLabel = reminderBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_ReminderBlock_Label"), text = errors.reminder})
+	local reminderLabel = reminderBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_ReminderBlock_Label"), text = string.format("%s\n%s\n%s", errors.fixErrors, errors.reminder, errors.questions)})
 	reminderBlock.borderAllSides = 8
 	reminderLabel.color = tes3ui.getPalette("health_npc_color")
 

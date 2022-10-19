@@ -1,6 +1,9 @@
 local validator = {}
 local schemaErrors = require("tew.CHIMES.util.schemaErrors")
 
+local i18n = mwse.loadTranslations("tew.CHIMES")
+local errorMessages = i18n("errors")
+
 function validator.validate(instance)
 	-- Write off what we need for quicker access
 	local class = instance.class
@@ -13,7 +16,9 @@ function validator.validate(instance)
 	local errors = {}
 
 	-- Bloat the log with our beautiful message
-	mwse.log("Validating chart: " .. name .. " of class " .. class .. ".")
+	mwse.log(string.format(
+		errorMessages.validationStarted, name, class)
+	)
 
 	-- First let's make sure all the required fields are in place
 	-- This is a simple shallow check
@@ -22,12 +27,17 @@ function validator.validate(instance)
 			table.insert(
 				errors,
 				#errors,
-				string.format(
-					"\tInvalid value: <%s> for field: <%s>.\n\tExpected type: <%s>, got: <%s>.\n",
-					tostring(chart[k]),
-					tostring(k),
-					tostring(v.type),
-					tostring(type(chart[k]))
+				string.format("\t%s\n\t%s\n",
+					string.format(
+						errorMessages.valueInvalid,
+						tostring(chart[k]),
+						tostring(k)
+					),
+					string.format(
+						errorMessages.typeExpectedGot,
+						tostring(v.type),
+						tostring(type(chart[k]))
+					)
 				)
 			)
 		end
@@ -40,10 +50,12 @@ function validator.validate(instance)
 			table.insert(
 				errors,
 				#errors,
-				string.format(
-					"\tChart field: <%s> with value: <%s> not found in schema.\n",
-					tostring(k),
-					tostring(v)
+				string.format("\t%s\n",
+					string.format(
+						errorMessages.extraChartField,
+						tostring(k),
+						tostring(v)
+					)
 				)
 			)
 		end
@@ -55,11 +67,20 @@ function validator.validate(instance)
 		-- Make sure all data items are properly wrapped in a table
 		for index, item in pairs(chart.data) do
 			if not ( (schema.data.type == type(item)) ) then
-				string.format(
-					"\tInvalid type for data item with key #%s.\n\tExpected type: <%s>, got: <%s>.\n",
-					tostring(index),
-					tostring(schema.data.type),
-					tostring(type(item))
+				table.insert(
+					errors,
+					#errors,
+					string.format("\t%s\n\t%s\n",
+						string.format(
+							errorMessages.dataFieldInvalidType,
+							tostring(index)
+						),
+						string.format(
+							errorMessages.typeExpectedGot,
+							tostring(schema.data.type),
+							tostring(type(item))
+						)
+					)
 				)
 			end
 		end
@@ -74,13 +95,18 @@ function validator.validate(instance)
 						table.insert(
 							errors,
 							#errors,
-							string.format(
-								"\tInvalid value: <%s> for field: <%s> in item: #%s.\n\tExpected type: <%s>, got: <%s>.\n",
-								tostring(item[k]),
-								tostring(k),
-								tostring(index),
-								tostring(v.type),
-								tostring(type(item[k]))
+							string.format("\t%s\n\t%s\n",
+								string.format(
+									errorMessages.itemFieldInvalid,
+									tostring(item[k]),
+									tostring(k),
+									tostring(index)
+								),
+								string.format(
+									errorMessages.typeExpectedGot,
+									tostring(v.type),
+									tostring(type(item[k]))
+								)
 							)
 						)
 					end
@@ -95,9 +121,12 @@ function validator.validate(instance)
 					table.insert(
 						errors,
 						#errors,
-						string.format(
-							"\tMissing one or more required fields for item #%s.\n\tExpected either 'disable' or 'folder' fields.\n",
-							tostring(index)
+						string.format("\t%s\n\t%s\n",
+							string.format(
+								errorMessages.missingRequired,
+								tostring(index)
+							),
+							errorMessages.weatherRequiredFields
 						)
 					)
 				-- Error out if both are
@@ -105,12 +134,15 @@ function validator.validate(instance)
 					table.insert(
 						errors,
 						#errors,
-						string.format(
-							"\tFound both mutually exclusive fields for item #%s.\n\tExpected either 'disable' or 'folder' fields.\n",
-							tostring(index)
+						string.format("\t%s\n\t%s\n",
+							string.format(
+								errorMessages.mutuallyExclusive,
+								tostring(index)
+							),
+							errorMessages.weatherRequiredFields
 						)
 					)
-				else -- When there is only one of them, let's see if the type matches
+				else -- When there is only one of them, let's finally confirm whether the type matches
 					for k, v in pairs(schema.data.item) do
 						if k == "type" then goto continue end
 							if item[k] then
@@ -118,13 +150,18 @@ function validator.validate(instance)
 									table.insert(
 										errors,
 										#errors,
-										string.format(
-											"\tInvalid value: <%s> for field: <%s> in item: #%s.\n\tExpected type: <%s>, got: <%s>.\n",
-											tostring(item[k]),
-											tostring(k),
-											tostring(index),
-											tostring(v.type),
-											tostring(type(item[k]))
+										string.format("\t%s\n\t%s\n",
+											string.format(
+												errorMessages.itemFieldInvalid,
+												tostring(item[k]),
+												tostring(k),
+												tostring(index)
+											),
+											string.format(
+												errorMessages.typeExpectedGot,
+												tostring(v.type),
+												tostring(type(item[k]))
+											)
 										)
 									)
 								end

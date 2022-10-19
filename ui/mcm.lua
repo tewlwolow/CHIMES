@@ -18,7 +18,7 @@ local template = mwse.mcm.createTemplate{
 
     local mainPage = template:createPage{label=messages.mainSettings, noScroll=true}
     mainPage:createCategory{
-        label = string.format("CHIMES %s %s.\n\n%s:", version, messages.mainLabel, messages.settings)
+        label = string.format("CHIMES %s\n%s %s\n\n%s:", version, messages.authors, messages.modDescription, messages.settings)
     }
 
 template:saveOnClose(configPath, config)
