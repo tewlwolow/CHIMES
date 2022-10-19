@@ -23,7 +23,7 @@ function validator.validate(instance)
 	-- First let's make sure all the required fields are in place
 	-- This is a simple shallow check
 	for k, v in pairs(schema) do
-		if not ( (chart[k]) and (type(chart[k]) == v.type) ) then
+		if not ( (chart[k]) ~= nil and (type(chart[k]) == v.type) ) then
 			table.insert(
 				errors,
 				#errors,
@@ -46,7 +46,7 @@ function validator.validate(instance)
 
 	-- Now to see if there is any extraneous data in the chart
 	for k, v in pairs(chart) do
-		if not schema[k] then
+		if schema[k] == nil then
 			table.insert(
 				errors,
 				#errors,
@@ -91,7 +91,7 @@ function validator.validate(instance)
 				if k == "type" then goto continue end -- Only used for the previous check
 				-- Inside the schema data item loop, let's check if all chart data items match
 				for index, item in pairs(chart.data) do
-					if not (item[k] and type(item[k]) == v.type) then
+					if not (item[k] ~= nil and type(item[k]) == v.type) then
 						table.insert(
 							errors,
 							#errors + index,
@@ -146,7 +146,7 @@ function validator.validate(instance)
 					for k, v in pairs(schema.data.item) do
 						if k == "type" then goto continue end
 							if item[k] then
-								if not (item[k] and type(item[k]) == v.type) then
+								if not (item[k] ~= nil and type(item[k]) == v.type) then
 									table.insert(
 										errors,
 										#errors + index,
