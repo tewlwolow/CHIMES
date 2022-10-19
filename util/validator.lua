@@ -69,7 +69,7 @@ function validator.validate(instance)
 			if not ( (schema.data.type == type(item)) ) then
 				table.insert(
 					errors,
-					#errors,
+					#errors + index,
 					string.format("\t%s\n\t%s\n",
 						string.format(
 							errorMessages.dataFieldInvalidType,
@@ -94,7 +94,7 @@ function validator.validate(instance)
 					if not (item[k] and type(item[k]) == v.type) then
 						table.insert(
 							errors,
-							#errors,
+							#errors + index,
 							string.format("\t%s\n\t%s\n",
 								string.format(
 									errorMessages.itemFieldInvalid,
@@ -117,10 +117,10 @@ function validator.validate(instance)
 			-- We need a specialised check for weathers schema since it uses two mutually exclusive fields
 			for index, item in pairs(chart.data) do
 				-- Let's see if either is present
-				if not ((item.folder) or (item.disable)) then
+				if not ((item.folder) and (item.disable == nil)) or not (item.folder and item.disable) then
 					table.insert(
 						errors,
-						#errors,
+						#errors + index,
 						string.format("\t%s\n\t%s\n",
 							string.format(
 								errorMessages.missingRequired,
@@ -149,7 +149,7 @@ function validator.validate(instance)
 								if not (item[k] and type(item[k]) == v.type) then
 									table.insert(
 										errors,
-										#errors,
+										#errors + index,
 										string.format("\t%s\n\t%s\n",
 											string.format(
 												errorMessages.itemFieldInvalid,
