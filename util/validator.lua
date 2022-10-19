@@ -138,7 +138,7 @@ function validator.validate(instance)
 
 	-- In case of any errors, update the global error dictionary
 	if not table.empty(errors, true) then
-		schemaErrors[string.format("%s - (%s)", name, path)] = errors
+		schemaErrors[string.format("%s (%s)", name, path)] = errors
 	end
 end
 
