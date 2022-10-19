@@ -23,6 +23,11 @@ local function createUIBlock(menu, id)
 	return block
 end
 
+local function overrideColours(element, colour)
+	element.color = colour
+	element.consumeMouseEvents = false
+end
+
 function ErrorMessage.show(errorData)
 	local mainMenu = tes3ui.findMenu(tes3ui.registerID("MenuOptions"))
 	if (mainMenu) then
@@ -35,7 +40,18 @@ function ErrorMessage.show(errorData)
 	errorMenu.autoWidth = true
 	errorMenu.flowDirection = "top_to_bottom"
 
-	local headerBlock = createUIBlock(errorMenu, "CHIMES:Error_HeaderBlock")
+	errorMenu.minWidth = 600
+	errorMenu.minHeight = 500
+	errorMenu.width = 1200
+	errorMenu.height = 800
+	errorMenu.positionX = errorMenu.width / -2
+	errorMenu.positionY = errorMenu.height / 2
+
+	local container = createUIBlock(errorMenu, "CHIMES:Error_Container")
+	container.flowDirection = "top_to_bottom"
+	container.childAlignX = 0.5
+
+	local headerBlock = createUIBlock(container, "CHIMES:Error_HeaderBlock")
 	headerBlock.childAlignX = 0.5
 	headerBlock.borderAllSides = 5
 	headerBlock.borderBottom = 8
@@ -45,45 +61,34 @@ function ErrorMessage.show(errorData)
 	header.imageScaleY=0.6
 	header.color = tes3ui.getPalette("health_npc_color")
 
-	local titleBlock = createUIBlock(errorMenu, "CHIMES:Error_TitleBlock")
+	local titleBlock = createUIBlock(container, "CHIMES:Error_TitleBlock")
 	titleBlock.borderAllSides = 8
 	titleBlock.borderTop = 12
 	titleBlock.childAlignX = 0.5
 	local titleLabel = titleBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_TitleBlock_Label"), text = string.format("%s", errors.errorsFound)})
 	titleLabel.color = {1,0,0}
 
-	local errorsContainer = createUIBlock(errorMenu, "CHIMES:Error_ErrorsContainer")
-	errorsContainer.heightProportional = 1.0
+	local scrollBar = container:createVerticalScrollPane()
+	scrollBar.height = 400
+	scrollBar.minHeight = 400
+	scrollBar.maxHeight = 400
+	scrollBar:setPropertyBool("PartScrollPane_hide_if_unneeded", true)
 
 	mwse.log("\n--- Errors detected in CHIMES schemas. ---\n\n")
 	for file, errorsTable in pairs(errorData) do
 		if file ~= "" then
-			local fileBlock = createUIBlock(errorsContainer, "CHIMES:Error_FileBlock")
-			local fileLabel = fileBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_FileBlock_Label"), text = string.format("- [%s]", file)})
-			fileLabel.color = tes3ui.getPalette("normal_color")
-			mwse.log(string.format("- [%s]", file))
+			local fileBlock = createUIBlock(scrollBar, "CHIMES:Error_FileBlock")
+			local fileLabel = fileBlock:createTextSelect({id=tes3ui.registerID("CHIMES:Error_FileBlock_Label"), text = string.format("[%s]", file)})
+			overrideColours(fileLabel, tes3ui.getPalette("normal_color"))
 
-			for def, error in pairs(errorsTable) do
-				if type(error) == "string" then
-					local errorBlock = createUIBlock(fileBlock, "CHIMES:Error_ErrorBlock")
-					errorBlock.childAlignX = 0.12
-					local errorLabel = errorBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"), text = string.format("%s", error)})
-					errorLabel.color = {0.8,0,0.1}
-					mwse.log(string.format("\t\t%s", error))
-				elseif type(error) == "table" then
-					local chartItemBlock = createUIBlock(fileBlock, "CHIMES:Error_ChartItemBlock")
-					chartItemBlock.childAlignX = 0.06
-					local chartLabel = chartItemBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_ChartItemBlock_Label"), text = string.format("- <%s>", def)})
-					chartLabel.color = tes3ui.getPalette("disabled_color")
-					mwse.log(string.format("- <%s>", def))
-					for _, v in ipairs(error) do
-						local errorBlock = createUIBlock(fileBlock, "CHIMES:Error_ErrorBlock")
-						errorBlock.childAlignX = 0.15
-						local errorLabel = errorBlock:createLabel({id=tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"), text = string.format("%s", v)})
-						errorLabel.color = {0.8,0,0.1}
-						mwse.log(string.format("\t\t%s", v))
-					end
-				end
+			mwse.log(string.format("[%s]", file))
+
+			for _, error in pairs(errorsTable) do
+				local errorBlock = createUIBlock(fileBlock, "CHIMES:Error_ErrorBlock")
+				errorBlock.childAlignX = 0.12
+				local errorLabel = errorBlock:createTextSelect({id=tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"), text = string.format("%s", error)})
+				overrideColours(errorLabel, {0.8,0,0.1})
+				mwse.log(string.format("\t\t%s", error))
 			end
 		end
 	end
@@ -120,6 +125,9 @@ function ErrorMessage.show(errorData)
 			end
         end
     )
+
+	errorMenu:updateLayout()
+	scrollBar.widget:contentsChanged()
 end
 
 return ErrorMessage
