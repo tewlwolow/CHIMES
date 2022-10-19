@@ -1,7 +1,7 @@
 -- IMPORTS --
 
 local charts = require("tew.CHIMES.charts")
-local ErrorMessage = require("tew.CHIMES.ui.ErrorMessage")
+local errorMessage = require("tew.CHIMES.ui.errorMessage")
 
 local log = require("tew.CHIMES.util.common").log
 
@@ -58,7 +58,7 @@ local function processErrors()
 	event.register (
 		tes3.event.uiActivated,
 		function()
-			ErrorMessage.show(errorMessages)
+			errorMessage.show(errorMessages)
 		end,
 		{
 			filter = "MenuOptions",

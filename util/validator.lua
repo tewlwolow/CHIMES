@@ -106,7 +106,7 @@ function validator.validate(instance)
 						errors,
 						#errors,
 						string.format(
-							"\tFound both mutually exclusive fields for item <%s>.\n\tExpected either 'disable' or 'folder' fields.\n",
+							"\tFound both mutually exclusive fields for item #%s.\n\tExpected either 'disable' or 'folder' fields.\n",
 							tostring(index)
 						)
 					)

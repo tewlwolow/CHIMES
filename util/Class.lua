@@ -1,6 +1,6 @@
-local Class = {}
+local class = {}
 
-function Class.create(base)
+function class.create(base)
 
 	local cls = table.deepcopy(base) -- Pseudo-inheritance
 
@@ -19,4 +19,4 @@ function Class.create(base)
 	return cls
 end
 
-return Class
+return class

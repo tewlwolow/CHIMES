@@ -3,7 +3,7 @@
 
 local metadata = require("tew.CHIMES.metadata")
 local version = metadata.version
-local ErrorMessage = require("tew.CHIMES.ui.ErrorMessage")
+local errorMessage = require("tew.CHIMES.ui.errorMessage")
 local schemaErrors = require("tew.CHIMES.util.schemaErrors")
 
 local function init()
@@ -17,7 +17,7 @@ end)
 
 local function checkForErrors()
     if not table.empty(schemaErrors) then
-        ErrorMessage.show(schemaErrors)
+        errorMessage.show(schemaErrors)
     end
 end
 

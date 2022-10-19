@@ -1,4 +1,4 @@
-local ErrorMessage = {}
+local errorMessage = {}
 
 local i18n = mwse.loadTranslations("tew.CHIMES")
 local messages = i18n("messages")
@@ -28,7 +28,7 @@ local function overrideColours(element, colour)
 	element.consumeMouseEvents = false
 end
 
-function ErrorMessage.show(errorData)
+function errorMessage.show(errorData)
 	local mainMenu = tes3ui.findMenu(tes3ui.registerID("MenuOptions"))
 	if (mainMenu) then
 		mainMenu.visible = false
@@ -127,4 +127,4 @@ function ErrorMessage.show(errorData)
 	scrollBar.widget:contentsChanged()
 end
 
-return ErrorMessage
+return errorMessage

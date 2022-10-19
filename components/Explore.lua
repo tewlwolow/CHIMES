@@ -1,8 +1,8 @@
-local Class = require("tew.CHIMES.util.Class")
+local class = require("tew.CHIMES.util.class")
 local Chart = require("tew.CHIMES.components.Chart")
 
 ---@class CHIMESExploreChart : CHIMESChart
-local Explore = Class.create(Chart)
+local Explore = class.create(Chart)
 Explore.class = "CHIMESExploreChart"
 
 return Explore
