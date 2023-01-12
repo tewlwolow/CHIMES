@@ -129,7 +129,7 @@ function validator.validate(instance)
 							errorMessages.weatherRequiredFields
 						)
 					)
-				-- Error out if both are
+				-- Error out if both are present
 				elseif (item.folder and item.disable) then
 					table.insert(
 						errors,
