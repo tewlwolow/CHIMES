@@ -24,15 +24,15 @@ Refer to NexusMods page or source code comments for guidance. You can also write
 
 ## :heavy_check_mark: Feature Tracker
 ### From top to down - if nothing below is specified, play what's above.
-1. [ ] General overworld (explore) music
-2. [ ] Weather-specific tracks
-3. [ ] Time-specific tracks
-2. [ ] Region-specific (with "biome" grouping)
-3. [ ] Culture-specific music in towns
-4. [ ] Interior-specific (tileset, regex and/or publican race)
+> - [ ] General overworld (explore) music
+> - [ ] Weather-specific tracks
+> - [ ] Time-specific tracks
+> - [ ] Region-specific (with "biome" grouping)
+> - [ ] Culture-specific music in towns
+> - [ ] Interior-specific (tileset, regex and/or publican race)
 
 ### Others:
-- [ ] Variable silence in between tracks (selectable timer type)
-- [ ] Event-based (cell visit, quest finished, blessings etc.)
-- [ ] Support unique tracks played once per cell visit
-- [ ] Possibly, in the future: combat music (based on BMS/BMSR take)
+> - [ ] Variable silence in between tracks (selectable timer type)
+> - [ ] Event-based (cell visit, quest finished, blessings etc.)
+> - [ ] Support unique tracks played once per cell visit
+> - [ ] Possibly, in the future: combat music (based on BMS/BMSR take)
