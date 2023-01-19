@@ -1,3 +1,4 @@
+-- This runs before any other `main.lua` files to expose our classes to CHIMES-compatible chart definitions
 local CHIMES = {}
 
 CHIMES.Biomes = require("tew.CHIMES.components.Biomes")
