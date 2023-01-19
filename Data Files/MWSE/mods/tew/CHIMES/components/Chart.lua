@@ -17,7 +17,10 @@ Chart.schema = schema
 function Chart:_init(chart, path)
 	self.chart = chart
 	self.path = path
-	validator.validate(self)
+	local valid = validator.validate(self)
+	if valid then
+
+	end
 end
 
 return Chart

@@ -1,5 +1,5 @@
 local validator = {}
-local schemaErrors = require("tew.CHIMES.util.schemaErrors")
+local schemaErrors = require("tew.CHIMES.cache.schemaErrors")
 
 local i18n = mwse.loadTranslations("tew.CHIMES")
 local errorMessages = i18n("errors")
@@ -176,6 +176,9 @@ function validator.validate(instance)
 	-- In case of any errors, update the global error dictionary
 	if not table.empty(errors, true) then
 		schemaErrors[string.format("%s (%s)", name, path)] = errors
+		return false
+	else
+		return true
 	end
 end
 

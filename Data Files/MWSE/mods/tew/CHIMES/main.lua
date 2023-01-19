@@ -4,7 +4,7 @@
 local metadata = require("tew.CHIMES.metadata")
 local version = metadata.version
 local errorMessage = require("tew.CHIMES.ui.errorMessage")
-local schemaErrors = require("tew.CHIMES.util.schemaErrors")
+local schemaErrors = require("tew.CHIMES.cache.schemaErrors")
 
 local function init()
     mwse.log("[CHIMES] Version "..version.." initialised.")
