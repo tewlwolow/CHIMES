@@ -6,7 +6,8 @@
 </div>
 
 <!-- Main -->
-# CHIMES - Communal Harmonic Immersive Music Extension System
+# CHIMES
+## Communal Harmonic Immersive Music Extension System
 
 The source code for a Morrowind MWSE-Lua based music extension system.
 
