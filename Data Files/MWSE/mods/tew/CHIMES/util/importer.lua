@@ -20,8 +20,9 @@ end
 
 function importer.import(instance)
 	log("Starting import for" .. instance.chart.name)
-	cat[instance.class] = instance.chart
-	for _, item in pairs(cat[instance.class].data) do
+	local i = #cat[instance.class] + 1
+	cat[instance.class][i] = instance.chart
+	for _, item in pairs(cat[instance.class][i].data) do
 		if item.folder then
 			item.tracks = {}
 			log("Importing tracks for: " .. item.id)
