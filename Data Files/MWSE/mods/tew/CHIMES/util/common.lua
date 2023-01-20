@@ -1,7 +1,7 @@
 local metadata = require("tew.CHIMES.metadata")
 local version = metadata.version
 
-local config = require("tew.CHIMES.config")
+local config = require("tew.CHIMES.options.config")
 local debugLogOn = config.debugLogOn
 
 local common = {}
