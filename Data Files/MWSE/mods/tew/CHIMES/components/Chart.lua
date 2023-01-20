@@ -1,4 +1,5 @@
 local validator = require("tew.CHIMES.util.validator")
+local importer = require("tew.CHIMES.util.importer")
 
 local schema = {
 	name = { type = "string" },
@@ -19,7 +20,7 @@ function Chart:_init(chart, path)
 	self.path = path
 	local valid = validator.validate(self)
 	if valid then
-
+		importer.import(self)
 	end
 end
 
