@@ -1,4 +1,4 @@
-local charts = {
+local cat = {
 	CHIMESBiomesChart = {},
 	CHIMESExploreChart = {},
 	CHIMESExteriorsChart = {},
@@ -7,4 +7,4 @@ local charts = {
 	CHIMESWeathersChart = {}
 }
 
-return charts
+return cat
