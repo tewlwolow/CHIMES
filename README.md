@@ -39,4 +39,4 @@ Refer to NexusMods page or source code comments for guidance. You can also write
 > - [ ] Possibly, in the future: combat music (based on BMS/BMSR take)
 
 ### WIP:
-> - [ ] Support multiple charts of the same class
+> - [X] Support multiple charts of the same class
