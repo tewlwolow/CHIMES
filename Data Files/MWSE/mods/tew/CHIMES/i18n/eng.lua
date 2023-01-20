@@ -17,11 +17,16 @@ en.messages = {
 	nexusLink = "CHIMES on NexusMods",
 
 	exteriorsPage = "Exteriors",
-	minStatics = "Minimum number of statics that needs to be detected for tileset matching."
+	minStatics = "Minimum number of statics that needs to be detected for tileset matching.",
+
+	validationStarted = "Validating chart: %s of class %s.",
+	importStarted = "Starting import for chart: ",
+	itemTrackImport = "Importing tracks for item: ",
+	trackImport = "Importing track: ",
+	nonMP3 = "Found non-MP3 file. Skipping."
 }
 
 en.errors = {
-	validationStarted = "Validating chart: %s of class %s.",
 	valueInvalid = "Invalid value: <%s> for field: <%s>.",
 	dataFieldInvalidType = "Invalid type for data item with key #%s.",
 	itemFieldInvalid = "Invalid value: <%s> for field: <%s> in item: #%s.",

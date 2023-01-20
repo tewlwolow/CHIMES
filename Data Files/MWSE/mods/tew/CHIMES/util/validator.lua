@@ -2,6 +2,7 @@ local validator = {}
 local schemaErrors = require("tew.CHIMES.cache.schemaErrors")
 
 local i18n = mwse.loadTranslations("tew.CHIMES")
+local messages = i18n("messages")
 local errorMessages = i18n("errors")
 
 local log = require("tew.CHIMES.util.common").log
@@ -19,7 +20,7 @@ function validator.validate(instance)
 
 	-- Bloat the log with our beautiful message
 	log(string.format(
-		errorMessages.validationStarted, name, class)
+		messages.validationStarted, name, class)
 	)
 
 	-- First let's make sure all the required fields are in place
