@@ -19,7 +19,7 @@ local function updateTracks(folder, array)
 end
 
 function importer.import(instance)
-	log("Starting import for" .. instance.chart.name)
+	log("Starting import for " .. instance.chart.name)
 	local i = #cat[instance.class] + 1
 	cat[instance.class][i] = instance.chart
 	for _, item in pairs(cat[instance.class][i].data) do
