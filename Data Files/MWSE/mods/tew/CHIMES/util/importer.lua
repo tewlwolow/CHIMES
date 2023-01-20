@@ -12,7 +12,7 @@ local function updateTracks(folder, array)
 	for track in lfs.dir(musicFolder .. folder) do
 		if track ~= ".." and track ~= "." then
 			if string.endswith(track, ".mp3") then
-				log(messages.itemTrackImport .. track)
+				log(messages.trackImport .. track)
 				table.insert(array, track)
 			else
 				log(messages.nonMP3)
