@@ -1,25 +1,36 @@
 -- CHIMES - Communal Harmonic Immersive Music Extension System  --
 --------------------------------------------------------------------------------------
 
-local metadata = require("tew.CHIMES.metadata")
-local version = metadata.version
-local errorMessage = require("tew.CHIMES.ui.errorMessage")
-local schemaErrors = require("tew.CHIMES.cache.schemaErrors")
+local metadata = toml.loadMetadata("CHIMES")
+local common = require("tew.CHIMES.util.common")
+
+local errorMessage
+local schemaErrors
 
 local function init()
-    mwse.log("[CHIMES] Version "..version.." initialised.")
+    if not (metadata) then
+		common.metadataMissing()
+    else
+        mwse.log("[" .. metadata.package.name .."] Version " .. metadata.package.version .. " initialised.")
+	end
 end
 
-local function checkForErrors()
-    if not table.empty(schemaErrors) then
-        errorMessage.show(schemaErrors)
+if (metadata) then
+    errorMessage = require("tew.CHIMES.ui.errorMessage")
+    schemaErrors = require("tew.CHIMES.cache.schemaErrors")
+
+    local function checkForErrors()
+        if not table.empty(schemaErrors) then
+            errorMessage.show(schemaErrors)
+        end
     end
+
+    -- Registers MCM menu --
+    event.register(tes3.event.modConfigReady, function()
+        dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\ui\\mcm.lua")
+    end)
+
+    event.register (tes3.event.uiActivated, checkForErrors, { filter = "MenuOptions", doOnce = true, })
 end
 
--- Registers MCM menu --
-event.register("modConfigReady", function()
-    dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\ui\\mcm.lua")
-end)
-
-event.register (tes3.event.uiActivated, checkForErrors, { filter = "MenuOptions", doOnce = true, })
-event.register("initialized", init)
+event.register(tes3.event.initialized, init)

@@ -1,0 +1,18 @@
+[package]
+name = "CHIMES"
+description = "A modern MWSE-based music management mod."
+authors = ["tewlwolow"]
+version = "0.0.1"
+homepage = "https://www.nexusmods.com/morrowind/mods/"
+repository = "https://github.com/tewlwolow/CHIMES"
+
+
+[tools.mwse]
+lua-mod = "tew.CHIMES"
+wait-until-initialize = false
+
+[dependencies.mwse]
+buildnumber = 3212
+
+[dependencies.mge-xe]
+version = ">=0.15.0"

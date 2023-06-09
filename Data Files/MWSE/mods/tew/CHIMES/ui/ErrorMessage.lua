@@ -4,8 +4,8 @@ local i18n = mwse.loadTranslations("tew.CHIMES")
 local messages = i18n("messages")
 local errors = i18n("errors")
 
-local metadata = require("tew.CHIMES.metadata")
-local nexusUrl = metadata.nexusUrl
+local metadata = toml.loadMetadata("CHIMES")
+local homepage = metadata.package.homepage
 
 local openChartCalls = {
 	{
@@ -179,7 +179,7 @@ function errorMessage.show(errorData)
 	urlBlock.childAlignX = 0.5
 	urlBlock:createHyperlink{
 		text = messages.nexusLink,
-		url = nexusUrl,
+		url = homepage,
 	}
 
 	-- Button block

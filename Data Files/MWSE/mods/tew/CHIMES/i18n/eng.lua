@@ -23,7 +23,8 @@ en.messages = {
 	importStarted = "Starting import for chart: ",
 	itemTrackImport = "Importing tracks for item: ",
 	trackImport = "Importing track: ",
-	nonMP3 = "Found non-MP3 file. Skipping."
+	nonMP3 = "Found non-MP3 file. Skipping.",
+	editPriority = "Edit chart priority"
 }
 
 en.errors = {

@@ -1,8 +1,8 @@
 local configPath = "CHIMES"
 local config = require("tew.CHIMES.options.config")
 local defaults = require("tew.CHIMES.options.defaults")
-local metadata = require("tew.CHIMES.metadata")
-local version = metadata.version
+local metadata = toml.loadMetadata("CHIMES")
+local version = metadata.package.version
 local i18n = mwse.loadTranslations("tew.CHIMES")
 local messages = i18n("messages")
 
@@ -40,6 +40,33 @@ local template = mwse.mcm.createTemplate{
         jump = 10,
         variable = registerVariable("minStatics")
     }
+
+    -- local button = mainPage:createButton{text = messages.editPriority}
+	-- button.paddingAllSides = 10
+	-- button.paddingBottom = nil
+
+    -- button:register(tes3.uiEvent.mouseClick, function(e)
+
+	-- 		-- Click MCM OK button.
+	-- 		local ok = template:getTopLevelMenu():findChild("MWSE:ModConfigMenu_Close")
+	-- 		if ok then
+	-- 			ok:triggerEvent("mouseClick")
+	-- 		end
+	-- 		-- Hide MenuOptions if in-game.
+	-- 		local menuOptions = tes3ui.findMenu("MenuOptions")
+	-- 		if menuOptions and not tes3.onMainMenu() then
+	-- 			menuOptions.visible = false
+	-- 		end
+	-- 	-- 	-- Open config.
+	-- 	-- 	local mgeMenu = gui.run()
+	-- 	-- 	-- Show MenuOptions again when window is closed.
+	-- 	-- 	mgeMenu:register("destroy", function()
+	-- 	-- 		local menuOptions = tes3ui.findMenu("MenuOptions")
+	-- 	-- 		if menuOptions then
+	-- 	-- 			menuOptions.visible = true
+	-- 	-- 		end
+	-- 	-- 	end)
+	-- end)
 
 template:saveOnClose(configPath, config)
 mwse.mcm.register(template)
