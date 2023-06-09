@@ -1,6 +1,7 @@
 local configPath = "CHIMES"
 local config = require("tew.CHIMES.options.config")
 local defaults = require("tew.CHIMES.options.defaults")
+local priorityMenu = require("tew.CHIMES.ui.PriorityMenu")
 local metadata = toml.loadMetadata("CHIMES")
 local version = metadata.package.version
 local i18n = mwse.loadTranslations("tew.CHIMES")
@@ -41,32 +42,19 @@ local template = mwse.mcm.createTemplate{
         variable = registerVariable("minStatics")
     }
 
-    -- local button = mainPage:createButton{text = messages.editPriority}
-	-- button.paddingAllSides = 10
-	-- button.paddingBottom = nil
+    local priorityPage = template:createPage{
+        label = messages.priorityPage
+    }
 
-    -- button:register(tes3.uiEvent.mouseClick, function(e)
-
-	-- 		-- Click MCM OK button.
-	-- 		local ok = template:getTopLevelMenu():findChild("MWSE:ModConfigMenu_Close")
-	-- 		if ok then
-	-- 			ok:triggerEvent("mouseClick")
-	-- 		end
-	-- 		-- Hide MenuOptions if in-game.
-	-- 		local menuOptions = tes3ui.findMenu("MenuOptions")
-	-- 		if menuOptions and not tes3.onMainMenu() then
-	-- 			menuOptions.visible = false
-	-- 		end
-	-- 	-- 	-- Open config.
-	-- 	-- 	local mgeMenu = gui.run()
-	-- 	-- 	-- Show MenuOptions again when window is closed.
-	-- 	-- 	mgeMenu:register("destroy", function()
-	-- 	-- 		local menuOptions = tes3ui.findMenu("MenuOptions")
-	-- 	-- 		if menuOptions then
-	-- 	-- 			menuOptions.visible = true
-	-- 	-- 		end
-	-- 	-- 	end)
-	-- end)
+    local button = priorityPage:createButton{
+        id = "CHIMES_PriorityMenu_Button",
+        buttonText = messages.open,
+        callback = function()
+            priorityMenu.create()
+        end
+        }
+	button.paddingAllSides = 10
+	button.paddingBottom = nil
 
 template:saveOnClose(configPath, config)
 mwse.mcm.register(template)

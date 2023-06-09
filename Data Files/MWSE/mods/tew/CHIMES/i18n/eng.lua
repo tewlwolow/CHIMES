@@ -8,6 +8,7 @@ en.messages = {
 	modDescription = "Simple and lightweight lua-based music system.",
 	settings = "Settings",
 	default = "Default",
+	open = "Open",
 
 	superMatch = "More than one cell type detected. You may want to verify your config to exclude cross-matches. Cell types detected:",
 	priority = "Priority",
@@ -24,7 +25,9 @@ en.messages = {
 	itemTrackImport = "Importing tracks for item: ",
 	trackImport = "Importing track: ",
 	nonMP3 = "Found non-MP3 file. Skipping.",
-	editPriority = "Edit chart priority"
+	editPriority = "Edit chart priority",
+	enableDebug = "Enable debug messages?",
+	priorityPage = "Priority Editor"
 }
 
 en.errors = {
