@@ -1,6 +1,6 @@
 local importer = {}
 
-local cat = require("tew.CHIMES.cache.cat")
+local catalogue = require("tew.CHIMES.cache.catalogue")
 local log = require("tew.CHIMES.util.common").log
 
 local i18n = mwse.loadTranslations("tew.CHIMES")
@@ -24,9 +24,9 @@ end
 function importer.import(instance)
 	log(messages.importStarted .. instance.chart.name)
 
-	local i = #cat[instance.class] + 1
-	cat[instance.class][i] = instance.chart
-	for _, item in pairs(cat[instance.class][i].data) do
+	local i = #catalogue[instance.class] + 1
+	catalogue[instance.class][i] = instance.chart
+	for _, item in pairs(catalogue[instance.class][i].data) do
 		if item.folder then
 			item.tracks = {}
 			log(messages.itemTrackImport .. item.id)

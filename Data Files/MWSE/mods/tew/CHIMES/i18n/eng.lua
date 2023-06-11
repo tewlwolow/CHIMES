@@ -9,6 +9,8 @@ en.messages = {
 	settings = "Settings",
 	default = "Default",
 	open = "Open",
+	close = "Close",
+	save = "Save",
 
 	superMatch = "More than one cell type detected. You may want to verify your config to exclude cross-matches. Cell types detected:",
 	priority = "Priority",

@@ -4,6 +4,15 @@ local debugLogOn = config.debugLogOn
 
 local common = {}
 
+common.classNames = {
+	CHIMESBiomesChart = "Biomes",
+	CHIMESExploreChart = "Explore",
+	CHIMESExteriorsChart = "Exteriors",
+	CHIMESInteriorsChart = "Interiors",
+	CHIMESTavernsChart = "Taverns",
+	CHIMESWeathersChart = "Weathers"
+}
+
 function common.log(message)
 	local metadata = toml.loadMetadata("CHIMES")
 	local version = metadata.package.version

@@ -29,6 +29,16 @@ local template = mwse.mcm.createTemplate{
         variable = registerVariable("debugLogOn"),
         restartRequired = true
     }
+    local priorityButton = mainPage:createButton{
+        id = "CHIMES_PriorityMenu_Button",
+        buttonText = messages.open,
+        label = messages.priorityPage,
+        callback = function()
+            priorityMenu.create()
+        end
+    }
+    priorityButton.paddingAllSides = 10
+    priorityButton.paddingBottom = nil
 
     local exteriorsPage = template:createPage{
         label = messages.exteriorsPage
@@ -42,19 +52,6 @@ local template = mwse.mcm.createTemplate{
         variable = registerVariable("minStatics")
     }
 
-    local priorityPage = template:createPage{
-        label = messages.priorityPage
-    }
-
-    local button = priorityPage:createButton{
-        id = "CHIMES_PriorityMenu_Button",
-        buttonText = messages.open,
-        callback = function()
-            priorityMenu.create()
-        end
-        }
-	button.paddingAllSides = 10
-	button.paddingBottom = nil
 
 template:saveOnClose(configPath, config)
 mwse.mcm.register(template)
