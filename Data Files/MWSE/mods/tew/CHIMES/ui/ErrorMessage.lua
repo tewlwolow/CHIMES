@@ -72,7 +72,7 @@ function errorMessage.show(errorData)
 	}
 
 	-- Bring it up front
-	tes3ui.enterMenuMode(errorMenu)
+	tes3ui.enterMenuMode("CHIMES:Error")
 
 	-- Main menu properties
 	errorMenu.autoWidth = true
