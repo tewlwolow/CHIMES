@@ -10,6 +10,27 @@ local catalogue = require("tew.CHIMES.cache.catalogue")
 local classNames = require("tew.CHIMES.util.common").classNames
 local i18n = mwse.loadTranslations("tew.CHIMES")
 local messages = i18n("messages")
+local selected
+
+local function createClickable(block, text)
+	local item = block:createTextSelect{text = text}
+
+	item.widthProportional = 1.0
+	item.autoHeight = true
+	item.borderBottom = 3
+	item.widget.idle = tes3ui.getPalette("normal_color")
+	item.widget.over = tes3ui.getPalette("normal_over_color")
+	item.widget.pressed = tes3ui.getPalette("normal_pressed_color")
+
+	item:registerAfter(tes3.uiEvent.mouseClick, function()
+		if selected then
+			selected.widget.idle = tes3ui.getPalette("normal_color")
+		end
+		item.widget.idle = tes3ui.getPalette("link_color")
+		selected = item
+		tes3.messageBox{message = selected.widget.text}
+	end)
+end
 
 local function createUIBlock(menu, id)
 	local block = menu:createBlock(
@@ -23,6 +44,20 @@ local function createUIBlock(menu, id)
 	block.flowDirection = "top_to_bottom"
 	block.wrapText = true
 
+	return block
+end
+
+local function createUIBorderBlock(menu, id)
+	local block = menu:createThinBorder{
+		id  = id
+	}
+	block.autoHeight = true
+	block.autoWidth = true
+	block.widthProportional = 1.0
+	block.flowDirection = "top_to_bottom"
+	block.wrapText = true
+	block.paddingAllSides = 8
+	block.borderAllSides = 8
 	return block
 end
 
@@ -52,20 +87,26 @@ function PriorityMenu.create()
 
 	assert(priority)
 
-	local classBlock = createUIBlock(menu, "CHIMES:Priority_Classes_Container")
+	local descriptionBlock = createUIBlock(menu, "CHIMES:Priority_DescriptionBlock")
+	descriptionBlock.borderAllSides = 8
+	local descriptionLabel = descriptionBlock:createLabel{
+		id = "CHIMES:Priority_DescriptionBlock_Label",
+		text = "Use arrows to modify the priority of the chart to be played.\nCharts closer to the top will be considered first."
+	}
+	descriptionLabel.wrapText = true
+
+	local classBlock = createUIBorderBlock(menu, "CHIMES:Priority_Classes_Container")
 	for _, className in pairs(priority) do
 		if not table.empty(catalogue[className]) then
-			classBlock:createLabel{
-				id = tes3ui.registerID("CHIMES:Priority_Charts_Item"),
-				text = classNames[className]
-			}
+
+			createClickable(classBlock, classNames[className])
+
 			local chartsBlock = createUIBlock(classBlock, "CHIMES:Priority_Charts_Container")
+			chartsBlock.paddingLeft = math.floor(menu.width / 15)
 			for _, chart in ipairs(catalogue[className]) do
-				chartsBlock:createLabel{
-					id = tes3ui.registerID("CHIMES:Priority_Charts_Item"),
-					text = chart.name
-				}
-				chartsBlock.paddingLeft = math.floor(menu.width / 10)
+				createClickable(chartsBlock, chart.name)
+				tes3.messageBox{message = selected}
+
 			end
 		end
 
