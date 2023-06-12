@@ -1,8 +1,8 @@
 -- When translating these, please make sure that punctuation, case, and spacing is preserved. --
 ------------------------------------------------------------------------------------------------
-local en = {}
+local eng = {}
 
-en.messages = {
+eng.messages = {
 	mainSettings = "Main Settings",
 	authors = "by tewlwolow and Morrowind Modding Community.",
 	modDescription = "Simple and lightweight lua-based music system.",
@@ -31,9 +31,11 @@ en.messages = {
 	editPriority = "Edit chart priority",
 	enableDebug = "Enable debug messages?",
 	openPriorityEditor = "Open priority editor",
+	restoreDefaultsConfirm = "Are you sure you want to restore default priority?",
+	defaultPriorityRestored = "Default priority restored."
 }
 
-en.errors = {
+eng.errors = {
 	valueInvalid = "Invalid value: <%s> for field: <%s>.",
 	dataFieldInvalidType = "Invalid type for data item with key #%s.",
 	itemFieldInvalid = "Invalid value: <%s> for field: <%s> in item: #%s.",
@@ -50,4 +52,4 @@ en.errors = {
 	questions = "Feel free to ask here in case of questions:"
 }
 
-return en
+return eng
