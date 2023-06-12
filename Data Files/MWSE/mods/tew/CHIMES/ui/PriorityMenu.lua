@@ -50,20 +50,20 @@ local function createUIBlock(menu, id)
 	return block
 end
 
-local function createUIBorderBlock(menu, id)
-	local block = menu:createThinBorder{
-		id  = id
-	}
-	block.autoHeight = true
-	block.autoWidth = true
-	block.widthProportional = 1.0
-	block.flowDirection = "top_to_bottom"
-	block.wrapText = true
-	block.paddingAllSides = 8
-	block.borderAllSides = 8
+-- local function createUIBorderBlock(menu, id)
+-- 	local block = menu:createThinBorder{
+-- 		id  = id
+-- 	}
+-- 	block.autoHeight = true
+-- 	block.autoWidth = true
+-- 	block.widthProportional = 1.0
+-- 	block.flowDirection = "top_to_bottom"
+-- 	block.wrapText = true
+-- 	block.paddingAllSides = 8
+-- 	block.borderAllSides = 8
 
-	return block
-end
+-- 	return block
+-- end
 
 local function createScrollbar(menu)
 	local scrollbar = menu:createVerticalScrollPane()
@@ -239,7 +239,25 @@ function PriorityMenu.create()
 
 	local restoreButton = buttonsBlock:createButton{text = messages.restoreDefaults}
 	restoreButton:registerAfter(tes3.uiEvent.mouseClick, function()
-		tes3.messageBox{message = "Restored!"}
+		tes3.messageBox{
+			message = messages.restoreDefaultsConfirm,
+			buttons = {
+				tes3.findGMST(tes3.gmst.sYes).value,
+				tes3.findGMST(tes3.gmst.sNo).value
+			},
+			callback = function(e)
+				if (e.button == 0) then
+					resolver.createPriority()
+					tes3.messageBox{
+						message = messages.defaultPriorityRestored
+					}
+					classBlock:destroy()
+					classBlock  = createScrollbar(contentBlock)
+					updateClassBlock(classBlock)
+					updateLayout(menu, classBlock)
+				end
+			end
+		}
 	end)
 
 	local rightButton = buttonsBlock:createBlock()
