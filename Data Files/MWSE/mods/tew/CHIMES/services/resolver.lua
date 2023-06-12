@@ -1,12 +1,30 @@
 local resolver = {}
 
 local defaultPriority = {
-	[1] = "CHIMESTavernsChart",
-	[2] = "CHIMESInteriorsChart",
-	[3] = "CHIMESExteriorsChart",
-	[4] = "CHIMESBiomesChart",
-	[5] = "CHIMESWeathersChart",
-	[6] = "CHIMESExploreChart"
+	[1] = {
+		name = "CHIMESTavernsChart",
+		charts = {}
+	},
+	[2] = {
+		name = "CHIMESInteriorsChart",
+		charts = {}
+	},
+	[3] = {
+		name = "CHIMESExteriorsChart",
+		charts = {}
+	},
+	[4] = {
+		name = "CHIMESBiomesChart",
+		charts = {}
+	},
+	[5] = {
+		name = "CHIMESWeathersChart",
+		charts = {}
+	},
+	[6] = {
+		name = "CHIMESExploreChart",
+		charts = {}
+	}
 }
 
 local priorityPath = "config\\CHIMES\\priority"
