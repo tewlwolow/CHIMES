@@ -9,10 +9,11 @@ local selected
 local priority = resolver.loadPriority()
 assert(priority)
 
-local function updateLayout(menu)
+local function updateLayout(menu, classBlock)
 	menu:updateLayout()
 	menu:updateLayout()
 	menu:updateLayout()
+	classBlock.widget:contentsChanged()
 end
 
 local function createClickable(block, text)
@@ -64,7 +65,18 @@ local function createUIBorderBlock(menu, id)
 	return block
 end
 
-local function createClassBlock(classBlock)
+local function createScrollbar(menu)
+	local scrollbar = menu:createVerticalScrollPane()
+	scrollbar.height = 400
+	scrollbar.minHeight = 400
+	scrollbar.maxHeight = 400
+	scrollbar.autoHeight = true
+	scrollbar.autoWidth = true
+	scrollbar:setPropertyBool("PartScrollPane_hide_if_unneeded", true)
+	return scrollbar
+end
+
+local function updateClassBlock(classBlock)
 	priority = resolver.loadPriority()
 	assert(priority)
 	for index, class in pairs(priority) do
@@ -94,8 +106,8 @@ function PriorityMenu.create()
 	menu.text = "CHIMES Priority Menu"
 	menu.autoHeight = true
 	menu.autoWidth = true
-	menu.minWidth = 520
-	menu.minHeight = 500
+	menu.minWidth = 525
+	menu.minHeight = 600
 
 	local mainContainer = createUIBlock(menu, "CHIMES:Priority_MainContainer")
 	mainContainer.flowDirection = "left_to_right"
@@ -105,17 +117,20 @@ function PriorityMenu.create()
 	descriptionBlock.borderAllSides = 8
 	local contentDescLabel = descriptionBlock:createLabel{
 		id = "CHIMES:Priority_DescriptionBlock_Label",
-		text = "Use arrows to modify the priority of the chart to be played.\nCharts closer to the top will be considered first."
+		text = "Use arrows to modify the priority of the chart to be played.\nCharts closer to the top will be considered first.\n\nChanges are saved automatically."
 	}
 	contentDescLabel.wrapText = true
 
-	local classBlock = createUIBorderBlock(contentBlock, "CHIMES:Priority_Classes_Container")
-	createClassBlock(classBlock)
+	local classBlock  = createScrollbar(contentBlock)
+	updateClassBlock(classBlock)
 
 	---
 	local arrowBlock = createUIBlock(mainContainer, "CHIMES:Priority_ArrowBlock")
 	arrowBlock.borderAllSides = 8
+	arrowBlock.widthProportional = 1.0
+    arrowBlock.heightProportional = 1.0
 	arrowBlock.childAlignX = 0.5
+	arrowBlock.childAlignY = 0.5
 
 	local arrowUp = arrowBlock:createImage{ path = "Textures\\menu_scroll_up.dds"}
 	arrowUp.height = 32
@@ -139,9 +154,9 @@ function PriorityMenu.create()
 						selected = nil
 						resolver.savePriority(priority)
 						classBlock:destroy()
-						classBlock = createUIBorderBlock(contentBlock, "CHIMES:Priority_Classes_Container")
-						createClassBlock(classBlock)
-						updateLayout(menu)
+						classBlock  = createScrollbar(contentBlock)
+						updateClassBlock(classBlock)
+						updateLayout(menu, classBlock)
 						break
 					end
 				else
@@ -154,9 +169,9 @@ function PriorityMenu.create()
 								selected = nil
 								resolver.savePriority(priority)
 								classBlock:destroy()
-								classBlock = createUIBorderBlock(contentBlock, "CHIMES:Priority_Classes_Container")
-								createClassBlock(classBlock)
-								updateLayout(menu)
+								classBlock  = createScrollbar(contentBlock)
+								updateClassBlock(classBlock)
+								updateLayout(menu, classBlock)
 								break
 							end
 						end
@@ -174,7 +189,44 @@ function PriorityMenu.create()
 	arrowDown.visible = true
 	arrowDown:registerAfter(tes3.uiEvent.mouseClick, function()
 		if selected then
-			tes3.messageBox{message = selected.text}
+			priority = resolver.loadPriority()
+			assert(priority)
+			local text = table.find(classNames, selected.text) or selected.text
+			local classKey
+			for index, class in ipairs(priority) do
+				classKey = table.find(class, text)
+				if classKey then
+					if index ~= #priority then
+						local next = priority[index + 1]
+						priority[index + 1] = priority[index]
+						priority[index] = next
+						selected = nil
+						resolver.savePriority(priority)
+						classBlock:destroy()
+						classBlock  = createScrollbar(contentBlock)
+						updateClassBlock(classBlock)
+						updateLayout(menu, classBlock)
+						break
+					end
+				else
+					for subIndex, chart in ipairs(class.charts) do
+						if chart == text then
+							if subIndex ~= #class.charts then
+								local next = class.charts[subIndex + 1]
+								class.charts[subIndex + 1] = class.charts[subIndex]
+								class.charts[subIndex] = next
+								selected = nil
+								resolver.savePriority(priority)
+								classBlock:destroy()
+								classBlock  = createScrollbar(contentBlock)
+								updateClassBlock(classBlock)
+								updateLayout(menu, classBlock)
+								break
+							end
+						end
+					end
+				end
+			end
 		end
 	end)
 
@@ -185,9 +237,9 @@ function PriorityMenu.create()
 	buttonsBlock.childAlignY = 1.0
 	buttonsBlock.autoHeight = true
 
-	local saveButton = buttonsBlock:createButton{text = messages.save}
-	saveButton:registerAfter(tes3.uiEvent.mouseClick, function()
-		tes3.messageBox{message = "Mibu"}
+	local restoreButton = buttonsBlock:createButton{text = messages.restoreDefaults}
+	restoreButton:registerAfter(tes3.uiEvent.mouseClick, function()
+		tes3.messageBox{message = "Restored!"}
 	end)
 
 	local rightButton = buttonsBlock:createBlock()
@@ -198,7 +250,7 @@ function PriorityMenu.create()
 	buttonsBlock:registerAfter(tes3.uiEvent.mouseClick, function(e) menu:destroy() end)
 
 	--- Ridiculous but needed
-	updateLayout(menu)
+	updateLayout(menu, classBlock)
 
 	return menu
 end

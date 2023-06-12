@@ -24,21 +24,21 @@ local template = mwse.mcm.createTemplate{
     mainPage:createCategory{
         label = string.format("CHIMES %s\n%s %s\n\n%s:", version, messages.authors, messages.modDescription, messages.settings)
     }
-    mainPage:createYesNoButton {
-        label = messages.enableDebug,
-        variable = registerVariable("debugLogOn"),
-        restartRequired = true
-    }
     local priorityButton = mainPage:createButton{
         id = "CHIMES_PriorityMenu_Button",
-        buttonText = messages.open,
-        label = messages.priorityPage,
+        buttonText = messages.openPriorityEditor,
         callback = function()
             priorityMenu.create()
         end
     }
     priorityButton.paddingAllSides = 10
     priorityButton.paddingBottom = nil
+    priorityButton.borderAllSides = 8
+    mainPage:createYesNoButton {
+        label = messages.enableDebug,
+        variable = registerVariable("debugLogOn"),
+        restartRequired = true
+    }
 
     local exteriorsPage = template:createPage{
         label = messages.exteriorsPage

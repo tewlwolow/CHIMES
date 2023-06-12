@@ -11,6 +11,7 @@ en.messages = {
 	open = "Open",
 	close = "Close",
 	save = "Save",
+	restoreDefaults = "Restore default",
 
 	superMatch = "More than one cell type detected. You may want to verify your config to exclude cross-matches. Cell types detected:",
 	priority = "Priority",
@@ -29,7 +30,7 @@ en.messages = {
 	nonMP3 = "Found non-MP3 file. Skipping.",
 	editPriority = "Edit chart priority",
 	enableDebug = "Enable debug messages?",
-	priorityPage = "Priority Editor"
+	openPriorityEditor = "Open priority editor",
 }
 
 en.errors = {
