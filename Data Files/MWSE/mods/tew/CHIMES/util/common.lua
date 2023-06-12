@@ -13,6 +13,7 @@ common.classNames = {
 	CHIMESWeathersChart = "Weathers"
 }
 
+-- Basic logger
 function common.log(message)
 	local metadata = toml.loadMetadata("CHIMES")
 	local version = metadata.package.version
