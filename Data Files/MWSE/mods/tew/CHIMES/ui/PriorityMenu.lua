@@ -9,6 +9,12 @@ local selected
 local priority = resolver.loadPriority()
 assert(priority)
 
+local function updateLayout(menu)
+	menu:updateLayout()
+	menu:updateLayout()
+	menu:updateLayout()
+end
+
 local function createClickable(block, text)
 	local item = block:createTextSelect{text = text}
 
@@ -58,20 +64,15 @@ local function createUIBorderBlock(menu, id)
 	return block
 end
 
-local function createClassBlock(menu, classBlock)
+local function createClassBlock(classBlock)
+	priority = resolver.loadPriority()
+	assert(priority)
 	for index, class in pairs(priority) do
 		local className = class.name
 		if not table.empty(catalogue[className]) then
 			createClickable(classBlock, classNames[className])
 			local chartsBlock = createUIBlock(classBlock, "CHIMES:Priority_Charts_Container")
-			chartsBlock.paddingLeft = math.floor(menu.width / 5)
-
-			for _, chart in ipairs(catalogue[className]) do
-				if not table.find(priority[index].charts, chart.name) then
-					priority[index].charts[#priority[index].charts + 1] = chart.name
-				end
-			end
-			resolver.savePriority(priority)
+			chartsBlock.paddingLeft = 15
 
 			for _, chartName in ipairs(class.charts) do
 				createClickable(chartsBlock, chartName)
@@ -109,7 +110,7 @@ function PriorityMenu.create()
 	contentDescLabel.wrapText = true
 
 	local classBlock = createUIBorderBlock(contentBlock, "CHIMES:Priority_Classes_Container")
-	createClassBlock(menu, classBlock)
+	createClassBlock(classBlock)
 
 	---
 	local arrowBlock = createUIBlock(mainContainer, "CHIMES:Priority_ArrowBlock")
@@ -124,7 +125,44 @@ function PriorityMenu.create()
 	arrowUp.visible = true
 	arrowUp:registerAfter(tes3.uiEvent.mouseClick, function()
 		if selected then
-			tes3.messageBox{message = selected.text}
+			priority = resolver.loadPriority()
+			assert(priority)
+			local text = table.find(classNames, selected.text) or selected.text
+			local classKey
+			for index, class in ipairs(priority) do
+				classKey = table.find(class, text)
+				if classKey then
+					if index ~= 1 then
+						local previous = priority[index - 1]
+						priority[index - 1] = priority[index]
+						priority[index] = previous
+						selected = nil
+						resolver.savePriority(priority)
+						classBlock:destroy()
+						classBlock = createUIBorderBlock(contentBlock, "CHIMES:Priority_Classes_Container")
+						createClassBlock(classBlock)
+						updateLayout(menu)
+						break
+					end
+				else
+					for subIndex, chart in ipairs(class.charts) do
+						if chart == text then
+							if subIndex ~= 1 then
+								local previous = class.charts[subIndex - 1]
+								class.charts[subIndex - 1] = class.charts[subIndex]
+								class.charts[subIndex] = previous
+								selected = nil
+								resolver.savePriority(priority)
+								classBlock:destroy()
+								classBlock = createUIBorderBlock(contentBlock, "CHIMES:Priority_Classes_Container")
+								createClassBlock(classBlock)
+								updateLayout(menu)
+								break
+							end
+						end
+					end
+				end
+			end
 		end
 	end)
 
@@ -160,9 +198,7 @@ function PriorityMenu.create()
 	buttonsBlock:registerAfter(tes3.uiEvent.mouseClick, function(e) menu:destroy() end)
 
 	--- Ridiculous but needed
-	menu:updateLayout()
-	menu:updateLayout()
-	menu:updateLayout()
+	updateLayout(menu)
 
 	return menu
 end

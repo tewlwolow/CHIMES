@@ -1,5 +1,7 @@
 local resolver = {}
 
+local catalogue = require("tew.CHIMES.cache.catalogue")
+
 local defaultPriority = {
 	[1] = {
 		name = "CHIMESTavernsChart",
@@ -43,7 +45,16 @@ end
 function resolver.loadPriority()
 	local priority = json.loadfile(priorityPath)
 	if priority then
-		return priority
+		for index, class in pairs(priority) do
+			local className = class.name
+			for _, chart in ipairs(catalogue[className]) do
+				if not table.find(priority[index].charts, chart.name) then
+					priority[index].charts[#priority[index].charts + 1] = chart.name
+				end
+			end
+		end
+		resolver.savePriority(priority)
+		return json.loadfile(priorityPath)
 	else
 		return resolver.createPriority()
 	end
