@@ -1,8 +1,3 @@
--- contentPath = "menu_scroll_button_up.NIF"
--- local icon = block:createImage({ path = "icons\\" .. item.icon })
--- icon.absolutePosAlignX = 0.5
--- icon.absolutePosAlignY = 0.5
-
 local PriorityMenu = {}
 
 local resolver = require("tew.CHIMES.services.resolver")
@@ -58,44 +53,13 @@ local function createUIBorderBlock(menu, id)
 	block.wrapText = true
 	block.paddingAllSides = 8
 	block.borderAllSides = 8
+
 	return block
 end
 
-function PriorityMenu.create()
-	-- Close menu if triggered second time
-	local menu = tes3ui.findMenu("CHIMES_PriorityMenu")
-	if menu then
-		menu:destroy()
-		return
-	end
-
-	-- Create menu
-	menu = tes3ui.createMenu{id = "CHIMES_PriorityMenu", dragFrame = true, loadable = false}
-	menu.text = "CHIMES Priority Menu"
-	menu.width = 520
-	menu.height = 720
-	menu.minWidth = 480
-	menu.minHeight = 720
-	menu.autoHeight = true
-	menu.autoWidth = true
-
-	-- Right-align menu position
-	menu.positionX = 0.5 * menu.maxWidth - menu.width
-	menu.positionY = 0.5 * menu.height + 20
-
+local function createClassBlock(menu, classBlock)
 	local priority = resolver.loadPriority()
-
 	assert(priority)
-
-	local descriptionBlock = createUIBlock(menu, "CHIMES:Priority_DescriptionBlock")
-	descriptionBlock.borderAllSides = 8
-	local descriptionLabel = descriptionBlock:createLabel{
-		id = "CHIMES:Priority_DescriptionBlock_Label",
-		text = "Use arrows to modify the priority of the chart to be played.\nCharts closer to the top will be considered first."
-	}
-	descriptionLabel.wrapText = true
-
-	local classBlock = createUIBorderBlock(menu, "CHIMES:Priority_Classes_Container")
 	for _, className in pairs(priority) do
 		if not table.empty(catalogue[className]) then
 
@@ -109,9 +73,60 @@ function PriorityMenu.create()
 
 			end
 		end
+	end
+end
 
+function PriorityMenu.create()
+	-- Close menu if triggered second time
+	local menu = tes3ui.findMenu("CHIMES:PriorityMenu")
+	if menu then
+		menu:destroy()
+		return
 	end
 
+	-- Create menu
+	menu = tes3ui.createMenu{id = "CHIMES:PriorityMenu", dragFrame = true, loadable = false}
+	menu.text = "CHIMES Priority Menu"
+	menu.autoHeight = true
+	menu.autoWidth = true
+	menu.minWidth = 520
+	menu.minHeight = 500
+
+	local mainContainer = createUIBlock(menu, "CHIMES:Priority_MainContainer")
+	mainContainer.flowDirection = "left_to_right"
+	local contentBlock = createUIBlock(mainContainer, "CHIMES:Priority_ContentBlock")
+
+	local descriptionBlock = createUIBlock(contentBlock, "CHIMES:Priority_DescriptionBlock")
+	descriptionBlock.borderAllSides = 8
+	local contentDescLabel = descriptionBlock:createLabel{
+		id = "CHIMES:Priority_DescriptionBlock_Label",
+		text = "Use arrows to modify the priority of the chart to be played.\nCharts closer to the top will be considered first."
+	}
+	contentDescLabel.wrapText = true
+
+	local classBlock = createUIBorderBlock(contentBlock, "CHIMES:Priority_Classes_Container")
+	createClassBlock(menu, classBlock)
+
+	---
+	local arrowBlock = createUIBlock(mainContainer, "CHIMES:Priority_ArrowBlock")
+	arrowBlock.borderAllSides = 8
+	arrowBlock.childAlignX = 0.5
+
+	local arrowUp = arrowBlock:createImage{ path = "Textures\\menu_scroll_up.dds"}
+	arrowUp.height = 32
+    arrowUp.width = 32
+    arrowUp.borderAllSides = 2
+	arrowUp.absolutePosAlignX = 0.5
+	arrowUp.visible = true
+
+	local arrowDown = arrowBlock:createImage{ path = "Textures\\menu_scroll_down.dds"}
+	arrowDown.height = 32
+    arrowDown.width = 32
+    arrowDown.borderAllSides = 2
+	arrowDown.absolutePosAlignX = 0.5
+	arrowDown.visible = true
+
+	---
 	local buttonsBlock = menu:createBlock()
 	buttonsBlock.widthProportional = 1.0
 	buttonsBlock.heightProportional = 1.0
@@ -130,6 +145,7 @@ function PriorityMenu.create()
 	buttonsBlock:createButton{text = messages.close}
 	buttonsBlock:registerAfter(tes3.uiEvent.mouseClick, function(e) menu:destroy() end)
 
+	menu:updateLayout()
 	menu:updateLayout()
 	menu:updateLayout()
 
