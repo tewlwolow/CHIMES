@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <div align="center">
   <a href="https://github.com/tewlwolow/CHIMES">
-    <img src="https://i.ibb.co/FhGNZXD/chimes-logo.png" alt="Logo" width="256">
+    <img src="https://github.com/tewlwolow/CHIMES/blob/main/chimes_logo.png?raw=true" alt="Logo" width="256">
   </a>
 </div>
 
