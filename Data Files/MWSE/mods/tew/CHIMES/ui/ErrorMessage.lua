@@ -117,6 +117,7 @@ function errorMessage.show(errorData)
 	scrollBar.height = 400
 	scrollBar.minHeight = 400
 	scrollBar.maxHeight = 400
+	scrollBar.wrapText = true
 	scrollBar:setPropertyBool("PartScrollPane_hide_if_unneeded", true)
 
 	-- Log start message
@@ -130,6 +131,7 @@ function errorMessage.show(errorData)
 			id = tes3ui.registerID("CHIMES:Error_FileBlock_Label"),
 			text = file .. "\n"
 		}
+		fileText.wrapText = true
 		overrideColours(fileText, tes3ui.getPalette("normal_color"))
 
 		-- Log the file tag
@@ -154,6 +156,7 @@ function errorMessage.show(errorData)
 				id = tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"),
 				text = error
 			}
+			errorText.wrapText = true
 			overrideColours(errorText, tes3ui.getPalette("health_color"))
 			-- Log the error
 			mwse.log(string.format("%s", error))
@@ -170,8 +173,8 @@ function errorMessage.show(errorData)
 			errors.reminder,
 			errors.questions)
 		}
+	reminderLabel.wrapText = true
 	reminderBlock.borderAllSides = 8
-	reminderLabel.color = tes3ui.getPalette("health_npc_color")
 
 	-- Our URL block that points to the nexus page
 	local urlBlock = createUIBlock(errorMenu, "CHIMES:Error_URLBlock")
@@ -202,6 +205,8 @@ function errorMessage.show(errorData)
     )
 
 	-- Update the main menu and the scroll pane widget
+	errorMenu:updateLayout()
+	errorMenu:updateLayout()
 	errorMenu:updateLayout()
 	scrollBar.widget:contentsChanged()
 end
