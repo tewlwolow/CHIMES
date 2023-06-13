@@ -9,6 +9,11 @@ local selected
 local priority = resolver.loadPriority()
 assert(priority)
 
+local function progressSelected()
+	debug.log(selected.text)
+	selected = nil
+end
+
 local function updateLayout(menu, classBlock)
 	menu:updateLayout()
 	menu:updateLayout()
@@ -139,6 +144,7 @@ function PriorityMenu.create()
 	arrowUp.absolutePosAlignX = 0.5
 	arrowUp.visible = true
 	arrowUp:registerAfter(tes3.uiEvent.mouseClick, function()
+		tes3.playSound{sound="Menu Click"}
 		if selected then
 			priority = resolver.loadPriority()
 			assert(priority)
@@ -151,7 +157,7 @@ function PriorityMenu.create()
 						local previous = priority[index - 1]
 						priority[index - 1] = priority[index]
 						priority[index] = previous
-						selected = nil
+						progressSelected()
 						resolver.savePriority(priority)
 						classBlock:destroy()
 						classBlock  = createScrollbar(contentBlock)
@@ -166,7 +172,7 @@ function PriorityMenu.create()
 								local previous = class.charts[subIndex - 1]
 								class.charts[subIndex - 1] = class.charts[subIndex]
 								class.charts[subIndex] = previous
-								selected = nil
+								progressSelected()
 								resolver.savePriority(priority)
 								classBlock:destroy()
 								classBlock  = createScrollbar(contentBlock)
@@ -188,6 +194,7 @@ function PriorityMenu.create()
 	arrowDown.absolutePosAlignX = 0.5
 	arrowDown.visible = true
 	arrowDown:registerAfter(tes3.uiEvent.mouseClick, function()
+		tes3.playSound{sound="Menu Click"}
 		if selected then
 			priority = resolver.loadPriority()
 			assert(priority)
@@ -200,7 +207,7 @@ function PriorityMenu.create()
 						local next = priority[index + 1]
 						priority[index + 1] = priority[index]
 						priority[index] = next
-						selected = nil
+						progressSelected()
 						resolver.savePriority(priority)
 						classBlock:destroy()
 						classBlock  = createScrollbar(contentBlock)
@@ -215,7 +222,7 @@ function PriorityMenu.create()
 								local next = class.charts[subIndex + 1]
 								class.charts[subIndex + 1] = class.charts[subIndex]
 								class.charts[subIndex] = next
-								selected = nil
+								progressSelected()
 								resolver.savePriority(priority)
 								classBlock:destroy()
 								classBlock  = createScrollbar(contentBlock)
