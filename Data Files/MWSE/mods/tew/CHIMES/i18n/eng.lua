@@ -44,6 +44,7 @@ eng.errors = {
 	missingRequired = "Missing one or more required fields for item #%s.",
 	mutuallyExclusive = "Found both mutually exclusive fields for item #%s.",
 	weatherRequiredFields = "Expected either 'disable' or 'folder' fields.",
+	tavernsFolderCount = "Expected exactly one folder specified if field 'useRaces' is set to false.",
 
 	errorsFound = "ERRORS FOUND:",
 

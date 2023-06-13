@@ -174,6 +174,19 @@ function validator.validate(instance)
 				end
 			end
 		end
+
+		-- Taverns chart need an additional check for useRaces and folder count
+		if class == "CHIMESTavernsChart" then
+			if (chart.useRaces == false and #chart.data > 1) then
+				table.insert(
+					errors,
+					#errors,
+					string.format("\t%s\n",
+						errorMessages.tavernsFolderCount
+					)
+				)
+			end
+		end
 	end
 
 	-- In case of any errors, update the global error dictionary
