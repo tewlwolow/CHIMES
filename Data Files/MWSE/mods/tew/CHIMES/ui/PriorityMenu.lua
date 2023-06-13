@@ -5,13 +5,20 @@ local catalogue = require("tew.CHIMES.cache.catalogue")
 local classNames = require("tew.CHIMES.util.common").classNames
 local i18n = mwse.loadTranslations("tew.CHIMES")
 local messages = i18n("messages")
-local selected
+local selected, previousSelectedText
 local priority = resolver.loadPriority()
 assert(priority)
 
-local function progressSelected()
-	debug.log(selected.text)
-	selected = nil
+-- name = "CHIMES:Priority_Charts_Container"
+local function getNewSelected(classBlock)
+	if not classBlock then return end
+	local pane = classBlock:findChild("PartScrollPane_pane")
+	for _, element in pairs(pane.children) do
+		if element.text == previousSelectedText then
+			selected = element
+			element.widget.state = tes3.uiState.active
+		end
+	end
 end
 
 local function updateLayout(menu, classBlock)
@@ -157,11 +164,13 @@ function PriorityMenu.create()
 						local previous = priority[index - 1]
 						priority[index - 1] = priority[index]
 						priority[index] = previous
-						progressSelected()
+						previousSelectedText = selected.text
+						selected = nil
 						resolver.savePriority(priority)
 						classBlock:destroy()
 						classBlock  = createScrollbar(contentBlock)
 						updateClassBlock(classBlock)
+						getNewSelected(classBlock)
 						updateLayout(menu, classBlock)
 						break
 					end
@@ -172,11 +181,13 @@ function PriorityMenu.create()
 								local previous = class.charts[subIndex - 1]
 								class.charts[subIndex - 1] = class.charts[subIndex]
 								class.charts[subIndex] = previous
-								progressSelected()
+								previousSelectedText = selected.text
+								selected = nil
 								resolver.savePriority(priority)
 								classBlock:destroy()
 								classBlock  = createScrollbar(contentBlock)
 								updateClassBlock(classBlock)
+								getNewSelected(classBlock)
 								updateLayout(menu, classBlock)
 								break
 							end
@@ -207,11 +218,13 @@ function PriorityMenu.create()
 						local next = priority[index + 1]
 						priority[index + 1] = priority[index]
 						priority[index] = next
-						progressSelected()
+						previousSelectedText = selected.text
+						selected = nil
 						resolver.savePriority(priority)
 						classBlock:destroy()
 						classBlock  = createScrollbar(contentBlock)
 						updateClassBlock(classBlock)
+						getNewSelected(classBlock)
 						updateLayout(menu, classBlock)
 						break
 					end
@@ -222,11 +235,13 @@ function PriorityMenu.create()
 								local next = class.charts[subIndex + 1]
 								class.charts[subIndex + 1] = class.charts[subIndex]
 								class.charts[subIndex] = next
-								progressSelected()
+								previousSelectedText = selected.text
+								selected = nil
 								resolver.savePriority(priority)
 								classBlock:destroy()
 								classBlock  = createScrollbar(contentBlock)
 								updateClassBlock(classBlock)
+								getNewSelected(classBlock)
 								updateLayout(menu, classBlock)
 								break
 							end
