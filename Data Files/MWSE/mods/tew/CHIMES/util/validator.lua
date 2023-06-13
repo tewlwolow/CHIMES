@@ -7,6 +7,20 @@ local errorMessages = i18n("errors")
 
 local log = require("tew.CHIMES.util.common").log
 
+local musicFolder = "Data Files\\Music\\"
+
+local function isValidFolder(folder)
+	-- Check if we actually have any tracks in our folders
+	for track in lfs.dir(musicFolder .. folder) do
+		if track ~= ".." and track ~= "." then
+			if string.endswith(track, ".mp3") then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 function validator.validate(instance)
 	-- Write off what we need for quicker access
 	local class = instance.class
@@ -186,6 +200,23 @@ function validator.validate(instance)
 					)
 				)
 			end
+		end
+	end
+
+	-- Also check if folder is valid
+	for _, item in pairs(chart.data) do
+		if not isValidFolder(item.folder) then
+			table.insert(
+				errors,
+				#errors,
+				string.format("\t%s\n",
+					string.format(
+							errorMessages.folderInvalid,
+							tostring(item.folder),
+							tostring(item.id)
+					)
+				)
+			)
 		end
 	end
 
