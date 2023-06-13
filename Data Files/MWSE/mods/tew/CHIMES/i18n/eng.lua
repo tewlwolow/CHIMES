@@ -23,7 +23,7 @@ eng.messages = {
 	exteriorsPage = "Exteriors",
 	minStatics = "Minimum number of statics that needs to be detected for tileset matching.",
 
-	validationStarted = "Validating chart: %s of class %s.",
+	validationStarted = "Validating chart: %s of class: %s.",
 	importStarted = "Starting import for chart: ",
 	itemTrackImport = "Importing tracks for item: ",
 	trackImport = "Importing track: ",
@@ -41,12 +41,13 @@ eng.errors = {
 	itemFieldInvalid = "Invalid value: <%s> for field: <%s> in item: #%s.",
 	typeExpectedGot = "Expected type: <%s>, got: <%s>.",
 	extraChartField = "Chart field: <%s> with value: <%s> not found in schema.",
-	missingRequired = "Missing one or more required fields for item #%s.",
-	mutuallyExclusive = "Found both mutually exclusive fields for item #%s.",
+	missingRequired = "Missing one or more required fields for item: #%s.",
+	mutuallyExclusive = "Found both mutually exclusive fields for item: #%s.",
 	weatherRequiredFields = "Expected either 'disable' or 'folder' fields.",
 	tavernsFolderCount = "Expected exactly one folder specified if field 'useRaces' is set to false.",
+	folderInvalid = "The folder: <%s> for item id: <%s> doesn't contain any valid MP3 tracks or doesn't exist.",
 
-	errorsFound = "ERRORS FOUND:",
+	errorsFound = "Errors found:",
 
 	fixErrors = "Please make sure the errors are fixed.",
 	reminder = "The mod will continue to work, but might behave in unexpected ways.",
