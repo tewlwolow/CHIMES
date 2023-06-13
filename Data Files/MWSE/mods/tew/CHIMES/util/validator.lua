@@ -11,6 +11,7 @@ local musicFolder = "Data Files\\Music\\"
 
 local function isValidFolder(folder)
 	-- Check if we actually have any tracks in our folders
+	if not folder then return "" end
 	for track in lfs.dir(musicFolder .. folder) do
 		if track ~= ".." and track ~= "." then
 			if string.endswith(track, ".mp3") then
