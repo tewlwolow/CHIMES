@@ -115,11 +115,13 @@ function PriorityMenu.create()
 
 	-- Create menu
 	menu = tes3ui.createMenu{id = "CHIMES:PriorityMenu", dragFrame = true, loadable = false}
-	menu.text = "CHIMES Priority Menu"
+	menu.text = "CHIMES Priority Sorter"
 	menu.autoHeight = true
 	menu.autoWidth = true
 	menu.minWidth = 525
 	menu.minHeight = 600
+
+	tes3ui.enterMenuMode("CHIMES:PriorityMenu")
 
 	local mainContainer = createUIBlock(menu, "CHIMES:Priority_MainContainer")
 	mainContainer.flowDirection = "left_to_right"
