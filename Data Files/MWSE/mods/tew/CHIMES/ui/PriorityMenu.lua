@@ -259,7 +259,7 @@ function PriorityMenu.create()
 	buttonsBlock.childAlignY = 1.0
 	buttonsBlock.autoHeight = true
 
-	local restoreButton = buttonsBlock:createButton{text = messages.restoreDefaults}
+	local restoreButton = buttonsBlock:createButton{text = messages.restoreDefaultPriority}
 	restoreButton:registerAfter(tes3.uiEvent.mouseClick, function()
 		tes3.messageBox{
 			message = messages.restoreDefaultsConfirm,

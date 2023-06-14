@@ -11,7 +11,7 @@ eng.messages = {
 	open = "Open",
 	close = "Close",
 	save = "Save",
-	restoreDefaults = "Restore default",
+	restoreDefaultPriority = "Restore default priority",
 
 	superMatch = "More than one cell type detected. You may want to verify your config to exclude cross-matches. Cell types detected:",
 	priority = "Priority",
