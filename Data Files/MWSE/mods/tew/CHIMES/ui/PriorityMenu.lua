@@ -289,7 +289,13 @@ function PriorityMenu.create()
 	rightButton.autoHeight = true
 	rightButton.childAlignX = 1.0
 	buttonsBlock:createButton{text = messages.close}
-	buttonsBlock:registerAfter(tes3.uiEvent.mouseClick, function(e) menu:destroy() end)
+	buttonsBlock:registerAfter(
+		tes3.uiEvent.mouseClick,
+		function(e)
+			selected = nil
+			menu:destroy()
+		end
+	)
 
 	--- Ridiculous but needed
 	updateLayout(menu, classBlock)
