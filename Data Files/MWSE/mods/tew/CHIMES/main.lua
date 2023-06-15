@@ -13,6 +13,7 @@ local function init()
     else
         mwse.log("[" .. metadata.package.name .."] Version " .. metadata.package.version .. " initialised.")
 	end
+    dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\events.lua")
 end
 
 if (metadata) then
