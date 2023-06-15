@@ -1,10 +1,12 @@
 local events = {}
 
-local controllers = require("tew.CHIMES.controllers")
+local cell = require("tew.CHIMES.controllers.cell")
+local weather = require("tew.CHIMES.controllers.weather")
 
-event.register(tes3.event.cellChanged, controllers.cell)
-event.register(tes3.event.loaded, controllers.cell)
-event.register(tes3.event.weatherTransitionStarted, controllers.weather)
+
+event.register(tes3.event.cellChanged, cell.check())
+event.register(tes3.event.loaded, cell.check())
+event.register(tes3.event.weatherTransitionStarted, weather.check())
 
 
 return events
