@@ -1,5 +1,5 @@
-local class = require("tew.CHIMES.util.class")
-local Chart = require("tew.CHIMES.components.Chart")
+local class = require("tew.CHIMES.proto.Class")
+local Chart = require("tew.CHIMES.proto.Chart")
 
 ---@class CHIMESInteriorsChart : CHIMESChart
 local Interiors = class.create(Chart)

@@ -1,6 +1,6 @@
 local PriorityMenu = {}
 
-local resolver = require("tew.CHIMES.services.resolver")
+local resolver = require("tew.CHIMES.util.resolver")
 local catalogue = require("tew.CHIMES.cache.catalogue")
 local classNames = require("tew.CHIMES.util.common").classNames
 local i18n = mwse.loadTranslations("tew.CHIMES")
