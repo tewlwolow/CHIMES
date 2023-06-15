@@ -1,4 +1,4 @@
-local resolver = {}
+local sorter = {}
 
 local catalogue = require("tew.CHIMES.cache.catalogue")
 
@@ -37,12 +37,12 @@ local function saveJSON(tab)
 	json.savefile(priorityPath, tab)
 end
 
-function resolver.createPriority()
+function sorter.createPriority()
 	saveJSON(defaultPriority)
 	return json.loadfile(priorityPath)
 end
 
-function resolver.loadPriority()
+function sorter.loadPriority()
 	local priority = json.loadfile(priorityPath)
 	if priority then
 		for index, class in pairs(priority) do
@@ -53,16 +53,16 @@ function resolver.loadPriority()
 				end
 			end
 		end
-		resolver.savePriority(priority)
+		sorter.savePriority(priority)
 		return json.loadfile(priorityPath)
 	else
-		return resolver.createPriority()
+		return sorter.createPriority()
 	end
 end
 
-function resolver.savePriority(priority)
+function sorter.savePriority(priority)
 	saveJSON(priority)
 end
 
 
-return resolver
+return sorter

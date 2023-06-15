@@ -1,12 +1,12 @@
 local PriorityMenu = {}
 
-local resolver = require("tew.CHIMES.util.resolver")
+local sorter = require("tew.CHIMES.util.sorter")
 local catalogue = require("tew.CHIMES.cache.catalogue")
 local classNames = require("tew.CHIMES.util.common").classNames
 local i18n = mwse.loadTranslations("tew.CHIMES")
 local messages = i18n("messages")
 local selected, previousSelectedText
-local priority = resolver.loadPriority()
+local priority = sorter.loadPriority()
 assert(priority)
 
 -- name = "CHIMES:Priority_Charts_Container"
@@ -89,7 +89,7 @@ local function createScrollbar(menu)
 end
 
 local function updateClassBlock(classBlock)
-	priority = resolver.loadPriority()
+	priority = sorter.loadPriority()
 	assert(priority)
 	for index, class in pairs(priority) do
 		local className = class.name
@@ -155,7 +155,7 @@ function PriorityMenu.create()
 	arrowUp:registerAfter(tes3.uiEvent.mouseClick, function()
 		tes3.playSound{sound="Menu Click"}
 		if selected then
-			priority = resolver.loadPriority()
+			priority = sorter.loadPriority()
 			assert(priority)
 			local text = table.find(classNames, selected.text) or selected.text
 			local classKey
@@ -168,7 +168,7 @@ function PriorityMenu.create()
 						priority[index] = previous
 						previousSelectedText = selected.text
 						selected = nil
-						resolver.savePriority(priority)
+						sorter.savePriority(priority)
 						classBlock:destroy()
 						classBlock  = createScrollbar(contentBlock)
 						updateClassBlock(classBlock)
@@ -185,7 +185,7 @@ function PriorityMenu.create()
 								class.charts[subIndex] = previous
 								previousSelectedText = selected.text
 								selected = nil
-								resolver.savePriority(priority)
+								sorter.savePriority(priority)
 								classBlock:destroy()
 								classBlock  = createScrollbar(contentBlock)
 								updateClassBlock(classBlock)
@@ -209,7 +209,7 @@ function PriorityMenu.create()
 	arrowDown:registerAfter(tes3.uiEvent.mouseClick, function()
 		tes3.playSound{sound="Menu Click"}
 		if selected then
-			priority = resolver.loadPriority()
+			priority = sorter.loadPriority()
 			assert(priority)
 			local text = table.find(classNames, selected.text) or selected.text
 			local classKey
@@ -222,7 +222,7 @@ function PriorityMenu.create()
 						priority[index] = next
 						previousSelectedText = selected.text
 						selected = nil
-						resolver.savePriority(priority)
+						sorter.savePriority(priority)
 						classBlock:destroy()
 						classBlock  = createScrollbar(contentBlock)
 						updateClassBlock(classBlock)
@@ -239,7 +239,7 @@ function PriorityMenu.create()
 								class.charts[subIndex] = next
 								previousSelectedText = selected.text
 								selected = nil
-								resolver.savePriority(priority)
+								sorter.savePriority(priority)
 								classBlock:destroy()
 								classBlock  = createScrollbar(contentBlock)
 								updateClassBlock(classBlock)
@@ -271,7 +271,7 @@ function PriorityMenu.create()
 			},
 			callback = function(e)
 				if (e.button == 0) then
-					resolver.createPriority()
+					sorter.createPriority()
 					tes3.messageBox{
 						message = messages.defaultPriorityRestored
 					}
