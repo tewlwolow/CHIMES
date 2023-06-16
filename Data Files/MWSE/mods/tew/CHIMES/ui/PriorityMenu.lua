@@ -9,7 +9,6 @@ local selected, previousSelectedText
 local priority = sorter.loadPriority()
 assert(priority)
 
--- name = "CHIMES:Priority_Charts_Container"
 local function getNewSelected(classBlock)
 	if not classBlock then return end
 	local pane = classBlock:findChild("PartScrollPane_pane")
@@ -41,6 +40,9 @@ local function createClickable(block, text)
 	item:registerAfter(tes3.uiEvent.mouseClick, function()
 		if selected then
 			selected.widget.idle = tes3ui.getPalette("normal_color")
+			selected.widget.over = tes3ui.getPalette("normal_over_color")
+			selected.widget.pressed = tes3ui.getPalette("normal_color")
+			selected.widget.state = tes3.uiState.normal
 		end
 		item.widget.idle = tes3ui.getPalette("link_color")
 		selected = item
@@ -167,6 +169,7 @@ function PriorityMenu.create()
 						priority[index - 1] = priority[index]
 						priority[index] = previous
 						previousSelectedText = selected.text
+						selected.widget.state = tes3.uiState.disabled
 						selected = nil
 						sorter.savePriority(priority)
 						classBlock:destroy()
@@ -184,6 +187,7 @@ function PriorityMenu.create()
 								class.charts[subIndex - 1] = class.charts[subIndex]
 								class.charts[subIndex] = previous
 								previousSelectedText = selected.text
+								selected.widget.state = tes3.uiState.disabled
 								selected = nil
 								sorter.savePriority(priority)
 								classBlock:destroy()
@@ -221,6 +225,7 @@ function PriorityMenu.create()
 						priority[index + 1] = priority[index]
 						priority[index] = next
 						previousSelectedText = selected.text
+						selected.widget.state = tes3.uiState.disabled
 						selected = nil
 						sorter.savePriority(priority)
 						classBlock:destroy()
@@ -238,6 +243,7 @@ function PriorityMenu.create()
 								class.charts[subIndex + 1] = class.charts[subIndex]
 								class.charts[subIndex] = next
 								previousSelectedText = selected.text
+								selected.widget.state = tes3.uiState.disabled
 								selected = nil
 								sorter.savePriority(priority)
 								classBlock:destroy()
@@ -284,12 +290,12 @@ function PriorityMenu.create()
 		}
 	end)
 
-	local rightButton = buttonsBlock:createBlock()
-	rightButton.widthProportional = 1.0
-	rightButton.autoHeight = true
-	rightButton.childAlignX = 1.0
-	buttonsBlock:createButton{text = messages.close}
-	buttonsBlock:registerAfter(
+	local rightButtonBlock = buttonsBlock:createBlock()
+	rightButtonBlock.widthProportional = 1.0
+	rightButtonBlock.autoHeight = true
+	rightButtonBlock.childAlignX = 1.0
+	local closeButton = rightButtonBlock:createButton{text = messages.close}
+	closeButton:registerAfter(
 		tes3.uiEvent.mouseClick,
 		function(e)
 			selected = nil
