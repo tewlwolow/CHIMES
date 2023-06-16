@@ -8,6 +8,7 @@ interiors.item = nil
 function interiors.isRelevant()
 	local cell = tes3.player.cell
 	if not cell then return end
+	if cell.isOrBehavesAsExterior then return end
 
 	local charts = catalogue.CHIMESInteriorsChart
 	for _, chart in ipairs(charts) do

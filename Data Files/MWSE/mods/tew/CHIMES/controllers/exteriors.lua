@@ -8,6 +8,7 @@ exteriors.item = nil
 function exteriors.isRelevant()
 	local cell = tes3.player.cell
 	if not cell then return end
+	if not cell.isOrBehavesAsExterior then return end
 
 	local charts = catalogue.CHIMESExteriorsChart
 	for _, chart in ipairs(charts) do
