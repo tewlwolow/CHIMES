@@ -32,6 +32,10 @@ function taverns.isRelevant()
 							return true
 						end
 					end
+					if chart.fallbackFolder then
+						taverns.folder = chart.fallbackFolder
+						return true
+					end
 				end
 			end
 		end
