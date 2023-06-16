@@ -7,6 +7,7 @@ taverns.item = nil
 function taverns.isRelevant()
 	local cell = tes3.player.cell
 	if not cell then return end
+	if cell.isOrBehavesAsExterior then return end
 
 	for npc in cell:iterateReferences(tes3.objectType.npc) do
 		local class = npc.object.class.id
@@ -20,10 +21,10 @@ function taverns.isRelevant()
 		then
 			local race = npc.object.race.id:lower()
 
-			local charts = catalogue.CHIMESBiomesChart
+			local charts = catalogue.CHIMESTavernsChart
 			for _, chart in ipairs(charts) do
 				if not chart.useRaces then
-					taverns.folder = chart.data[1].folder
+					taverns.item = chart.data[1]
 					return true
 				else
 					for _, item in ipairs(chart.data) do

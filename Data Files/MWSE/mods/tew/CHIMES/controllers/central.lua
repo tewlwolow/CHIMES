@@ -23,4 +23,11 @@ function central.check()
 	end
 end
 
+function central.purge()
+	previousItem = nil
+	currentItem = nil
+	previousTrack = nil
+	currentTrack = nil
+end
+
 return central

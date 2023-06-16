@@ -14,16 +14,9 @@ function weathers.isRelevant()
 	local charts = catalogue.CHIMESWeathersChart
 	for _, chart in ipairs(charts) do
 		for _, item in ipairs(chart.data) do
-			if item.disable then
-				if item.id == relevantWeather then
-					weathers.folder = "tew\\CHIMES\\Special\\silence"
-					return true
-				end
-			else
-				if item.id == relevantWeather then
-					weathers.item = item.item
-					return true
-				end
+			if item.id:lower() == relevantWeather then
+				weathers.item = item.item
+				return true
 			end
 		end
 	end
