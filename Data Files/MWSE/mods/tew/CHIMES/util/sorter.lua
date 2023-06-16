@@ -12,15 +12,15 @@ local defaultPriority = {
 		charts = {}
 	},
 	[3] = {
-		name = "CHIMESExteriorsChart",
+		name = "CHIMESTownsChart",
 		charts = {}
 	},
 	[4] = {
-		name = "CHIMESBiomesChart",
+		name = "CHIMESWeathersChart",
 		charts = {}
 	},
 	[5] = {
-		name = "CHIMESWeathersChart",
+		name = "CHIMESBiomesChart",
 		charts = {}
 	},
 	[6] = {

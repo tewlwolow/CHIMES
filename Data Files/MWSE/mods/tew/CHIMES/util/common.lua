@@ -7,10 +7,10 @@ local common = {}
 common.classNames = {
 	CHIMESBiomesChart = "Biomes",
 	CHIMESExploreChart = "Explore",
-	CHIMESExteriorsChart = "Exteriors",
 	CHIMESInteriorsChart = "Interiors",
 	CHIMESTavernsChart = "Taverns",
-	CHIMESWeathersChart = "Weathers"
+	CHIMESWeathersChart = "Weathers",
+	CHIMESTownsChart = "Towns"
 }
 
 -- Basic logger

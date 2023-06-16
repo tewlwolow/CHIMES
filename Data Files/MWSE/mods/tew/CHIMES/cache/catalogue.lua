@@ -1,7 +1,7 @@
 local catalogue = {
 	CHIMESBiomesChart = {},
 	CHIMESExploreChart = {},
-	CHIMESExteriorsChart = {},
+	CHIMESTownsChart = {},
 	CHIMESInteriorsChart = {},
 	CHIMESTavernsChart = {},
 	CHIMESWeathersChart = {}

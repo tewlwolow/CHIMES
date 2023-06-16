@@ -42,6 +42,23 @@ function cellParser.isValidCell(item, cell)
 	end
 end
 
+function cellParser.getTown(item, cell)
+	local method = item.method
+
+	if method == "tileset" then
+		local success = cellParser.parseTileset(item, cell)
+		if not success then
+			if not cell.isOrBehavesAsExterior then
+				local exteriorCell = tes3.dataHandler.lastExteriorCell
+				return cellParser.parseTileset(item, exteriorCell)
+			end
+		end
+		return success
+	elseif method == "names" then
+		return cellParser.parseNames(item, cell)
+	end
+end
+
 -- function cellParser.playCell(chart, cell)
 -- 	local data = chart.data
 -- 	local cellTypes = {}

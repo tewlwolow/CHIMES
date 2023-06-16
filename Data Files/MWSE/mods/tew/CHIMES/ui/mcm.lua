@@ -40,10 +40,10 @@ local template = mwse.mcm.createTemplate{
         restartRequired = true
     }
 
-    local exteriorsPage = template:createPage{
-        label = messages.exteriorsPage
+    local townsPage = template:createPage{
+        label = messages.townsPage
     }
-    exteriorsPage:createSlider {
+    townsPage:createSlider {
         label = string.format(" %s = %s\n%s", messages.default, defaults.minStatics, messages.minStatics),
         min = 0,
         max = 50,

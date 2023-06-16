@@ -20,7 +20,7 @@ eng.messages = {
 
 	nexusLink = "CHIMES on NexusMods",
 
-	exteriorsPage = "Exteriors",
+	townsPage = "Towns",
 	minStatics = "Minimum number of statics that needs to be detected for tileset matching.",
 
 	validationStarted = "Validating chart: %s of class: %s.",

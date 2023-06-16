@@ -5,10 +5,10 @@ local priorityPath = "config\\CHIMES\\priority"
 resolver.controllers = {
 	CHIMESBiomesChart = require("tew.CHIMES.controllers.biomes"),
 	CHIMESExploreChart = require("tew.CHIMES.controllers.explore"),
-	CHIMESExteriorsChart = require("tew.CHIMES.controllers.exteriors"),
 	CHIMESInteriorsChart = require("tew.CHIMES.controllers.interiors"),
 	CHIMESTavernsChart = require("tew.CHIMES.controllers.taverns"),
 	CHIMESWeathersChart = require("tew.CHIMES.controllers.weathers"),
+	CHIMESTownsChart = require("tew.CHIMES.controllers.towns"),
 }
 
 function resolver.loadPriority()
