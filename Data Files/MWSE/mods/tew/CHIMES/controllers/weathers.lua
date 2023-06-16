@@ -2,7 +2,7 @@ local weathers = {}
 
 local catalogue = require("tew.CHIMES.cache.catalogue")
 
-weathers.folder = nil
+weathers.item = nil
 
 function weathers.isRelevant()
 	local currentWeather = tes3.getCurrentWeather().name:lower()
@@ -21,7 +21,7 @@ function weathers.isRelevant()
 				end
 			else
 				if item.id == relevantWeather then
-					weathers.folder = item.folder
+					weathers.item = item.item
 					return true
 				end
 			end

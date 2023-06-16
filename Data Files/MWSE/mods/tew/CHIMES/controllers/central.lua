@@ -2,12 +2,15 @@ local central = {}
 
 local resolver = require("tew.CHIMES.util.resolver")
 
-local previousFolder, currentFolder
+central.previousFolder = nil
+central.currentFolder = nil
 
 function central.check()
-	local service = resolver.resolveService()
-	if service then
-		debug.log(service.folder)
+	local controller = resolver.resolveController()
+	if controller then
+		debug.log(controller.item)
+		central.currentFolder = controller.folder
+		debug.log()
 	end
 end
 

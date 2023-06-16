@@ -46,7 +46,6 @@ eng.errors = {
 	weatherRequiredFields = "Expected either a truthy 'disable' flag or a valid 'folder' field.",
 	tavernsFolderCount = "Expected exactly one folder specified if field 'useRaces' is set to false.",
 	folderInvalid = "The folder: <%s> for item id: <%s> doesn't contain any valid MP3 tracks or doesn't exist.",
-	fallbackUnneeded = "Expected no fallbackFolder field for Tavern chart with useRaces set to false.",
 
 	errorsFound = "Errors found:",
 

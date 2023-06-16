@@ -2,7 +2,7 @@ local taverns = {}
 
 local catalogue = require("tew.CHIMES.cache.catalogue")
 
-taverns.folder = nil
+taverns.item = nil
 
 function taverns.isRelevant()
 	local cell = tes3.player.cell
@@ -27,14 +27,10 @@ function taverns.isRelevant()
 					return true
 				else
 					for _, item in ipairs(chart.data) do
-						if item.id:lower() == race then
-							taverns.folder = item.folder
+						if (item.id:lower() == race) or (item.id:lower() == "fallback") then
+							taverns.item = item
 							return true
 						end
-					end
-					if chart.fallbackFolder then
-						taverns.folder = chart.fallbackFolder
-						return true
 					end
 				end
 			end

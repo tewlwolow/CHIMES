@@ -31,8 +31,14 @@ function importer.import(instance)
 			item.tracks = {}
 			log(messages.itemTrackImport .. item.id)
 			updateTracks(item.folder, item.tracks)
+		elseif item.disable then
+			item.folder = "tew\\CHIMES\\Special\\silence"
+			item.tracks = {}
+			log(messages.itemTrackImport .. item.id)
+			updateTracks(item.folder, item.tracks)
 		end
 	end
+	json.savefile("config\\CHIMES\\catalogue", catalogue)
 end
 
 return importer

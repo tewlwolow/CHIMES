@@ -201,25 +201,6 @@ function validator.validate(instance)
 						)
 					)
 				end
-				if (chart.fallbackFolder) then
-					string.format("\t%s\n",
-						string.format(
-							errorMessages.fallbackUnneeded
-						)
-					)
-				end
-			elseif not (isValidFolder(chart.fallbackFolder)) then
-				table.insert(
-					errors,
-					#errors,
-					string.format("\t%s\n",
-						string.format(
-							errorMessages.folderInvalid,
-							tostring(chart.fallbackFolder),
-							tostring("fallbackFolder")
-						)
-					)
-				)
 			end
 		end
 	end

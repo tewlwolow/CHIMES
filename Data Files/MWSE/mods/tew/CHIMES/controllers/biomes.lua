@@ -2,7 +2,7 @@ local biomes = {}
 
 local catalogue = require("tew.CHIMES.cache.catalogue")
 
-biomes.folder = nil
+biomes.item = nil
 
 function biomes.isRelevant()
 	local cell = tes3.player.cell
@@ -17,7 +17,7 @@ function biomes.isRelevant()
 		for _, item in ipairs(chart.data) do
 			for _, str in ipairs(item.strings) do
 				if str == regionName then
-					biomes.folder = item.folder
+					biomes.item = item
 					return true
 				end
 			end

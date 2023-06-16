@@ -3,7 +3,7 @@ local exteriors = {}
 local catalogue = require("tew.CHIMES.cache.catalogue")
 local cellParser = require("tew.CHIMES.util.cellParser")
 
-exteriors.folder = nil
+exteriors.item = nil
 
 function exteriors.isRelevant()
 	local cell = tes3.player.cell
@@ -12,9 +12,9 @@ function exteriors.isRelevant()
 	local charts = catalogue.CHIMESExteriorsChart
 	for _, chart in ipairs(charts) do
 		for _, item in ipairs(chart.data) do
-			local folder = cellParser.getCellType(item, cell)
-			if folder then
-				exteriors.folder = folder
+			local valid = cellParser.isValidCell(item, cell)
+			if valid then
+				exteriors.item = item
 				return true
 			end
 		end

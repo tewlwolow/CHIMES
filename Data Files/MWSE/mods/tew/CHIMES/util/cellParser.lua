@@ -6,15 +6,15 @@ local i18n = mwse.loadTranslations("tew.CHIMES")
 local messages = i18n("messages")
 
 
-function cellParser.parseTileset(strings, folder, cell)
+function cellParser.parseTileset(item, cell)
 	local count = 0
-	if strings and folder and cell then
+	if item and cell then
 		for stat in cell:iterateReferences(tes3.objectType.static) do
-			for _, staticName in ipairs(strings) do
+			for _, staticName in ipairs(item.strings) do
 				if string.find(stat.object.id:lower(), staticName:lower()) then
 					count = count + 1
 					if count >= config.minStatics then
-						return folder
+						return true
 					end
 				end
 			end
@@ -22,25 +22,23 @@ function cellParser.parseTileset(strings, folder, cell)
 	end
 end
 
-function cellParser.parseNames(strings, folder, cell)
-	if strings and folder and cell and cell.name then
-		for _, name in ipairs(strings) do
+function cellParser.parseNames(item, cell)
+	if item and cell and cell.name then
+		for _, name in ipairs(item.strings) do
 			if string.find(cell.name, name) then
-				return folder
+				return true
 			end
 		end
 	end
 end
 
-function cellParser.getCellType(item, cell)
+function cellParser.isValidCell(item, cell)
 	local method = item.method
-	local folder = item.folder
-	local strings = item.strings
 
 	if method == "tileset" then
-		return cellParser.parseTileset(strings, folder, cell)
+		return cellParser.parseTileset(item, cell)
 	elseif method == "names" then
-		return cellParser.parseNames(strings, folder, cell)
+		return cellParser.parseNames(item, cell)
 	end
 end
 
