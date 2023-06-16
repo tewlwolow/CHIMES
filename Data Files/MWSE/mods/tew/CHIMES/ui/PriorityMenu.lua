@@ -169,7 +169,7 @@ function PriorityMenu.create()
 						priority[index - 1] = priority[index]
 						priority[index] = previous
 						previousSelectedText = selected.text
-						selected.widget.state = tes3.uiState.disabled
+						selected.widget.state = tes3.uiState.normal
 						selected = nil
 						sorter.savePriority(priority)
 						classBlock:destroy()
@@ -187,7 +187,7 @@ function PriorityMenu.create()
 								class.charts[subIndex - 1] = class.charts[subIndex]
 								class.charts[subIndex] = previous
 								previousSelectedText = selected.text
-								selected.widget.state = tes3.uiState.disabled
+								selected.widget.state = tes3.uiState.normal
 								selected = nil
 								sorter.savePriority(priority)
 								classBlock:destroy()
@@ -225,7 +225,7 @@ function PriorityMenu.create()
 						priority[index + 1] = priority[index]
 						priority[index] = next
 						previousSelectedText = selected.text
-						selected.widget.state = tes3.uiState.disabled
+						selected.widget.state = tes3.uiState.normal
 						selected = nil
 						sorter.savePriority(priority)
 						classBlock:destroy()
@@ -243,7 +243,7 @@ function PriorityMenu.create()
 								class.charts[subIndex + 1] = class.charts[subIndex]
 								class.charts[subIndex] = next
 								previousSelectedText = selected.text
-								selected.widget.state = tes3.uiState.disabled
+								selected.widget.state = tes3.uiState.normal
 								selected = nil
 								sorter.savePriority(priority)
 								classBlock:destroy()
