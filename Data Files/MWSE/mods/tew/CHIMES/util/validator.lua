@@ -11,7 +11,7 @@ local musicFolder = "Data Files\\Music\\"
 
 local function isValidFolder(folder)
 	-- Check if we actually have any tracks in our folders
-	if not folder then return "" end
+	if folder == '' then return false end
 	for track in lfs.dir(musicFolder .. folder) do
 		if track ~= ".." and track ~= "." then
 			if string.endswith(track, ".mp3") then
@@ -19,7 +19,6 @@ local function isValidFolder(folder)
 			end
 		end
 	end
-	return false
 end
 
 function validator.validate(instance)
@@ -135,7 +134,7 @@ function validator.validate(instance)
 			-- We need a specialised check for weathers schema since it uses two mutually exclusive fields
 			for index, item in pairs(chart.data) do
 				-- Let's see if either is present
-				if (item.folder == nil and item.disable == nil) then
+				if (item.folder == nil) and not (item.disable) then
 					table.insert(
 						errors,
 						#errors + index,
@@ -190,14 +189,35 @@ function validator.validate(instance)
 			end
 		end
 
-		-- Taverns chart need an additional check for useRaces and folder count
+		-- Taverns chart need an additional check for useRaces, folder count, and fallback folder validity
 		if class == "CHIMESTavernsChart" then
-			if (chart.useRaces == false and #chart.data > 1) then
+			if (chart.useRaces == false) then
+				if (#chart.data > 1) then
+					table.insert(
+						errors,
+						#errors,
+						string.format("\t%s\n",
+							errorMessages.tavernsFolderCount
+						)
+					)
+				end
+				if (chart.fallbackFolder) then
+					string.format("\t%s\n",
+						string.format(
+							errorMessages.fallbackUnneeded
+						)
+					)
+				end
+			elseif not (isValidFolder(chart.fallbackFolder)) then
 				table.insert(
 					errors,
 					#errors,
 					string.format("\t%s\n",
-						errorMessages.tavernsFolderCount
+						string.format(
+							errorMessages.folderInvalid,
+							tostring(chart.fallbackFolder),
+							tostring("fallbackFolder")
+						)
 					)
 				)
 			end
@@ -206,18 +226,20 @@ function validator.validate(instance)
 
 	-- Also check if folder is valid
 	for _, item in pairs(chart.data) do
-		if not isValidFolder(item.folder) then
-			table.insert(
-				errors,
-				#errors,
-				string.format("\t%s\n",
-					string.format(
+		if (item.folder) then
+			if not (isValidFolder(item.folder)) then
+				table.insert(
+					errors,
+					#errors,
+					string.format("\t%s\n",
+						string.format(
 							errorMessages.folderInvalid,
 							tostring(item.folder),
 							tostring(item.id)
+						)
 					)
 				)
-			)
+			end
 		end
 	end
 
