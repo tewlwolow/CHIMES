@@ -38,14 +38,15 @@ eng.messages = {
 eng.errors = {
 	valueInvalid = "Invalid value: <%s> for field: <%s>.",
 	dataFieldInvalidType = "Invalid type for data item with key #%s.",
-	itemFieldInvalid = "Invalid value: <%s> for field: <%s> in item: #%s.",
+	itemFieldInvalid = "Invalid value: <%s> for field: <%s> in item #%s.",
 	typeExpectedGot = "Expected type: <%s>, got: <%s>.",
 	extraChartField = "Chart field: <%s> with value: <%s> not found in schema.",
-	missingRequired = "Missing one or more required fields for item: #%s.",
-	mutuallyExclusive = "Found both mutually exclusive fields for item: #%s.",
-	weatherRequiredFields = "Expected either 'disable' or 'folder' fields.",
+	missingRequired = "Missing one or more required fields for item #%s.",
+	mutuallyExclusive = "Found both mutually exclusive fields for item #%s.",
+	weatherRequiredFields = "Expected either a truthy 'disable' flag or a valid 'folder' field.",
 	tavernsFolderCount = "Expected exactly one folder specified if field 'useRaces' is set to false.",
 	folderInvalid = "The folder: <%s> for item id: <%s> doesn't contain any valid MP3 tracks or doesn't exist.",
+	fallbackUnneeded = "Expected no fallbackFolder field for Tavern chart with useRaces set to false.",
 
 	errorsFound = "Errors found:",
 
