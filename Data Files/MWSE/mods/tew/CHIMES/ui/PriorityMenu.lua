@@ -3,6 +3,7 @@ local PriorityMenu = {}
 local sorter = require("tew.CHIMES.util.sorter")
 local catalogue = require("tew.CHIMES.cache.catalogue")
 local classNames = require("tew.CHIMES.util.common").classNames
+local central = require("tew.CHIMES.controllers.central")
 local i18n = mwse.loadTranslations("tew.CHIMES")
 local messages = i18n("messages")
 local selected, previousSelectedText
@@ -269,6 +270,7 @@ function PriorityMenu.create()
 
 	local restoreButton = buttonsBlock:createButton{text = messages.restoreDefaultPriority}
 	restoreButton:registerAfter(tes3.uiEvent.mouseClick, function()
+		tes3.playSound{sound="Menu Click"}
 		tes3.messageBox{
 			message = messages.restoreDefaultsConfirm,
 			buttons = {
@@ -277,6 +279,7 @@ function PriorityMenu.create()
 			},
 			callback = function(e)
 				if (e.button == 0) then
+					tes3.playSound{sound="Menu Click"}
 					sorter.createPriority()
 					tes3.messageBox{
 						message = messages.defaultPriorityRestored
@@ -298,8 +301,10 @@ function PriorityMenu.create()
 	closeButton:registerAfter(
 		tes3.uiEvent.mouseClick,
 		function(e)
+			tes3.playSound{sound="Menu Click"}
 			selected = nil
 			menu:destroy()
+			central.check()
 		end
 	)
 
