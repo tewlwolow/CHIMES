@@ -14,9 +14,28 @@ function central.check()
 	if controller then
 		currentItem = controller.item
 		if ((previousItem) and (previousItem.folder ~= currentItem.folder)) or not (previousItem) then
+			debug.log(currentItem.folder)
+			if previousItem then
+				debug.log(previousItem.folder)
+			end
 			currentTrack = trackSelector.selectNew(currentItem, previousTrack)
-			debug.log(currentTrack)
 			music.play(currentTrack)
+			previousTrack = currentTrack
+			previousItem = currentItem
+		end
+	end
+end
+
+function central.override(e)
+	if tes3.player.mobile.inCombat then return end
+	local controller = resolver.resolveController()
+	if controller then
+		currentItem = controller.item
+		if ((previousItem) and (previousItem.folder ~= currentItem.folder)) or not (previousItem) then
+			currentTrack = trackSelector.selectNew(currentItem, previousTrack)
+			music.play(currentTrack)
+			e.music = currentTrack
+			e.situation = tes3.musicSituation.explore
 			previousTrack = currentTrack
 			previousItem = currentItem
 		end
@@ -25,9 +44,7 @@ end
 
 function central.purge()
 	previousItem = nil
-	currentItem = nil
 	previousTrack = nil
-	currentTrack = nil
 end
 
 return central
