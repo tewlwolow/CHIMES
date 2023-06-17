@@ -47,9 +47,18 @@ function sorter.loadPriority()
 	if priority then
 		for index, class in pairs(priority) do
 			local className = class.name
+			local catalogueChartNames = {}
 			for _, chart in ipairs(catalogue[className]) do
 				if not table.find(priority[index].charts, chart.name) then
 					priority[index].charts[#priority[index].charts + 1] = chart.name
+				end
+				table.insert(catalogueChartNames, chart.name)
+			end
+			if not table.empty(catalogueChartNames) then
+				for catIndex, catChart in ipairs(class.charts) do
+					if not table.find(catalogueChartNames, catChart) then
+						table.remove(class.charts, catIndex)
+					end
 				end
 			end
 		end
