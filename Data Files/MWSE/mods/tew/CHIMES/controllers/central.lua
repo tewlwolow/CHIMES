@@ -21,6 +21,7 @@ function central.check()
 				debug.log(previousItem.folder)
 			end
 			currentTrack = trackSelector.selectNew(currentItem, previousTrack)
+			debug.log(currentTrack)
 			music.play(currentTrack)
 			previousTrack = currentTrack
 			previousItem = currentItem
@@ -29,6 +30,7 @@ function central.check()
 end
 
 function central.override(e)
+	if not tes3.player then return end
 	if tes3.player.mobile.inCombat then return end
 	e.claim = true
 	local controller = resolver.resolveController()
