@@ -15,10 +15,6 @@ function weathers.isRelevant()
 	local nextWeather = wc.nextWeather and wc.nextWeather.name:lower()
 	local relevantWeather = nextWeather or currentWeather
 
-	debug.log(currentWeather)
-	debug.log(nextWeather)
-	debug.log(relevantWeather)
-
 	local charts = catalogue.CHIMESWeathersChart
 	for _, chart in ipairs(charts) do
 		for _, item in ipairs(chart.data) do
