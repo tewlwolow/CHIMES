@@ -10,6 +10,7 @@ local previousTrack = nil
 local currentTrack = nil
 
 function central.check()
+	if not tes3.player then return end
 	local controller = resolver.resolveController()
 	if controller then
 		currentItem = controller.item
