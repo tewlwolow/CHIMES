@@ -6,9 +6,7 @@ end
 
 function trackSelector.selectNew(item, previousTrack)
 	local newTrack = getRandom(item)
-	repeat
-		newTrack = getRandom(item)
-	until(newTrack ~= previousTrack)
+	repeat newTrack = getRandom(item) until newTrack ~= previousTrack
 	return newTrack
 end
 
