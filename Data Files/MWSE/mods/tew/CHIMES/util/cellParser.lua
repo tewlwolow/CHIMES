@@ -46,14 +46,7 @@ function cellParser.getTown(item, cell)
 	local method = item.method
 
 	if method == "tileset" then
-		local success = cellParser.parseTileset(item, cell)
-		if not success then
-			if not cell.isOrBehavesAsExterior then
-				local exteriorCell = tes3.dataHandler.lastExteriorCell
-				return cellParser.parseTileset(item, exteriorCell)
-			end
-		end
-		return success
+		return cellParser.parseTileset(item, cell)
 	elseif method == "names" then
 		return cellParser.parseNames(item, cell)
 	end
