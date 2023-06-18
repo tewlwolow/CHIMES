@@ -1,4 +1,4 @@
 return {
-    minStatics = 5,
+    minStatics = 10,
     debugLogOn = false,
 }
