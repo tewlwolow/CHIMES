@@ -11,6 +11,7 @@ local currentTrack = nil
 
 function central.check()
 	if not tes3.player then return end
+	if tes3.player.mobile.inCombat then	return end
 	local controller = resolver.resolveController()
 	if controller then
 		currentItem = controller.item
@@ -31,7 +32,9 @@ end
 
 function central.override(e)
 	if not tes3.player then return end
-	if tes3.player.mobile.inCombat then return end
+	if e.situation == tes3.musicSituation.combat then
+		return
+	end
 	e.claim = true
 	local controller = resolver.resolveController()
 	if controller then
