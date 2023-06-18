@@ -9,8 +9,10 @@ local currentItem = nil
 local previousTrack = nil
 local currentTrack = nil
 
+local silence = "tew\\CHIMES\\Special\\silence\\silence.mp3"
+
 function central.check()
-	if not tes3.player then return end
+	if not tes3.player or (tes3.mobilePlayer and tes3.mobilePlayer.isDead) then return end
 	if tes3.player.mobile.inCombat then	return end
 	local controller = resolver.resolveController()
 	if controller then
@@ -30,11 +32,16 @@ function central.check()
 	end
 end
 
+--- @param e musicSelectTrackEventData
 function central.override(e)
-	if not tes3.player then return end
+	if not tes3.player or (tes3.mobilePlayer and tes3.mobilePlayer.isDead) then return end
+	if tes3.player.mobile.inCombat then	return end
 	if e.situation == tes3.musicSituation.combat then
 		return
 	end
+	-- e.music = silence
+	-- e.situation = tes3.musicSituation.uninterruptible
+	-- music.play(silence)
 	e.claim = true
 	local controller = resolver.resolveController()
 	if controller then
@@ -54,7 +61,6 @@ end
 
 function central.purge()
 	previousItem = nil
-	previousTrack = nil
 end
 
 return central
