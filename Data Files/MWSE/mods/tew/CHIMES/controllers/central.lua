@@ -54,6 +54,8 @@ function central.override(e)
 			e.situation = tes3.musicSituation.explore
 			previousTrack = currentTrack
 			previousItem = currentItem
+		else
+			central.purge()
 		end
 	end
 	return false
