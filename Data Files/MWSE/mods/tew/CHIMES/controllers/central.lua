@@ -9,8 +9,6 @@ local currentItem = nil
 local previousTrack = nil
 local currentTrack = nil
 
-local silence = "tew\\CHIMES\\Special\\silence\\silence.mp3"
-
 function central.check()
 	if not tes3.player or (tes3.mobilePlayer and tes3.mobilePlayer.isDead) then return end
 	if tes3.player.mobile.inCombat then	return end
