@@ -279,7 +279,6 @@ function PriorityMenu.create()
 			},
 			callback = function(e)
 				if (e.button == 0) then
-					tes3.playSound{sound="Menu Click"}
 					sorter.createPriority()
 					tes3.messageBox{
 						message = messages.defaultPriorityRestored
@@ -301,7 +300,6 @@ function PriorityMenu.create()
 	closeButton:registerAfter(
 		tes3.uiEvent.mouseClick,
 		function(e)
-			tes3.playSound{sound="Menu Click"}
 			selected = nil
 			menu:destroy()
 			central.check()
