@@ -34,34 +34,17 @@ end
 
 --- @param e musicSelectTrackEventData
 function central.override(e)
-	if not tes3.player or (tes3.mobilePlayer and tes3.mobilePlayer.isDead) then return end
-	if tes3.player.mobile.inCombat then	return end
-	if e.situation == tes3.musicSituation.combat then
-		return
-	end
-	-- e.music = silence
-	-- e.situation = tes3.musicSituation.uninterruptible
-	-- music.play(silence)
-	e.claim = true
-	local controller = resolver.resolveController()
-	if controller then
-		currentItem = controller.item
-		if not currentItem then return end
-		if (currentItem.disable) or ((previousItem) and (previousItem.folder ~= currentItem.folder)) or not (previousItem) then
-			currentTrack = trackSelector.selectNew(currentItem, previousTrack)
-			debug.log(currentTrack)
-			e.music = currentTrack
-			e.situation = tes3.musicSituation.explore
-			previousTrack = currentTrack
-			previousItem = currentItem
-		else
-			central.purge()
-		end
-	end
+	central.check()
 	return false
 end
 
+function central.onMusicChangeTrack(e)
+
+end
+
+
 function central.purge()
+	debug.log("Purging...")
 	previousItem = nil
 end
 
