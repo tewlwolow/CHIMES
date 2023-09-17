@@ -40,3 +40,4 @@ Refer to NexusMods page or source code comments for guidance. You can also messa
 
 ### WIP:
 > - [X] Support multiple charts of the same class
+> - [ ] Add generic `dungeon` playlist for interior cells with enemies
