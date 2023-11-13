@@ -28,6 +28,7 @@ function importer.import(instance)
 	catalogue[instance.class][i] = instance.chart
 	for _, item in pairs(catalogue[instance.class][i].data) do
 		if item.folder then
+			item.class = instance.class
 			item.tracks = {}
 			log(messages.itemTrackImport .. item.id)
 			updateTracks(item.folder, item.tracks)

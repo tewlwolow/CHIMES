@@ -29,7 +29,7 @@ local function updateLayout(menu, classBlock)
 end
 
 local function createClickable(block, text)
-	local item = block:createTextSelect{text = text}
+	local item = block:createTextSelect { text = text }
 
 	item.widthProportional = 1.0
 	item.autoHeight = true
@@ -53,7 +53,7 @@ end
 local function createUIBlock(menu, id)
 	local block = menu:createBlock(
 		{
-			id = tes3ui.registerID(id)
+			id = tes3ui.registerID(id),
 		}
 	)
 	block.autoHeight = true
@@ -117,7 +117,7 @@ function PriorityMenu.create()
 	end
 
 	-- Create menu
-	menu = tes3ui.createMenu{id = "CHIMES:PriorityMenu", dragFrame = true, loadable = false}
+	menu = tes3ui.createMenu { id = "CHIMES:PriorityMenu", dragFrame = true, loadable = false }
 	menu.text = "CHIMES Priority Sorter"
 	menu.autoHeight = true
 	menu.autoWidth = true
@@ -126,37 +126,37 @@ function PriorityMenu.create()
 
 	tes3ui.enterMenuMode("CHIMES:PriorityMenu")
 
-	local mainContainer = createUIBlock(menu, "CHIMES:Priority_MainContainer")
-	mainContainer.flowDirection = "left_to_right"
-	local contentBlock = createUIBlock(mainContainer, "CHIMES:Priority_ContentBlock")
+	local mainContainer             = createUIBlock(menu, "CHIMES:Priority_MainContainer")
+	mainContainer.flowDirection     = "left_to_right"
+	local contentBlock              = createUIBlock(mainContainer, "CHIMES:Priority_ContentBlock")
 
-	local descriptionBlock = createUIBlock(contentBlock, "CHIMES:Priority_DescriptionBlock")
+	local descriptionBlock          = createUIBlock(contentBlock, "CHIMES:Priority_DescriptionBlock")
 	descriptionBlock.borderAllSides = 8
-	local contentDescLabel = descriptionBlock:createLabel{
+	local contentDescLabel          = descriptionBlock:createLabel {
 		id = "CHIMES:Priority_DescriptionBlock_Label",
-		text = "Use arrows to modify the priority of the chart to be played.\nCharts closer to the top will be considered first.\n\nChanges are saved automatically."
+		text = "Use arrows to modify the priority of the chart to be played.\nCharts closer to the top will be considered first.\n\nChanges are saved automatically.",
 	}
-	contentDescLabel.wrapText = true
+	contentDescLabel.wrapText       = true
 
-	local classBlock  = createScrollbar(contentBlock)
+	local classBlock                = createScrollbar(contentBlock)
 	updateClassBlock(classBlock)
 
 	---
 	local arrowBlock = createUIBlock(mainContainer, "CHIMES:Priority_ArrowBlock")
 	arrowBlock.borderAllSides = 8
 	arrowBlock.widthProportional = 1.0
-    arrowBlock.heightProportional = 1.0
+	arrowBlock.heightProportional = 1.0
 	arrowBlock.childAlignX = 0.5
 	arrowBlock.childAlignY = 0.5
 
-	local arrowUp = arrowBlock:createImage{ path = "Textures\\menu_scroll_up.dds"}
+	local arrowUp = arrowBlock:createImage { path = "Textures\\menu_scroll_up.dds" }
 	arrowUp.height = 32
-    arrowUp.width = 32
-    arrowUp.borderAllSides = 2
+	arrowUp.width = 32
+	arrowUp.borderAllSides = 2
 	arrowUp.absolutePosAlignX = 0.5
 	arrowUp.visible = true
 	arrowUp:registerAfter(tes3.uiEvent.mouseClick, function()
-		tes3.playSound{sound="Menu Click"}
+		tes3.playSound { sound = "Menu Click" }
 		if selected then
 			priority = sorter.loadPriority()
 			assert(priority)
@@ -174,7 +174,7 @@ function PriorityMenu.create()
 						selected = nil
 						sorter.savePriority(priority)
 						classBlock:destroy()
-						classBlock  = createScrollbar(contentBlock)
+						classBlock = createScrollbar(contentBlock)
 						updateClassBlock(classBlock)
 						getNewSelected(classBlock)
 						updateLayout(menu, classBlock)
@@ -192,7 +192,7 @@ function PriorityMenu.create()
 								selected = nil
 								sorter.savePriority(priority)
 								classBlock:destroy()
-								classBlock  = createScrollbar(contentBlock)
+								classBlock = createScrollbar(contentBlock)
 								updateClassBlock(classBlock)
 								getNewSelected(classBlock)
 								updateLayout(menu, classBlock)
@@ -205,14 +205,14 @@ function PriorityMenu.create()
 		end
 	end)
 
-	local arrowDown = arrowBlock:createImage{ path = "Textures\\menu_scroll_down.dds"}
+	local arrowDown = arrowBlock:createImage { path = "Textures\\menu_scroll_down.dds" }
 	arrowDown.height = 32
-    arrowDown.width = 32
-    arrowDown.borderAllSides = 2
+	arrowDown.width = 32
+	arrowDown.borderAllSides = 2
 	arrowDown.absolutePosAlignX = 0.5
 	arrowDown.visible = true
 	arrowDown:registerAfter(tes3.uiEvent.mouseClick, function()
-		tes3.playSound{sound="Menu Click"}
+		tes3.playSound { sound = "Menu Click" }
 		if selected then
 			priority = sorter.loadPriority()
 			assert(priority)
@@ -230,7 +230,7 @@ function PriorityMenu.create()
 						selected = nil
 						sorter.savePriority(priority)
 						classBlock:destroy()
-						classBlock  = createScrollbar(contentBlock)
+						classBlock = createScrollbar(contentBlock)
 						updateClassBlock(classBlock)
 						getNewSelected(classBlock)
 						updateLayout(menu, classBlock)
@@ -248,7 +248,7 @@ function PriorityMenu.create()
 								selected = nil
 								sorter.savePriority(priority)
 								classBlock:destroy()
-								classBlock  = createScrollbar(contentBlock)
+								classBlock = createScrollbar(contentBlock)
 								updateClassBlock(classBlock)
 								getNewSelected(classBlock)
 								updateLayout(menu, classBlock)
@@ -268,27 +268,27 @@ function PriorityMenu.create()
 	buttonsBlock.childAlignY = 1.0
 	buttonsBlock.autoHeight = true
 
-	local restoreButton = buttonsBlock:createButton{text = messages.restoreDefaultPriority}
+	local restoreButton = buttonsBlock:createButton { text = messages.restoreDefaultPriority }
 	restoreButton:registerAfter(tes3.uiEvent.mouseClick, function()
-		tes3.playSound{sound="Menu Click"}
-		tes3.messageBox{
+		tes3.playSound { sound = "Menu Click" }
+		tes3.messageBox {
 			message = messages.restoreDefaultsConfirm,
 			buttons = {
 				tes3.findGMST(tes3.gmst.sYes).value,
-				tes3.findGMST(tes3.gmst.sNo).value
+				tes3.findGMST(tes3.gmst.sNo).value,
 			},
 			callback = function(e)
 				if (e.button == 0) then
 					sorter.createPriority()
-					tes3.messageBox{
-						message = messages.defaultPriorityRestored
+					tes3.messageBox {
+						message = messages.defaultPriorityRestored,
 					}
 					classBlock:destroy()
-					classBlock  = createScrollbar(contentBlock)
+					classBlock = createScrollbar(contentBlock)
 					updateClassBlock(classBlock)
 					updateLayout(menu, classBlock)
 				end
-			end
+			end,
 		}
 	end)
 
@@ -296,7 +296,7 @@ function PriorityMenu.create()
 	rightButtonBlock.widthProportional = 1.0
 	rightButtonBlock.autoHeight = true
 	rightButtonBlock.childAlignX = 1.0
-	local closeButton = rightButtonBlock:createButton{text = messages.close}
+	local closeButton = rightButtonBlock:createButton { text = messages.close }
 	closeButton:registerAfter(
 		tes3.uiEvent.mouseClick,
 		function(e)

@@ -10,20 +10,20 @@ local homepage = metadata.package.homepage
 local openChartCalls = {
 	{
 		try = function(chartSourceFile) return os.execute(), string.format([[code "%s"]], chartSourceFile) end,
-		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start code "%s"]], chartSourceFile)) end
+		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start code "%s"]], chartSourceFile)) end,
 	},
 	{
 		try = function(chartSourceFile) return os.execute(), string.format([[subl "%s"]], chartSourceFile) end,
-		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start subl "%s"]], chartSourceFile)) end
+		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start subl "%s"]], chartSourceFile)) end,
 	},
 	{
 		try = function(chartSourceFile) return os.execute(), string.format([[notepad++ "%s"]], chartSourceFile) end,
-		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start notepad++ "%s"]], chartSourceFile)) end
+		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start notepad++ "%s"]], chartSourceFile)) end,
 	},
 	{
 		try = function(chartSourceFile) return os.execute(), string.format([[notepad "%s"]], chartSourceFile) end,
-		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start notepad "%s"]], chartSourceFile)) end
-	}
+		finally = function(chartSourceFile) os.execute(string.format([[cmd /c start notepad "%s"]], chartSourceFile)) end,
+	},
 }
 
 local function openChart(chartSourceFile)
@@ -41,7 +41,7 @@ end
 local function createUIBlock(menu, id)
 	local block = menu:createBlock(
 		{
-			id = tes3ui.registerID(id)
+			id = tes3ui.registerID(id),
 		}
 	)
 	block.autoHeight = true
@@ -66,9 +66,9 @@ function errorMessage.show(errorData)
 	end
 
 	-- Create our menu
-	local errorMenu = tes3ui.createMenu{
+	local errorMenu = tes3ui.createMenu {
 		id = tes3ui.registerID("CHIMES:Error"),
-		fixedFrame = true
+		fixedFrame = true,
 	}
 
 	-- Bring it up front
@@ -96,7 +96,7 @@ function errorMessage.show(errorData)
 	headerBlock.borderBottom = 8
 
 	-- Create the image and colour it red
-	local header = headerBlock:createImage{path = "Textures\\tew\\CHIMES\\chimes_logo.tga"}
+	local header = headerBlock:createImage { path = "Textures\\tew\\CHIMES\\chimes_logo.tga" }
 	header.imageScaleX = 0.6
 	header.imageScaleY = 0.6
 	header.color = tes3ui.getPalette("health_npc_color")
@@ -106,11 +106,11 @@ function errorMessage.show(errorData)
 	titleBlock.borderAllSides = 8
 	titleBlock.borderTop = 12
 	titleBlock.childAlignX = 0.5
-	local titleLabel = titleBlock:createLabel{
+	local titleLabel = titleBlock:createLabel {
 		id = tes3ui.registerID("CHIMES:Error_TitleBlock_Label"),
-		text = errors.errorsFound
+		text = errors.errorsFound,
 	}
-	titleLabel.color = {1,0,0}
+	titleLabel.color = { 1, 0, 0 }
 
 	-- Scroll pane window to present the errors nicely
 	local scrollBar = container:createVerticalScrollPane()
@@ -127,9 +127,9 @@ function errorMessage.show(errorData)
 	for file, errorsTable in pairs(errorData) do
 		-- This is the block to hold the file tag
 		local fileBlock = createUIBlock(scrollBar, "CHIMES:Error_FileBlock")
-		local fileText = fileBlock:createTextSelect{
+		local fileText = fileBlock:createTextSelect {
 			id = tes3ui.registerID("CHIMES:Error_FileBlock_Label"),
-			text = file .. "\n"
+			text = file .. "\n",
 		}
 		fileText.wrapText = true
 		overrideColours(fileText, tes3ui.getPalette("normal_color"))
@@ -145,16 +145,16 @@ function errorMessage.show(errorData)
 		local startIndex, _ = string.find(file, "mwse")
 		local _, endIndex = string.find(file, ".lua")
 		local chartSourceFile = "Data Files\\" .. string.sub(file, startIndex, endIndex)
-		fileText:register("mouseClick", function ()
+		fileText:register("mouseClick", function()
 			openChart(chartSourceFile)
 		end)
 
 		-- Loop over error container per file
 		for _, error in pairs(errorsTable) do
 			local errorBlock = createUIBlock(fileBlock, "CHIMES:Error_ErrorBlock")
-			local errorText = errorBlock:createTextSelect{
+			local errorText = errorBlock:createTextSelect {
 				id = tes3ui.registerID("CHIMES:Error_ErrorBlock_Label"),
-				text = error
+				text = error,
 			}
 			errorText.wrapText = true
 			overrideColours(errorText, tes3ui.getPalette("health_color"))
@@ -165,14 +165,14 @@ function errorMessage.show(errorData)
 
 	-- This is the block to hold our reminder message
 	local reminderBlock = createUIBlock(errorMenu, "CHIMES:Error_ReminderBlock")
-	local reminderLabel = reminderBlock:createLabel{
+	local reminderLabel = reminderBlock:createLabel {
 		id = tes3ui.registerID("CHIMES:Error_ReminderBlock_Label"),
 		text = string.format(
 			"%s\n%s\n%s",
 			errors.fixErrors,
 			errors.reminder,
-			errors.questions)
-		}
+			errors.questions),
+	}
 	reminderLabel.wrapText = true
 	reminderBlock.borderAllSides = 8
 
@@ -180,7 +180,7 @@ function errorMessage.show(errorData)
 	local urlBlock = createUIBlock(errorMenu, "CHIMES:Error_URLBlock")
 	urlBlock.borderAllSides = 8
 	urlBlock.childAlignX = 0.5
-	urlBlock:createHyperlink{
+	urlBlock:createHyperlink {
 		text = messages.nexusLink,
 		url = homepage,
 	}
@@ -190,19 +190,19 @@ function errorMessage.show(errorData)
 	okBlock.childAlignX = 0.5
 	okBlock.borderAllSides = 4
 
-    local okButton = okBlock:createButton{
-        id = tes3ui.registerID("CHIMES:ERROR_OkBlock_Button"),
-        text = tes3.findGMST(tes3.gmst.sOK).value,
-    }
+	local okButton = okBlock:createButton {
+		id = tes3ui.registerID("CHIMES:ERROR_OkBlock_Button"),
+		text = tes3.findGMST(tes3.gmst.sOK).value,
+	}
 
-    okButton:register("mouseClick", function()
-            tes3ui.leaveMenuMode()
-            errorMenu:destroy()
-			if (mainMenu) then
-				mainMenu.visible = true
-			end
-        end
-    )
+	okButton:register("mouseClick", function()
+		tes3ui.leaveMenuMode()
+		errorMenu:destroy()
+		if (mainMenu) then
+			mainMenu.visible = true
+		end
+	end
+	)
 
 	-- Update the main menu and the scroll pane widget
 	errorMenu:updateLayout()

@@ -4,7 +4,7 @@ local catalogue = {
 	CHIMESTownsChart = {},
 	CHIMESInteriorsChart = {},
 	CHIMESTavernsChart = {},
-	CHIMESWeathersChart = {}
+	CHIMESWeathersChart = {},
 }
 
 return catalogue

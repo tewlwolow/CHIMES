@@ -13,7 +13,8 @@ eng.messages = {
 	save = "Save",
 	restoreDefaultPriority = "Restore default priority",
 
-	superMatch = "More than one cell type detected. You may want to verify your config to exclude cross-matches. Cell types detected:",
+	superMatch =
+	"More than one cell type detected. You may want to verify your config to exclude cross-matches. Cell types detected:",
 	priority = "Priority",
 	cellType = "cell type",
 	priorityMessage = "CHIMES will use a higher priority item.",
@@ -32,7 +33,7 @@ eng.messages = {
 	enableDebug = "Enable debug messages?",
 	openPriorityEditor = "Open priority editor",
 	restoreDefaultsConfirm = "Are you sure you want to restore default priority?",
-	defaultPriorityRestored = "Default priority restored."
+	defaultPriorityRestored = "Default priority restored.",
 }
 
 eng.errors = {
@@ -51,7 +52,7 @@ eng.errors = {
 
 	fixErrors = "Please make sure the errors are fixed.",
 	reminder = "The mod will continue to work, but might behave in unexpected ways.",
-	questions = "Feel free to ask here in case of questions:"
+	questions = "Feel free to ask here in case of questions:",
 }
 
 return eng

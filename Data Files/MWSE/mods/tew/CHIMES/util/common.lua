@@ -1,4 +1,3 @@
-
 local config = require("tew.CHIMES.options.config")
 local debugLogOn = config.debugLogOn
 
@@ -10,7 +9,7 @@ common.classNames = {
 	CHIMESInteriorsChart = "Interiors",
 	CHIMESTavernsChart = "Taverns",
 	CHIMESWeathersChart = "Weathers",
-	CHIMESTownsChart = "Towns"
+	CHIMESTownsChart = "Towns",
 }
 
 -- Basic logger
@@ -29,8 +28,8 @@ end
 -- Ensure missing metadata file is caught --
 function common.metadataMissing()
 	local errorMessage = "Error! CHIMES-metadata.toml file is missing. Please install."
-	tes3.messageBox{
-		message = errorMessage
+	tes3.messageBox {
+		message = errorMessage,
 	}
 	error(errorMessage)
 end

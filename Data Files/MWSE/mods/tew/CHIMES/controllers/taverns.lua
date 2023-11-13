@@ -11,12 +11,12 @@ function taverns.isRelevant()
 
 	for npc in cell:iterateReferences(tes3.objectType.npc) do
 		local class = npc.object.class.id
-        if (
-			(class) and
-			(class == "Publican") or
-			(class == "T_Sky_Publican") or
-			(class == "T_Cyr_Publican")
-		)
+		if (
+				(class) and
+				(class == "Publican") or
+				(class == "T_Sky_Publican") or
+				(class == "T_Cyr_Publican")
+			)
 		-- and (npc.object.mobile and not npc.object.mobile.isDead)
 		then
 			local race = npc.object.race.id:lower()

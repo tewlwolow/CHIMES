@@ -3,12 +3,14 @@ local importer = require("tew.CHIMES.util.importer")
 
 local schema = {
 	name = { type = "string" },
-	data = { type = "table",
-		item = { type = "table",
+	data = {
+		type = "table",
+		item = {
+			type = "table",
 			id = { type = "string" },
-			folder = { type = "string" }
-		}
-	}
+			folder = { type = "string" },
+		},
+	},
 }
 
 ---@class CHIMESChart

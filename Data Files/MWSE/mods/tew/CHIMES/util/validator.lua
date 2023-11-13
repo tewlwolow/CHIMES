@@ -11,7 +11,7 @@ local musicFolder = "Data Files\\Music\\"
 
 local function isValidFolder(folder)
 	-- Check if we actually have any tracks in our folders
-	if folder == '' then return false end
+	if folder == "" then return false end
 	for track in lfs.dir(musicFolder .. folder) do
 		if track ~= ".." and track ~= "." then
 			if string.endswith(track, ".mp3") then
@@ -40,7 +40,7 @@ function validator.validate(instance)
 	-- First let's make sure all the required fields are in place
 	-- This is a simple shallow check
 	for k, v in pairs(schema) do
-		if not ( (chart[k]) ~= nil and (type(chart[k]) == v.type) ) then
+		if not ((chart[k]) ~= nil and (type(chart[k]) == v.type)) then
 			table.insert(
 				errors,
 				#errors,
@@ -83,7 +83,7 @@ function validator.validate(instance)
 	if (type(chart.data) == "table") and not (table.empty(chart.data)) then
 		-- Make sure all data items are properly wrapped in a table
 		for index, item in pairs(chart.data) do
-			if not ( (schema.data.type == type(item)) ) then
+			if not ((schema.data.type == type(item))) then
 				table.insert(
 					errors,
 					#errors + index,
@@ -146,7 +146,7 @@ function validator.validate(instance)
 							errorMessages.weatherRequiredFields
 						)
 					)
-				-- Error out if both are present
+					-- Error out if both are present
 				elseif (item.folder and item.disable) then
 					table.insert(
 						errors,
@@ -162,27 +162,27 @@ function validator.validate(instance)
 				else -- When there is only one of them, let's finally confirm whether the type matches
 					for k, v in pairs(schema.data.item) do
 						if k == "type" then goto continue end
-							if item[k] then
-								if not (item[k] ~= nil and type(item[k]) == v.type) then
-									table.insert(
-										errors,
-										#errors + index,
-										string.format("\t%s\n\t%s\n",
-											string.format(
-												errorMessages.itemFieldInvalid,
-												tostring(item[k]),
-												tostring(k),
-												tostring(index)
-											),
-											string.format(
-												errorMessages.typeExpectedGot,
-												tostring(v.type),
-												tostring(type(item[k]))
-											)
+						if item[k] then
+							if not (item[k] ~= nil and type(item[k]) == v.type) then
+								table.insert(
+									errors,
+									#errors + index,
+									string.format("\t%s\n\t%s\n",
+										string.format(
+											errorMessages.itemFieldInvalid,
+											tostring(item[k]),
+											tostring(k),
+											tostring(index)
+										),
+										string.format(
+											errorMessages.typeExpectedGot,
+											tostring(v.type),
+											tostring(type(item[k]))
 										)
 									)
-								end
+								)
 							end
+						end
 						:: continue ::
 					end
 				end

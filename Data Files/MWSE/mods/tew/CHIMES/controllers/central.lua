@@ -11,7 +11,7 @@ local currentTrack = nil
 
 function central.check()
 	if not tes3.player or (tes3.mobilePlayer and tes3.mobilePlayer.isDead) then return end
-	if tes3.player.mobile.inCombat then	return end
+	if tes3.player.mobile.inCombat then return end
 	local controller = resolver.resolveController()
 	if controller then
 		currentItem = controller.item
@@ -39,7 +39,6 @@ end
 function central.onMusicChangeTrack(e)
 
 end
-
 
 function central.purge()
 	debug.log("Purging...")

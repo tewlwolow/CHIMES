@@ -5,35 +5,35 @@ local catalogue = require("tew.CHIMES.cache.catalogue")
 local defaultPriority = {
 	[1] = {
 		name = "CHIMESTavernsChart",
-		charts = {}
+		charts = {},
 	},
 	[2] = {
 		name = "CHIMESInteriorsChart",
-		charts = {}
+		charts = {},
 	},
 	[3] = {
 		name = "CHIMESTownsChart",
-		charts = {}
+		charts = {},
 	},
 	[4] = {
 		name = "CHIMESWeathersChart",
-		charts = {}
+		charts = {},
 	},
 	[5] = {
 		name = "CHIMESBiomesChart",
-		charts = {}
+		charts = {},
 	},
 	[6] = {
 		name = "CHIMESExploreChart",
-		charts = {}
-	}
+		charts = {},
+	},
 }
 
 local priorityPath = "config\\CHIMES\\priority"
 
 local function saveJSON(tab)
 	lfs.mkdir("Data Files\\MWSE\\config")
-    lfs.mkdir("Data Files\\MWSE\\config\\CHIMES")
+	lfs.mkdir("Data Files\\MWSE\\config\\CHIMES")
 	json.savefile(priorityPath, tab)
 end
 
@@ -72,6 +72,5 @@ end
 function sorter.savePriority(priority)
 	saveJSON(priority)
 end
-
 
 return sorter

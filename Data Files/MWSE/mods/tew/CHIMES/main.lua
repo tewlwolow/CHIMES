@@ -9,10 +9,10 @@ local schemaErrors
 
 local function init()
     if not (metadata) then
-		common.metadataMissing()
+        common.metadataMissing()
     else
-        mwse.log("[" .. metadata.package.name .."] Version " .. metadata.package.version .. " initialised.")
-	end
+        mwse.log("[" .. metadata.package.name .. "] Version " .. metadata.package.version .. " initialised.")
+    end
     dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\events.lua")
 end
 
@@ -31,7 +31,7 @@ if (metadata) then
         dofile("Data Files\\MWSE\\mods\\tew\\CHIMES\\ui\\mcm.lua")
     end)
 
-    event.register(tes3.event.uiActivated, checkForErrors, {filter = "MenuOptions", doOnce = true})
+    event.register(tes3.event.uiActivated, checkForErrors, { filter = "MenuOptions", doOnce = true })
 end
 
 event.register(tes3.event.initialized, init)
